@@ -99,11 +99,10 @@
 		222E8EB52BC5C88E00CAE565 /* GetirShoppingApp */ = {
 			isa = PBXGroup;
 			children = (
-				222E8EB62BC5C88E00CAE565 /* AppDelegate.swift */,
-				222E8EB82BC5C88E00CAE565 /* SceneDelegate.swift */,
-				222E8EBA2BC5C88E00CAE565 /* ViewController.swift */,
+				222E8EE82BC5E05C00CAE565 /* Files */,
+				222E8EE72BC5E03D00CAE565 /* Resources */,
+				222E8EE62BC5E00A00CAE565 /* Modules */,
 				222E8EBC2BC5C88E00CAE565 /* Main.storyboard */,
-				222E8EBF2BC5C89300CAE565 /* Assets.xcassets */,
 				222E8EC12BC5C89300CAE565 /* LaunchScreen.storyboard */,
 				222E8EC42BC5C89300CAE565 /* Info.plist */,
 			);
@@ -125,6 +124,31 @@
 				222E8ED92BC5C89400CAE565 /* GetirShoppingAppUITestsLaunchTests.swift */,
 			);
 			path = GetirShoppingAppUITests;
+			sourceTree = "<group>";
+		};
+		222E8EE62BC5E00A00CAE565 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				222E8EBA2BC5C88E00CAE565 /* ViewController.swift */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		222E8EE72BC5E03D00CAE565 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				222E8EBF2BC5C89300CAE565 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		222E8EE82BC5E05C00CAE565 /* Files */ = {
+			isa = PBXGroup;
+			children = (
+				222E8EB62BC5C88E00CAE565 /* AppDelegate.swift */,
+				222E8EB82BC5C88E00CAE565 /* SceneDelegate.swift */,
+			);
+			path = Files;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -215,6 +239,9 @@
 				Base,
 			);
 			mainGroup = 222E8EAA2BC5C88E00CAE565;
+			packageReferences = (
+				222E8EE92BC5E13100CAE565 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 222E8EB42BC5C88E00CAE565 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -607,6 +634,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		222E8EE92BC5E13100CAE565 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = 222E8EAB2BC5C88E00CAE565 /* Project object */;
 }
