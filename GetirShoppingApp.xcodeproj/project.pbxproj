@@ -9,13 +9,16 @@
 /* Begin PBXBuildFile section */
 		222E8EB72BC5C88E00CAE565 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222E8EB62BC5C88E00CAE565 /* AppDelegate.swift */; };
 		222E8EB92BC5C88E00CAE565 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222E8EB82BC5C88E00CAE565 /* SceneDelegate.swift */; };
-		222E8EBB2BC5C88E00CAE565 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222E8EBA2BC5C88E00CAE565 /* ViewController.swift */; };
+		222E8EBB2BC5C88E00CAE565 /* ProductListingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222E8EBA2BC5C88E00CAE565 /* ProductListingViewController.swift */; };
 		222E8EBE2BC5C88E00CAE565 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 222E8EBC2BC5C88E00CAE565 /* Main.storyboard */; };
 		222E8EC02BC5C89300CAE565 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 222E8EBF2BC5C89300CAE565 /* Assets.xcassets */; };
 		222E8EC32BC5C89300CAE565 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 222E8EC12BC5C89300CAE565 /* LaunchScreen.storyboard */; };
 		222E8ECE2BC5C89400CAE565 /* GetirShoppingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222E8ECD2BC5C89400CAE565 /* GetirShoppingAppTests.swift */; };
 		222E8ED82BC5C89400CAE565 /* GetirShoppingAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222E8ED72BC5C89400CAE565 /* GetirShoppingAppUITests.swift */; };
 		222E8EDA2BC5C89400CAE565 /* GetirShoppingAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222E8ED92BC5C89400CAE565 /* GetirShoppingAppUITestsLaunchTests.swift */; };
+		222E8EED2BC5EC8900CAE565 /* ProductListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222E8EEC2BC5EC8900CAE565 /* ProductListCell.swift */; };
+		222E8EF02BC6BAED00CAE565 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 222E8EEF2BC6BAED00CAE565 /* SnapKit */; };
+		222E8EF52BC8154900CAE565 /* ProductImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222E8EF42BC8154900CAE565 /* ProductImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +42,7 @@
 		222E8EB32BC5C88E00CAE565 /* GetirShoppingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GetirShoppingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		222E8EB62BC5C88E00CAE565 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		222E8EB82BC5C88E00CAE565 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		222E8EBA2BC5C88E00CAE565 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		222E8EBA2BC5C88E00CAE565 /* ProductListingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListingViewController.swift; sourceTree = "<group>"; };
 		222E8EBD2BC5C88E00CAE565 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		222E8EBF2BC5C89300CAE565 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		222E8EC22BC5C89300CAE565 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +52,8 @@
 		222E8ED32BC5C89400CAE565 /* GetirShoppingAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GetirShoppingAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		222E8ED72BC5C89400CAE565 /* GetirShoppingAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetirShoppingAppUITests.swift; sourceTree = "<group>"; };
 		222E8ED92BC5C89400CAE565 /* GetirShoppingAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetirShoppingAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		222E8EEC2BC5EC8900CAE565 /* ProductListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListCell.swift; sourceTree = "<group>"; };
+		222E8EF42BC8154900CAE565 /* ProductImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				222E8EF02BC6BAED00CAE565 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,7 +105,8 @@
 		222E8EB52BC5C88E00CAE565 /* GetirShoppingApp */ = {
 			isa = PBXGroup;
 			children = (
-				222E8EE82BC5E05C00CAE565 /* Files */,
+				222E8EF12BC8151800CAE565 /* Common */,
+				222E8EE82BC5E05C00CAE565 /* App */,
 				222E8EE72BC5E03D00CAE565 /* Resources */,
 				222E8EE62BC5E00A00CAE565 /* Modules */,
 				222E8EBC2BC5C88E00CAE565 /* Main.storyboard */,
@@ -129,7 +136,7 @@
 		222E8EE62BC5E00A00CAE565 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				222E8EBA2BC5C88E00CAE565 /* ViewController.swift */,
+				222E8EEA2BC5EAEA00CAE565 /* Product Listing */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -142,13 +149,46 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		222E8EE82BC5E05C00CAE565 /* Files */ = {
+		222E8EE82BC5E05C00CAE565 /* App */ = {
 			isa = PBXGroup;
 			children = (
 				222E8EB62BC5C88E00CAE565 /* AppDelegate.swift */,
 				222E8EB82BC5C88E00CAE565 /* SceneDelegate.swift */,
 			);
-			path = Files;
+			path = App;
+			sourceTree = "<group>";
+		};
+		222E8EEA2BC5EAEA00CAE565 /* Product Listing */ = {
+			isa = PBXGroup;
+			children = (
+				222E8EEB2BC5EC0B00CAE565 /* Cell */,
+				222E8EBA2BC5C88E00CAE565 /* ProductListingViewController.swift */,
+			);
+			path = "Product Listing";
+			sourceTree = "<group>";
+		};
+		222E8EEB2BC5EC0B00CAE565 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				222E8EEC2BC5EC8900CAE565 /* ProductListCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		222E8EF12BC8151800CAE565 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				222E8EF22BC8152300CAE565 /* Views */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		222E8EF22BC8152300CAE565 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				222E8EF42BC8154900CAE565 /* ProductImageView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -167,6 +207,9 @@
 			dependencies = (
 			);
 			name = GetirShoppingApp;
+			packageProductDependencies = (
+				222E8EEF2BC6BAED00CAE565 /* SnapKit */,
+			);
 			productName = GetirShoppingApp;
 			productReference = 222E8EB32BC5C88E00CAE565 /* GetirShoppingApp.app */;
 			productType = "com.apple.product-type.application";
@@ -240,7 +283,7 @@
 			);
 			mainGroup = 222E8EAA2BC5C88E00CAE565;
 			packageReferences = (
-				222E8EE92BC5E13100CAE565 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				222E8EEE2BC6BAED00CAE565 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = 222E8EB42BC5C88E00CAE565 /* Products */;
 			projectDirPath = "";
@@ -285,7 +328,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				222E8EBB2BC5C88E00CAE565 /* ViewController.swift in Sources */,
+				222E8EBB2BC5C88E00CAE565 /* ProductListingViewController.swift in Sources */,
+				222E8EED2BC5EC8900CAE565 /* ProductListCell.swift in Sources */,
+				222E8EF52BC8154900CAE565 /* ProductImageView.swift in Sources */,
 				222E8EB72BC5C88E00CAE565 /* AppDelegate.swift in Sources */,
 				222E8EB92BC5C88E00CAE565 /* SceneDelegate.swift in Sources */,
 			);
@@ -474,7 +519,6 @@
 				INFOPLIST_FILE = GetirShoppingApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -502,7 +546,6 @@
 				INFOPLIST_FILE = GetirShoppingApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -636,15 +679,23 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		222E8EE92BC5E13100CAE565 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+		222E8EEE2BC6BAED00CAE565 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.1;
+				minimumVersion = 5.7.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		222E8EEF2BC6BAED00CAE565 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 222E8EEE2BC6BAED00CAE565 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 222E8EAB2BC5C88E00CAE565 /* Project object */;
 }
