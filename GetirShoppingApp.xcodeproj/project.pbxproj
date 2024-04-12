@@ -19,6 +19,7 @@
 		222E8EED2BC5EC8900CAE565 /* ProductListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222E8EEC2BC5EC8900CAE565 /* ProductListCell.swift */; };
 		222E8EF02BC6BAED00CAE565 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 222E8EEF2BC6BAED00CAE565 /* SnapKit */; };
 		222E8EF52BC8154900CAE565 /* ProductImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222E8EF42BC8154900CAE565 /* ProductImageView.swift */; };
+		222E8EF82BC816F000CAE565 /* ProductDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222E8EF72BC816F000CAE565 /* ProductDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		222E8ED92BC5C89400CAE565 /* GetirShoppingAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetirShoppingAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		222E8EEC2BC5EC8900CAE565 /* ProductListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListCell.swift; sourceTree = "<group>"; };
 		222E8EF42BC8154900CAE565 /* ProductImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductImageView.swift; sourceTree = "<group>"; };
+		222E8EF72BC816F000CAE565 /* ProductDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 		222E8EE62BC5E00A00CAE565 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				222E8EF62BC816D600CAE565 /* Product Detail */,
 				222E8EEA2BC5EAEA00CAE565 /* Product Listing */,
 			);
 			path = Modules;
@@ -189,6 +192,14 @@
 				222E8EF42BC8154900CAE565 /* ProductImageView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		222E8EF62BC816D600CAE565 /* Product Detail */ = {
+			isa = PBXGroup;
+			children = (
+				222E8EF72BC816F000CAE565 /* ProductDetailViewController.swift */,
+			);
+			path = "Product Detail";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -333,6 +344,7 @@
 				222E8EF52BC8154900CAE565 /* ProductImageView.swift in Sources */,
 				222E8EB72BC5C88E00CAE565 /* AppDelegate.swift in Sources */,
 				222E8EB92BC5C88E00CAE565 /* SceneDelegate.swift in Sources */,
+				222E8EF82BC816F000CAE565 /* ProductDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
