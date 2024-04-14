@@ -33,12 +33,7 @@ final class ProductListingInteractor: ProductListingInteractorProtocol {
         networkManager.fetchData(resource: resource) { [weak self] result in
             switch result {
             case .success(let productResponses):
-                var products: [Product] = []
-                for productResponse in productResponses {
-                    if let fetchedProducts = productResponse.products {
-                        products.append(contentsOf: fetchedProducts)
-                    }
-                }
+                let products = productResponses.first?.products ?? []
                 self?.presenter?.fetchProductsOutput(result: products)
             case .failure(let error):
                 self?.presenter?.fetchProductsFailed(error: error)
@@ -51,12 +46,7 @@ final class ProductListingInteractor: ProductListingInteractorProtocol {
         networkManager.fetchData(resource: resource) { [weak self] result in
             switch result {
             case .success(let productResponses):
-                var suggestedProducts: [Product] = []
-                for productResponse in productResponses {
-                    if let fetchedSuggestedProducts = productResponse.products {
-                        suggestedProducts.append(contentsOf: fetchedSuggestedProducts)
-                    }
-                }
+                let suggestedProducts = productResponses.first?.products ?? []
                 self?.presenter?.fetchSuggestedProductsOutput(result: suggestedProducts)
             case .failure(let error):
                 self?.presenter?.fetchProductsFailed(error: error)

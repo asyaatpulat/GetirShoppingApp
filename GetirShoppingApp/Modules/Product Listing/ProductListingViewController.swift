@@ -108,7 +108,8 @@ extension ProductListingViewController: UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let product = indexPath.section == 0 ? suggestedProducts[indexPath.item] : products[indexPath.item];        let productDetailVC = ProductDetailViewController()
+        let product = indexPath.section == 0 ? suggestedProducts[indexPath.item] : products[indexPath.item];
+        let productDetailVC = ProductDetailViewController()
         productDetailVC.configureProductDetails(with: product)
         let nav = UINavigationController(rootViewController: productDetailVC)
         nav.modalPresentationStyle = .fullScreen

@@ -106,6 +106,7 @@ class ProductListCell: UICollectionViewCell {
         } else {
             attributeLabel.text = product.shortDescription
         }
+        productImageView.downloaded(from: product.imageURL ?? "")
       }
 }
 
