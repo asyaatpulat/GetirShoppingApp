@@ -63,18 +63,66 @@ class ProductDetailViewController: UIViewController {
     
     private lazy var button: UIButton = {
         let button = UIButton()
-        button.setTitle("Tap Me", for: .normal)
+        button.setTitle("Sepete Ekle", for: .normal)
         button.backgroundColor = .blue
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
         button.backgroundColor = UIColor(named: "bgPrimary")
+        button.addTarget(self, action: #selector(addToCartButtonTapped), for: .touchUpInside)
         return button
     }()
+    
+    private lazy var stepper: CustomStepper = {
+        let stepper = CustomStepper()
+        stepper.isHidden = true
+        return stepper
+    }()
+    
+    private var isStepperShown: Bool = false {
+        didSet {
+            button.isHidden = isStepperShown
+            stepper.isHidden = !isStepperShown
+        }
+    }
+    
+    @objc private func addToCartButtonTapped() {
+        isStepperShown = true
+        stepper.isHidden = false
+        stepper.counterLabel.text = "1"
+        view.addSubview(stepper)
+        stepper.snp.makeConstraints{ make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.top.equalTo(bottomView.snp.top).offset(16)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(146)
+            make.height.equalTo(48)
+        }
+        stepper.updateMinusButton()
+    }
+    
+    @objc private func minusButtonTapped() {
+        if let currentCounter = Int(stepper.counterLabel.text ?? "0"), currentCounter > 0 {
+            stepper.counterLabel.text = "\(currentCounter - 1)"
+        }
+        if let counterText = stepper.counterLabel.text, let counter = Int(counterText), counter == 0 {
+            isStepperShown = false
+        }
+        stepper.updateMinusButton()
+    }
+    
+    @objc private func plusButtonTapped() {
+        if let currentCounter = Int(stepper.counterLabel.text ?? "0"), currentCounter > 0 {
+            stepper.counterLabel.text = "\(currentCounter + 1)"
+            stepper.updateMinusButton()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        navigationItem.title = "Ürün Detayı"  
+        navigationItem.title = "Ürün Detayı"
+        stepper.minusButton.addTarget(self, action: #selector(minusButtonTapped), for: .touchUpInside)
+        stepper.plusButton.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
         //navigationController?.navigationBar.barTintColor = UIColor.bgPrimary
         setupViews()
     }
@@ -83,7 +131,7 @@ class ProductDetailViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.barTintColor = UIColor.bgPrimary
     }
-
+    
     private func setupViews() {
         view.addSubview(containerView)
         containerView.addSubview(productImageView)

@@ -20,7 +20,7 @@ class ProductImageView: UIImageView {
     }
     
     private func commonInit() {
-        self.contentMode = .scaleAspectFit
+        //self.contentMode = .scaleAspectFit
         self.layer.cornerRadius = 16
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor(named: "bgPrimarySubtle")?.cgColor
