@@ -12,41 +12,47 @@ class ProductListCell: UICollectionViewCell {
     
     static let reuseIdentifier = "ProductListCell"
     
-    private let containerView: UIView = {
+    private lazy var containerView: UIView = {
         let view = UIView()
         return view
     }()
     
-    private let stackView: UIStackView = {
+   /* private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        //stackView.spacing = 8
         return stackView
-    }()
+    }()*/
     
-    private let productImageView = ProductImageView()
+    private lazy var productImageView = ProductImageView()
     
-    let priceLabel: UILabel = {
+    lazy var priceLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         label.textColor = UIColor(named: "textPrimary")
         label.text = "test"
+        label.numberOfLines = 2
+        label.lineBreakMode = .byTruncatingTail
+
         return label
     }()
     
-    private let productNameLabel: UILabel = {
+    private lazy var productNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
         label.textColor = UIColor(named: "textDark")
         label.text = "Product Name"
+        label.numberOfLines = 1
+        label.lineBreakMode = .byTruncatingTail
         return label
     }()
     
-    private let attributeLabel: UILabel = {
+    private lazy var attributeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
         label.textColor = UIColor(named: "textSecondary")
         label.text = "Attribute"
+        label.numberOfLines = 2
+        label.lineBreakMode = .byTruncatingTail
         return label
     }()
     
@@ -61,26 +67,29 @@ class ProductListCell: UICollectionViewCell {
     
     private func setupViews() {
         addSubview(containerView)
-        addSubview(productImageView)
-        addSubview(priceLabel)
-        addSubview(productNameLabel)
-        addSubview(attributeLabel)
+        containerView.addSubview(productImageView)
+        containerView.addSubview(priceLabel)
+        containerView.addSubview(productNameLabel)
+        containerView.addSubview(attributeLabel)
 
-        containerView.backgroundColor = .black
         containerView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
         
         priceLabel.snp.makeConstraints { make in
             make.top.equalTo(productImageView.snp.bottom).offset(8)
+            make.leading.trailing.equalTo(containerView)
         }
         
         productNameLabel.snp.makeConstraints { make in
             make.top.equalTo(priceLabel.snp.bottom)
+            make.leading.trailing.equalTo(containerView)
         }
         
         attributeLabel.snp.makeConstraints { make in
             make.top.equalTo(productNameLabel.snp.bottom).offset(2)
+            make.leading.trailing.equalTo(containerView)
+            //make.bottom.equalTo(containerView)
         }
         
         productImageView.snp.makeConstraints { make in
@@ -90,17 +99,14 @@ class ProductListCell: UICollectionViewCell {
     }
 
     func configure(with product: Product) {
-        priceLabel.text = product.price
+        priceLabel.text = product.priceText
         productNameLabel.text = product.name
-        attributeLabel.text = product.attribute
+        if product.attribute != nil {
+            attributeLabel.text = product.attribute
+        } else {
+            attributeLabel.text = product.shortDescription
+        }
       }
-}
-
-struct Product {
-  let name: String
-  let price: String
-  let attribute: String
-  let imageURL: String?
 }
 
 #Preview {

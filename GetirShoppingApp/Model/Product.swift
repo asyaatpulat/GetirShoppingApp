@@ -8,19 +8,23 @@
 import Foundation
 
 struct Product: Codable {
-    let id, imageURL: String?
+    let id: String?
+    let imageURL: String?
     let price: Double?
-    let name, priceText: String?
+    let name: String?
+    let priceText: String?
     let shortDescription: String?
     let category: String?
     let unitPrice: Double?
     let squareThumbnailURL: String?
     let status: Int?
-    let attribute, thumbnailURL: String?
+    let attribute: String?
+    let thumbnailURL: String?
 }
 
 struct ProductResponse: Codable {
-    let product: [Product]?
-    let id, name: String?
+    let id: String?
+    let name: String?
     let productCount: Int?
+    let products: [Product]?
 }

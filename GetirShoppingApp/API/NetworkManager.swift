@@ -12,15 +12,15 @@ enum Path {
     case suggestedProducts
     
     var baseURL: String {
-        return "https://65c38b5339055e7482c12050.mockapi.io/api"
+        return "https://65c38b5339055e7482c12050.mockapi.io/api/"
     }
     
     var path: URL {
         switch self {
         case .products:
-            return URL(string: "\(baseURL)/products")!
+            return URL(string: "\(baseURL)products")!
         case .suggestedProducts:
-            return URL(string: "\(baseURL)/suggestedProducts")!
+            return URL(string: "\(baseURL)suggestedProducts")!
         }
     }
 }
@@ -43,7 +43,7 @@ final class NetworkManager {
                 completion(.failure(NSError(domain: "Data Error", code: 0)))
                 return
             }
-            
+            //print(String(data: data, encoding: .utf8) ?? "Invalid JSON")
             do {
                 let decodedData = try JSONDecoder().decode(T.self, from: data)
                 completion(.success(decodedData))

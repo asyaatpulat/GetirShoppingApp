@@ -22,6 +22,9 @@
 		222E8EF82BC816F000CAE565 /* ProductDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222E8EF72BC816F000CAE565 /* ProductDetailViewController.swift */; };
 		222E8EFB2BC97B1F00CAE565 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222E8EFA2BC97B1F00CAE565 /* NetworkManager.swift */; };
 		222E8EFE2BC9BD7D00CAE565 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222E8EFD2BC9BD7D00CAE565 /* Product.swift */; };
+		222E8F002BCB19F300CAE565 /* ProductListingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222E8EFF2BCB19F300CAE565 /* ProductListingInteractor.swift */; };
+		222E8F022BCB1A0F00CAE565 /* ProductListingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222E8F012BCB1A0F00CAE565 /* ProductListingPresenter.swift */; };
+		222E8F042BCB1A3900CAE565 /* ProductListingRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222E8F032BCB1A3900CAE565 /* ProductListingRouter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +63,9 @@
 		222E8EF72BC816F000CAE565 /* ProductDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailViewController.swift; sourceTree = "<group>"; };
 		222E8EFA2BC97B1F00CAE565 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		222E8EFD2BC9BD7D00CAE565 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
+		222E8EFF2BCB19F300CAE565 /* ProductListingInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListingInteractor.swift; sourceTree = "<group>"; };
+		222E8F012BCB1A0F00CAE565 /* ProductListingPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListingPresenter.swift; sourceTree = "<group>"; };
+		222E8F032BCB1A3900CAE565 /* ProductListingRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListingRouter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +178,9 @@
 			children = (
 				222E8EEB2BC5EC0B00CAE565 /* Cell */,
 				222E8EBA2BC5C88E00CAE565 /* ProductListingViewController.swift */,
+				222E8EFF2BCB19F300CAE565 /* ProductListingInteractor.swift */,
+				222E8F012BCB1A0F00CAE565 /* ProductListingPresenter.swift */,
+				222E8F032BCB1A3900CAE565 /* ProductListingRouter.swift */,
 			);
 			path = "Product Listing";
 			sourceTree = "<group>";
@@ -365,8 +374,11 @@
 				222E8EBB2BC5C88E00CAE565 /* ProductListingViewController.swift in Sources */,
 				222E8EED2BC5EC8900CAE565 /* ProductListCell.swift in Sources */,
 				222E8EF52BC8154900CAE565 /* ProductImageView.swift in Sources */,
+				222E8F042BCB1A3900CAE565 /* ProductListingRouter.swift in Sources */,
+				222E8F002BCB19F300CAE565 /* ProductListingInteractor.swift in Sources */,
 				222E8EFB2BC97B1F00CAE565 /* NetworkManager.swift in Sources */,
 				222E8EB72BC5C88E00CAE565 /* AppDelegate.swift in Sources */,
+				222E8F022BCB1A0F00CAE565 /* ProductListingPresenter.swift in Sources */,
 				222E8EB92BC5C88E00CAE565 /* SceneDelegate.swift in Sources */,
 				222E8EF82BC816F000CAE565 /* ProductDetailViewController.swift in Sources */,
 			);

@@ -10,7 +10,7 @@ import SnapKit
 
 class ProductDetailViewController: UIViewController {
     
-    private let containerView: UIView = {
+    private lazy var containerView: UIView = {
         let view = UIView()
         view.layer.shadowOpacity = 1
         view.backgroundColor = .white
@@ -20,14 +20,14 @@ class ProductDetailViewController: UIViewController {
         return view
     }()
     
-    private let productImageView: UIImageView = {
+    private lazy var productImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.backgroundColor = .blue
         return imageView
     }()
     
-    private let priceLabel: UILabel = {
+    private lazy var priceLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         label.textAlignment = .center
@@ -35,7 +35,7 @@ class ProductDetailViewController: UIViewController {
         return label
     }()
     
-    private let productNameLabel: UILabel = {
+    private lazy var productNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         label.textColor = UIColor(named: "textDark")
@@ -43,7 +43,7 @@ class ProductDetailViewController: UIViewController {
         return label
     }()
     
-    private let attributeLabel: UILabel = {
+    private lazy var attributeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
         label.textColor = UIColor(named: "textSecondary")
@@ -51,7 +51,7 @@ class ProductDetailViewController: UIViewController {
         return label
     }()
     
-    private let bottomView: UIView = {
+    private lazy var bottomView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
         view.layer.shadowOpacity = 1
@@ -61,7 +61,7 @@ class ProductDetailViewController: UIViewController {
         return view
     }()
     
-    private let button: UIButton = {
+    private lazy var button: UIButton = {
         let button = UIButton()
         button.setTitle("Tap Me", for: .normal)
         button.backgroundColor = .blue
@@ -74,10 +74,16 @@ class ProductDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        navigationItem.title = "Ürün Detayı"        
+        navigationItem.title = "Ürün Detayı"  
+        //navigationController?.navigationBar.barTintColor = UIColor.bgPrimary
         setupViews()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.barTintColor = UIColor.bgPrimary
+    }
+
     private func setupViews() {
         view.addSubview(containerView)
         containerView.addSubview(productImageView)
@@ -130,7 +136,7 @@ class ProductDetailViewController: UIViewController {
     }
     
     func configureProductDetails(with product: Product) {
-        priceLabel.text = product.price
+        priceLabel.text = product.priceText
         productNameLabel.text = product.name
         attributeLabel.text = product.attribute
     }

@@ -24,6 +24,6 @@ class ProductImageView: UIImageView {
         self.layer.cornerRadius = 16
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor(named: "bgPrimarySubtle")?.cgColor
-        self.backgroundColor = .brown
+        //self.backgroundColor = .brown
     }
 }
