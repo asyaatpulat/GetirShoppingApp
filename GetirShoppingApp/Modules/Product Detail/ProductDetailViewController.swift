@@ -120,18 +120,21 @@ class ProductDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        navigationItem.title = "Ürün Detayı"
+        configureNavigationItem()
         stepper.minusButton.addTarget(self, action: #selector(minusButtonTapped), for: .touchUpInside)
         stepper.plusButton.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
-        //navigationController?.navigationBar.barTintColor = UIColor.bgPrimary
         setupViews()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.navigationBar.barTintColor = UIColor.bgPrimary
+    private func configureNavigationItem() {
+        navigationItem.title = "Ürün Detayı"
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(closeButtonTapped))
+        //navigationController?.navigationBar.barTintColor = UIColor.bgPrimary
     }
     
+    @objc private func closeButtonTapped() {
+        // Handle close button action here
+    }
     private func setupViews() {
         view.addSubview(containerView)
         containerView.addSubview(productImageView)

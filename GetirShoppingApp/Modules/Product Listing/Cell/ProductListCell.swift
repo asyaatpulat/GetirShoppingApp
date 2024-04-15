@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 class ProductListCell: UICollectionViewCell {
     
@@ -106,7 +107,9 @@ class ProductListCell: UICollectionViewCell {
         } else {
             attributeLabel.text = product.shortDescription
         }
-        productImageView.downloaded(from: product.imageURL ?? "")
+        if let imageUrl = URL(string: product.imageURL ?? "") {
+            productImageView.kf.setImage(with: imageUrl)
+        }
       }
 }
 
