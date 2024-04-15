@@ -8,8 +8,13 @@
 import UIKit
 import SnapKit
 
+protocol ProductDetailViewControllerProtocol: AnyObject {
+    func displayProductDetails(with product: Product)
+}
+
 class ProductDetailViewController: UIViewController, CustomStepperDelegate {
     
+    var presenter: ProductDetailPresenterProtocol?
     let customButton = CustomCartButton()
     
     private lazy var containerView: UIView = {
@@ -117,7 +122,6 @@ class ProductDetailViewController: UIViewController, CustomStepperDelegate {
     private func configureNavigationItem() {
         navigationItem.title = "Ürün Detayı"
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(closeButtonTapped))
-        //navigationController?.navigationBar.barTintColor = UIColor.bgPrimary
         let barButtonItem = UIBarButtonItem(customView: customButton)
         navigationItem.rightBarButtonItem = barButtonItem
         
@@ -183,22 +187,24 @@ class ProductDetailViewController: UIViewController, CustomStepperDelegate {
             make.height.equalTo(50)
         }
     }
-    
-    func configureProductDetails(with product: Product) {
-        priceLabel.text = product.priceText
-        productNameLabel.text = product.name
+}
+
+extension ProductDetailViewController: ProductDetailViewControllerProtocol {
+    func displayProductDetails(with product: Product) {
+        self.priceLabel.text = product.priceText
+        self.productNameLabel.text = product.name
         if product.attribute != nil {
-            attributeLabel.text = product.attribute
+            self.attributeLabel.text = product.attribute
         } else {
-            attributeLabel.text = product.shortDescription
-        }        
+            self.attributeLabel.text = product.shortDescription
+        }
         if let imageUrl = URL(string: product.imageURL ?? "") {
-            productImageView.kf.setImage(with: imageUrl)
+            self.productImageView.kf.setImage(with: imageUrl)
         }
     }
 }
-
+/*
 #Preview {
     let view = ProductDetailViewController()
     return view
-}
+}*/

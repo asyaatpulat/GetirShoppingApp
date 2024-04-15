@@ -9,9 +9,8 @@ import Foundation
 import UIKit
 
 protocol ProductListingRouterProtocol: AnyObject {
-    
+    func navigateToProductDetail(with: Product)
 }
-
 
 class ProductListingRouter: ProductListingRouterProtocol {
     private weak var view: UIViewController?
@@ -33,5 +32,15 @@ class ProductListingRouter: ProductListingRouterProtocol {
         presenter.router = router
         return productListingViewController
     }
+    
+    func navigateToProductDetail(with product: Product) {
+        guard let productDetailViewController = ProductDetailRouter.createModule(with: product) as? ProductDetailViewController else {
+            return
+        }
+        let nav = UINavigationController(rootViewController: productDetailViewController)
+        nav.modalPresentationStyle = .fullScreen
+        view?.present(nav, animated: true, completion: nil)
+    }
+    
+    
 }
-

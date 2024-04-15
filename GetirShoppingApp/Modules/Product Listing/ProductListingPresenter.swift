@@ -34,10 +34,8 @@ extension ProductListingPresenter: ProductListingPresenterProtocol {
     }
     
     func didSelectProduct(_ product: Product) {
-       // router?.navigateToProductDetail(with: product)
+        router?.navigateToProductDetail(with: product)
     }
-    
-    
 }
 
 extension ProductListingPresenter: ProductListingInteractorOutputProtocol {
@@ -50,7 +48,6 @@ extension ProductListingPresenter: ProductListingInteractorOutputProtocol {
     func fetchSuggestedProductsOutput(result: [Product]) {
         DispatchQueue.main.async {
             self.view?.reloadSuggestedProducts(result)
-
         }
     }
     
