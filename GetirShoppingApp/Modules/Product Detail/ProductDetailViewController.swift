@@ -8,7 +8,9 @@
 import UIKit
 import SnapKit
 
-class ProductDetailViewController: UIViewController {
+class ProductDetailViewController: UIViewController, CustomStepperDelegate {
+    
+    let customButton = CustomCartButton()
     
     private lazy var containerView: UIView = {
         let view = UIView()
@@ -73,7 +75,7 @@ class ProductDetailViewController: UIViewController {
     }()
     
     private lazy var stepper: CustomStepper = {
-        let stepper = CustomStepper()
+        let stepper = CustomStepper(orientation: .horizontal)
         stepper.isHidden = true
         return stepper
     }()
@@ -83,6 +85,10 @@ class ProductDetailViewController: UIViewController {
             button.isHidden = isStepperShown
             stepper.isHidden = !isStepperShown
         }
+    }
+    
+    func stepperDidReachZero() {
+        isStepperShown = false
     }
     
     @objc private func addToCartButtonTapped() {
@@ -100,29 +106,11 @@ class ProductDetailViewController: UIViewController {
         stepper.updateMinusButton()
     }
     
-    @objc private func minusButtonTapped() {
-        if let currentCounter = Int(stepper.counterLabel.text ?? "0"), currentCounter > 0 {
-            stepper.counterLabel.text = "\(currentCounter - 1)"
-        }
-        if let counterText = stepper.counterLabel.text, let counter = Int(counterText), counter == 0 {
-            isStepperShown = false
-        }
-        stepper.updateMinusButton()
-    }
-    
-    @objc private func plusButtonTapped() {
-        if let currentCounter = Int(stepper.counterLabel.text ?? "0"), currentCounter > 0 {
-            stepper.counterLabel.text = "\(currentCounter + 1)"
-            stepper.updateMinusButton()
-        }
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        stepper.delegate = self
         configureNavigationItem()
-        stepper.minusButton.addTarget(self, action: #selector(minusButtonTapped), for: .touchUpInside)
-        stepper.plusButton.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
         setupViews()
     }
     
@@ -130,11 +118,20 @@ class ProductDetailViewController: UIViewController {
         navigationItem.title = "Ürün Detayı"
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(closeButtonTapped))
         //navigationController?.navigationBar.barTintColor = UIColor.bgPrimary
+        let barButtonItem = UIBarButtonItem(customView: customButton)
+        navigationItem.rightBarButtonItem = barButtonItem
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = .bgPrimary
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.bgLight]
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
     
     @objc private func closeButtonTapped() {
-        // Handle close button action here
+        dismiss(animated: true)
     }
+    
     private func setupViews() {
         view.addSubview(containerView)
         containerView.addSubview(productImageView)
@@ -143,6 +140,7 @@ class ProductDetailViewController: UIViewController {
         containerView.addSubview(attributeLabel)
         view.addSubview(bottomView)
         bottomView.addSubview(button)
+        stepper.stackOrientation = .horizontal
         
         containerView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
@@ -189,7 +187,14 @@ class ProductDetailViewController: UIViewController {
     func configureProductDetails(with product: Product) {
         priceLabel.text = product.priceText
         productNameLabel.text = product.name
-        attributeLabel.text = product.attribute
+        if product.attribute != nil {
+            attributeLabel.text = product.attribute
+        } else {
+            attributeLabel.text = product.shortDescription
+        }        
+        if let imageUrl = URL(string: product.imageURL ?? "") {
+            productImageView.kf.setImage(with: imageUrl)
+        }
     }
 }
 

@@ -28,6 +28,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let vc = ProductListingRouter.createModule()
         let navController = UINavigationController(rootViewController: vc)
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = .bgPrimary
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.bgLight]
+        navController.navigationBar.standardAppearance = appearance
+        navController.navigationBar.scrollEdgeAppearance = appearance
         window?.rootViewController = navController
     }
 

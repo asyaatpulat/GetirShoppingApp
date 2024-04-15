@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Kingfisher
 
-class ProductListCell: UICollectionViewCell {
+class ProductListCell: UICollectionViewCell, CustomStepperDelegate {
     
     static let reuseIdentifier = "ProductListCell"
     
@@ -17,13 +17,7 @@ class ProductListCell: UICollectionViewCell {
         let view = UIView()
         return view
     }()
-    
-   /* private let stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        return stackView
-    }()*/
-    
+        
     private lazy var productImageView = ProductImageView()
     
     lazy var priceLabel: UILabel = {
@@ -33,7 +27,6 @@ class ProductListCell: UICollectionViewCell {
         label.text = "test"
         label.numberOfLines = 2
         label.lineBreakMode = .byTruncatingTail
-
         return label
     }()
     
@@ -57,11 +50,31 @@ class ProductListCell: UICollectionViewCell {
         return label
     }()
     
+    lazy var addButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "plusIcon"), for: .normal)
+        button.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
+        button.layer.cornerRadius = 8
+        button.layer.shadowColor = UIColor.productCardShadow.cgColor
+        button.layer.shadowOffset = CGSize(width: 0, height: 1)
+        button.layer.shadowRadius = 3
+        button.layer.shadowOpacity = 1
+        button.backgroundColor = UIColor.bgLight
+        return button
+    }()
+    
+    private lazy var stepper: CustomStepper = {
+        let stepper = CustomStepper(orientation: .vertical)
+        stepper.isHidden = true
+        stepper.delegate = self
+        return stepper
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
     }
-       
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -72,9 +85,25 @@ class ProductListCell: UICollectionViewCell {
         containerView.addSubview(priceLabel)
         containerView.addSubview(productNameLabel)
         containerView.addSubview(attributeLabel)
-
+        addSubview(addButton)
+        addSubview(stepper)
+        
         containerView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+        }
+        
+        addButton.snp.makeConstraints { make in
+            make.width.equalTo(32)
+            make.height.equalTo(addButton.snp.width)
+            make.top.equalToSuperview().offset(-8)
+            make.right.equalToSuperview().inset(-8)
+        }
+        
+        stepper.snp.makeConstraints { make in
+            make.width.equalTo(32)
+            make.height.equalTo(96)
+            make.top.equalToSuperview().offset(-8)
+            make.right.equalToSuperview().inset(-8)
         }
         
         priceLabel.snp.makeConstraints { make in
@@ -90,7 +119,6 @@ class ProductListCell: UICollectionViewCell {
         attributeLabel.snp.makeConstraints { make in
             make.top.equalTo(productNameLabel.snp.bottom).offset(2)
             make.leading.trailing.equalTo(containerView)
-            //make.bottom.equalTo(containerView)
         }
         
         productImageView.snp.makeConstraints { make in
@@ -98,7 +126,19 @@ class ProductListCell: UICollectionViewCell {
             make.height.equalTo(productImageView.snp.width)
         }
     }
-
+    
+    @objc private func addButtonTapped() {
+        addButton.isHidden = true
+        stepper.isHidden = false
+        stepper.counterLabel.text = "1"
+        stepper.updateMinusButton()
+    }
+    
+    func stepperDidReachZero() {
+        addButton.isHidden = false
+        stepper.isHidden = true
+    }
+    
     func configure(with product: Product) {
         priceLabel.text = product.priceText
         productNameLabel.text = product.name
@@ -110,7 +150,7 @@ class ProductListCell: UICollectionViewCell {
         if let imageUrl = URL(string: product.imageURL ?? "") {
             productImageView.kf.setImage(with: imageUrl)
         }
-      }
+    }
 }
 
 #Preview {

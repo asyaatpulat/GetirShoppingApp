@@ -7,10 +7,23 @@
 import UIKit
 import SnapKit
 
+protocol CustomStepperDelegate: AnyObject {
+    func stepperDidReachZero()
+}
+
+enum StackOrientation {
+    case horizontal
+    case vertical
+}
+
 class CustomStepper : UIView {
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    weak var delegate: CustomStepperDelegate?
+    var stackOrientation: StackOrientation?
+    
+    init(orientation: StackOrientation) {
+        self.stackOrientation = orientation
+        super.init(frame: .zero)
         setupViews()
     }
     
@@ -31,15 +44,34 @@ class CustomStepper : UIView {
     
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.axis = .horizontal
+        switch stackOrientation {
+        case .horizontal:
+            stackView.axis = .horizontal
+            stackView.addArrangedSubview(minusButton)
+            stackView.addArrangedSubview(counterLabel)
+            stackView.addArrangedSubview(plusButton)
+
+        case .vertical:
+            stackView.axis = .vertical
+            stackView.addArrangedSubview(plusButton)
+            stackView.addArrangedSubview(counterLabel)
+            stackView.addArrangedSubview(minusButton)
+        default:
+            break
+        }
         return stackView
     } ()
     
     lazy var minusButton: UIButton = {
         let button = UIButton()
-        button.setTitle(" - ", for: .normal)
+        button.setImage(UIImage(named: "minusIcon"), for: .normal)
+        button.setTitle(nil, for: .normal)
         button.backgroundColor = .white
-        button.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
+        if stackOrientation == .horizontal {
+            button.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
+        } else {
+            button.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+        }
         button.setTitleColor(UIColor(named: "bgPrimary"), for: .normal)
         button.layer.cornerRadius = 8
         button.clipsToBounds = true
@@ -49,11 +81,14 @@ class CustomStepper : UIView {
     
     lazy var plusButton: UIButton = {
         let button = UIButton()
-        button.setTitle(" + ", for: .normal)
-        button.setTitleColor(UIColor(named: "bgPrimary"), for: .normal)
-        button.backgroundColor = .blue
+        button.setImage(UIImage(named: "plusIcon"), for: .normal)
+        button.setTitle(nil, for: .normal)
         button.layer.cornerRadius = 8
-        button.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner]
+        if stackOrientation == .horizontal{
+            button.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner]
+        } else {
+            button.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        }
         button.clipsToBounds = true
         button.backgroundColor = UIColor.bgLight
         return button
@@ -64,16 +99,13 @@ class CustomStepper : UIView {
         label.textAlignment = .center
         label.textColor = .textLight
         label.backgroundColor = .bgPrimary
-        label.text = "2"
+        label.text = "1"
         return label
     }()
     
     func setupViews() {
         addSubview(containerView)
         containerView.addSubview(stackView)
-        stackView.addArrangedSubview(minusButton)
-        stackView.addArrangedSubview(counterLabel)
-        stackView.addArrangedSubview(plusButton)
         
         containerView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -85,12 +117,34 @@ class CustomStepper : UIView {
         
         counterLabel.snp.makeConstraints { make in
             make.width.equalTo(plusButton)
+            make.height.equalTo(plusButton)
         }
         
         minusButton.snp.makeConstraints { make in
             make.width.equalTo(plusButton)
+            make.height.equalTo(plusButton)
         }
         
+        minusButton.addTarget(self, action: #selector(minusButtonTapped), for: .touchUpInside)
+        plusButton.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
+        
+    }
+    
+    @objc private func minusButtonTapped() {
+        if let currentCounter = Int(counterLabel.text ?? "0"), currentCounter > 0 {
+            counterLabel.text = "\(currentCounter - 1)"
+        }
+        if let counterText = counterLabel.text, let counter = Int(counterText), counter == 0 {
+            delegate?.stepperDidReachZero()
+        }
+        updateMinusButton()
+    }
+    
+    @objc private func plusButtonTapped() {
+        if let currentCounter = Int(counterLabel.text ?? "0") {
+            counterLabel.text = "\(currentCounter + 1)"
+        }
+        updateMinusButton()
     }
     
     func updateMinusButton() {
@@ -99,8 +153,8 @@ class CustomStepper : UIView {
                 minusButton.setImage(UIImage(named: "trashIcon"), for: .normal)
                 minusButton.setTitle(nil, for: .normal)
             } else {
-                minusButton.setTitle("-", for: .normal)
-                minusButton.setImage(nil, for: .normal)
+                minusButton.setImage(UIImage(named: "minusIcon"), for: .normal)
+                minusButton.setTitle(nil, for: .normal)
             }
         }
     }
@@ -108,7 +162,7 @@ class CustomStepper : UIView {
 
 
 #Preview {
-    let a = CustomStepper()
+    let a = CustomStepper(orientation: .horizontal)
     return a
 }
 

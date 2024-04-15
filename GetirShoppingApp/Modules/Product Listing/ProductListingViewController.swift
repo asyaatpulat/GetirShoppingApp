@@ -44,7 +44,6 @@ class ProductListingViewController: UIViewController {
 
     private func configureNavigationItem() {
         navigationItem.title = "Ürünler"
-        navigationController?.navigationBar.barTintColor = UIColor.bgPrimary
     }
     
     func createLayout() -> UICollectionViewCompositionalLayout {
@@ -55,7 +54,7 @@ class ProductListingViewController: UIViewController {
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .absolute(92), heightDimension: .absolute(185)), subitems: [item])
                 group.interItemSpacing = .fixed(16)
                 let section = NSCollectionLayoutSection(group: group)
-                section.contentInsets = .init(top: 0, leading: 16, bottom: 0, trailing: 0)
+                section.contentInsets = .init(top: 16, leading: 16, bottom: 0, trailing: 0)
                 section.interGroupSpacing = 16
                 section.contentInsets.trailing = 16
                 section.orthogonalScrollingBehavior = .continuous
