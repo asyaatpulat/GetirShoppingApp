@@ -22,7 +22,6 @@ class ProductListingViewController: UIViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .cyan
         configureNavigationItem()
         setupCollectionView()
         presenter?.fetchProducts()
