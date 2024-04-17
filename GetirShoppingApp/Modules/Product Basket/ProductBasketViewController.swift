@@ -39,33 +39,6 @@ class ProductBasketViewController: UIViewController {
         
     }
     
-    let mockProducts: [DummyData] = [
-        DummyData(name: "T-Shirt", attribute: "Cotton", priceText: "$29.99", imageURL: "https://example.com/image1.jpg"),
-        DummyData(name: "Sweatshirt", attribute: "Fleece", priceText: "$49.99", imageURL: "https://example.com/image2.jpg"),
-        DummyData(name: "Joggers", attribute: "Cotton Blend", priceText: "$34.99", imageURL: "https://example.com/image3.jpg"),
-        DummyData(name: "Hat", attribute: "Wool", priceText: "$19.99", imageURL: "https://example.com/image4.jpg"),
-        DummyData(name: "Sunglasses", attribute: "UV Protection", priceText: "$89.99", imageURL: "https://example.com/image5.jpg"),
-        DummyData(name: "Backpack", attribute: "Water Resistant", priceText: "$69.99", imageURL: "https://example.com/image6.jpg"),
-        DummyData(name: "Water Bottle", attribute: "Stainless Steel", priceText: "$14.99", imageURL: "https://example.com/image7.jpg"),
-        DummyData(name: "T-Shirt", attribute: "Cotton", priceText: "$29.99", imageURL: "https://example.com/image1.jpg"),
-        DummyData(name: "Sweatshirt", attribute: "Fleece", priceText: "$49.99", imageURL: "https://example.com/image2.jpg"),
-        DummyData(name: "Joggers", attribute: "Cotton Blend", priceText: "$34.99", imageURL: "https://example.com/image3.jpg"),
-        DummyData(name: "Hat", attribute: "Wool", priceText: "$19.99", imageURL: "https://example.com/image4.jpg"),
-        DummyData(name: "Sunglasses", attribute: "UV Protection", priceText: "$89.99", imageURL: "https://example.com/image5.jpg"),
-        DummyData(name: "Backpack", attribute: "Water Resistant", priceText: "$69.99", imageURL: "https://example.com/image6.jpg"),
-        DummyData(name: "Water Bottle", attribute: "Stainless Steel", priceText: "$14.99", imageURL: "https://example.com/image7.jpg"),
-        DummyData(name: "Sunglasses", attribute: "UV Protection", priceText: "$89.99", imageURL: "https://example.com/image5.jpg"),
-        DummyData(name: "Backpack", attribute: "Water Resistant", priceText: "$69.99", imageURL: "https://example.com/image6.jpg"),
-        DummyData(name: "Water Bottle", attribute: "Stainless Steel", priceText: "$14.99", imageURL: "https://example.com/image7.jpg"),
-        DummyData(name: "T-Shirt", attribute: "Cotton", priceText: "$29.99", imageURL: "https://example.com/image1.jpg"),
-        DummyData(name: "Sweatshirt", attribute: "Fleece", priceText: "$49.99", imageURL: "https://example.com/image2.jpg"),
-        DummyData(name: "Joggers", attribute: "Cotton Blend", priceText: "$34.99", imageURL: "https://example.com/image3.jpg"),
-        DummyData(name: "Hat", attribute: "Wool", priceText: "$19.99", imageURL: "https://example.com/image4.jpg"),
-        DummyData(name: "Sunglasses", attribute: "UV Protection", priceText: "$89.99", imageURL: "https://example.com/image5.jpg"),
-        DummyData(name: "Backpack", attribute: "Water Resistant", priceText: "$69.99", imageURL: "https://example.com/image6.jpg"),
-        DummyData(name: "Water Bottle", attribute: "Stainless Steel", priceText: "$14.99", imageURL: "https://example.com/image7.jpg")
-    ]
-
     private lazy var customBasketButton: CustomBasketButton = {
         let button = CustomBasketButton()
         return button
@@ -113,27 +86,24 @@ class ProductBasketViewController: UIViewController {
 extension ProductBasketViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
         func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
             if section == 0 {
-                6
-                //return products.count
+                return products.count
             } else {
-                9
-                //return suggestedProducts.count
+                return suggestedProducts.count
             }
         }
         
         func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            //if indexPath.section == 0 {
+            if indexPath.section == 0 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductBasketCell", for: indexPath) as! ProductBasketCell
-                let product = mockProducts[indexPath.item]
+                let product = products[indexPath.item]
                 cell.configure(with: product)
-
                 return cell
-           /* } else {
+            } else {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductListCell", for: indexPath) as! ProductListCell
                 let product = suggestedProducts[indexPath.item]
                 cell.configure(with: product)
                 return cell
-            }*/
+            }
         }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -166,11 +136,11 @@ class Header: UICollectionReusableView {
     }
 }
 
-
+/*
 #Preview {
    let collectionView = ProductBasketViewController()
    return collectionView
 }
 
 
-
+*/

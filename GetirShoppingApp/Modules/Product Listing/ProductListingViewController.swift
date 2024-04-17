@@ -13,19 +13,32 @@ protocol ProductListingViewControllerProtocol: AnyObject {
     func fetchProductsFailed(error: Error)
 }
 
+
 class ProductListingViewController: UIViewController {
     
     private var collectionView: UICollectionView!
     private var products: [Product] = []
     private var suggestedProducts: [Product] = []
     var presenter: ProductListingPresenterProtocol?
-        
+    var basketManager = BasketManager()
+    
+    private lazy var customCartButton: CustomCartButton = {
+        let button = CustomCartButton()
+       // button.addTarget(self, action: #selector(cartButtonTapped), for: .touchUpInside)
+        return button
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationItem()
         setupCollectionView()
         presenter?.fetchProducts()
         presenter?.fetchSuggestedProducts()
+        configureCustomCartButton()
+        
+    }
+    
+    func configureCustomCartButton() {
+        customCartButton.updateTotalPriceLabel(basketManager.calculateTotalPrice())
     }
     
     private func setupCollectionView() {
@@ -43,6 +56,8 @@ class ProductListingViewController: UIViewController {
 
     private func configureNavigationItem() {
         navigationItem.title = "Ürünler"
+        let barButtonItem = UIBarButtonItem(customView: customCartButton)
+        navigationItem.rightBarButtonItem = barButtonItem
     }
     
     func createLayout() -> UICollectionViewCompositionalLayout {
@@ -101,6 +116,7 @@ extension ProductListingViewController: UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductListCell", for: indexPath) as! ProductListCell
         let product = indexPath.section == 0 ? suggestedProducts[indexPath.item] : products[indexPath.item]
+        cell.delegate = self
         cell.configure(with: product)
         return cell
     }
@@ -112,6 +128,29 @@ extension ProductListingViewController: UICollectionViewDelegate, UICollectionVi
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         2
+    }
+}
+
+extension ProductListingViewController: ProductListCellDelegate {
+    func addProductToBasket(_ product: Product) {
+        basketManager.addProduct(product)
+        let totalPrice = basketManager.calculateTotalPrice()
+        print(totalPrice)
+        customCartButton.updateTotalPriceLabel(totalPrice)
+    }
+    
+    func updateProductCounter(_ product: Product, counter: Int) {
+        guard let currentCounter = basketManager.getBasket()[product] else { return }
+        let newCounter = max(0, currentCounter + counter)
+        
+        if newCounter > currentCounter {
+            basketManager.addProduct(product)
+        } else if newCounter < currentCounter {
+            basketManager.removeProduct(product)
+        }
+        
+        let totalPrice = basketManager.calculateTotalPrice()
+        customCartButton.updateTotalPriceLabel(totalPrice)
     }
 }
  /*

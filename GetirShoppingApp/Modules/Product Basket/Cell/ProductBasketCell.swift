@@ -9,6 +9,14 @@ import UIKit
 import SnapKit
 
 class ProductBasketCell: UICollectionViewCell, CustomStepperDelegate {
+    func stepperDidIncrease() {
+        
+    }
+    
+    func stepperDidDecrease() {
+        
+    }
+    
     static let reuseIdentifier = "ProductBasketCell"
     
     private lazy var containerView: UIView = {
@@ -127,13 +135,13 @@ class ProductBasketCell: UICollectionViewCell, CustomStepperDelegate {
         
     }
     
-    func configure(with product: DummyData) {
+    func configure(with product: Product) {
         priceLabel.text = product.priceText
         productNameLabel.text = product.name
         if product.attribute != nil {
             attributeLabel.text = product.attribute
         } else {
-         //   attributeLabel.text = product.shortDescription
+            attributeLabel.text = product.shortDescription
         }
         if let imageUrl = URL(string: product.imageURL ?? "") {
             productImageView.kf.setImage(with: imageUrl)

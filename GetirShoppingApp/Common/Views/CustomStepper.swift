@@ -9,6 +9,8 @@ import SnapKit
 
 protocol CustomStepperDelegate: AnyObject {
     func stepperDidReachZero()
+    func stepperDidIncrease()
+    func stepperDidDecrease()
 }
 
 enum StackOrientation {
@@ -138,6 +140,7 @@ class CustomStepper : UIView {
             delegate?.stepperDidReachZero()
         }
         updateMinusButton()
+        delegate?.stepperDidDecrease()
     }
     
     @objc private func plusButtonTapped() {
@@ -145,6 +148,7 @@ class CustomStepper : UIView {
             counterLabel.text = "\(currentCounter + 1)"
         }
         updateMinusButton()
+        delegate?.stepperDidIncrease()
     }
     
     func updateMinusButton() {

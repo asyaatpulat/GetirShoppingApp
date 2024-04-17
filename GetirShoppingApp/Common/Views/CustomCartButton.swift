@@ -81,6 +81,10 @@ class CustomCartButton: UIButton {
     @objc private func buttonTapped() {
         // Handle button tap event
     }
+    
+    func updateTotalPriceLabel(_ totalPrice: Double) {
+        textLabel.text = "₺\(String(format: "%.2f", totalPrice))"
+    }
 }
 
 

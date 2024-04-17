@@ -9,15 +9,22 @@ import UIKit
 import SnapKit
 import Kingfisher
 
+protocol ProductListCellDelegate: AnyObject {
+    func addProductToBasket(_ product: Product)
+    func updateProductCounter(_ product: Product, counter: Int)
+}
+
 class ProductListCell: UICollectionViewCell, CustomStepperDelegate {
     
     static let reuseIdentifier = "ProductListCell"
+    weak var delegate: ProductListCellDelegate?
+    var product: Product?
     
     private lazy var containerView: UIView = {
         let view = UIView()
         return view
     }()
-        
+    
     private lazy var productImageView = ProductImageView()
     
     lazy var priceLabel: UILabel = {
@@ -80,6 +87,7 @@ class ProductListCell: UICollectionViewCell, CustomStepperDelegate {
     }
     
     private func setupViews() {
+        stepper.delegate = self
         addSubview(containerView)
         containerView.addSubview(productImageView)
         containerView.addSubview(priceLabel)
@@ -130,6 +138,8 @@ class ProductListCell: UICollectionViewCell, CustomStepperDelegate {
     @objc private func addButtonTapped() {
         addButton.isHidden = true
         stepper.isHidden = false
+        guard let product = self.product else { return }
+        delegate?.addProductToBasket(product)
         stepper.counterLabel.text = "1"
         stepper.updateMinusButton()
     }
@@ -139,7 +149,19 @@ class ProductListCell: UICollectionViewCell, CustomStepperDelegate {
         stepper.isHidden = true
     }
     
+    func stepperDidIncrease() {
+        guard let product = self.product else { return }
+        delegate?.updateProductCounter(product, counter: 1)
+    }
+    
+    func stepperDidDecrease() {
+        guard let product = self.product else { return }
+        delegate?.updateProductCounter(product, counter: -1)
+    }
+    
+    
     func configure(with product: Product) {
+        self.product = product
         priceLabel.text = product.priceText
         productNameLabel.text = product.name
         if product.attribute != nil {

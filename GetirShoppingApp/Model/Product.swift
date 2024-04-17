@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Product: Codable {
+struct Product: Codable, Hashable {
     let id: String?
     let imageURL: String?
     let price: Double?
@@ -20,6 +20,14 @@ struct Product: Codable {
     let status: Int?
     let attribute: String?
     let thumbnailURL: String?
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
+    static func == (lhs: Product, rhs: Product) -> Bool {
+        return lhs.id == rhs.id
+    }
 }
 
 struct ProductResponse: Codable {
