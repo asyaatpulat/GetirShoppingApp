@@ -159,6 +159,7 @@ class ProductListCell: UICollectionViewCell, CustomStepperDelegate {
         delegate?.updateProductCounter(product, counter: -1)
     }
     
+    var basketManager = BasketManager()
     
     func configure(with product: Product) {
         self.product = product
@@ -171,6 +172,17 @@ class ProductListCell: UICollectionViewCell, CustomStepperDelegate {
         }
         if let imageUrl = URL(string: product.imageURL ?? "") {
             productImageView.kf.setImage(with: imageUrl)
+        }
+        basketManager.loadBasketFromUserDefaults()
+        
+        if let count = basketManager.getBasket()[product] {
+            stepper.counterLabel.text = "\(count)"
+            stepper.isHidden = false
+            addButton.isHidden = true
+            stepper.updateMinusButton()
+        } else {
+            stepper.isHidden = true
+            addButton.isHidden = false
         }
     }
 }

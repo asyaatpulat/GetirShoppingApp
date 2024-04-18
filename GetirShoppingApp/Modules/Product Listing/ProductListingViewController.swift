@@ -13,26 +13,32 @@ protocol ProductListingViewControllerProtocol: AnyObject {
     func fetchProductsFailed(error: Error)
 }
 
-
 class ProductListingViewController: UIViewController {
     
     private var collectionView: UICollectionView!
     private var products: [Product] = []
     private var suggestedProducts: [Product] = []
     var presenter: ProductListingPresenterProtocol?
-    var basketManager = BasketManager()
+    var basketManager = BasketManager.shared
     
     private lazy var customCartButton: CustomCartButton = {
         let button = CustomCartButton()
-       // button.addTarget(self, action: #selector(cartButtonTapped), for: .touchUpInside)
         return button
     }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationItem()
         setupCollectionView()
         presenter?.fetchProducts()
         presenter?.fetchSuggestedProducts()
+        basketManager.loadBasketFromUserDefaults()
+        configureCustomCartButton()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        collectionView.reloadData()
         configureCustomCartButton()
         
     }
@@ -48,12 +54,12 @@ class ProductListingViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.register(ProductListCell.self, forCellWithReuseIdentifier: "ProductListCell")
         view.addSubview(collectionView)
-
+        
         collectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }
-
+    
     private func configureNavigationItem() {
         navigationItem.title = "Ürünler"
         let barButtonItem = UIBarButtonItem(customView: customCartButton)
@@ -153,9 +159,9 @@ extension ProductListingViewController: ProductListCellDelegate {
         customCartButton.updateTotalPriceLabel(totalPrice)
     }
 }
- /*
-#Preview {
-    let collectionView = ProductListingViewController()
-    return collectionView
-}
-*/
+/*
+ #Preview {
+ let collectionView = ProductListingViewController()
+ return collectionView
+ }
+ */
