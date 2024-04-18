@@ -7,11 +7,17 @@
 
 import UIKit
 
+protocol ProductBasketViewControllerProtocol: AnyObject {
+    func reloadSuggestedProducts(_ suggestedProducts: [Product])
+    func fetchProductsFailed(error: Error)
+}
+
 class ProductBasketViewController: UIViewController {
     
     private var collectionView: UICollectionView!
     private var products: [Product] = []
     private var suggestedProducts: [Product] = []
+    var presenter: ProductBasketPresenterProtocol?
     let headerId = "headerId"
     static let categoryHeaderId = "categoryHeaderId"
     
@@ -19,6 +25,34 @@ class ProductBasketViewController: UIViewController {
         super.viewDidLoad()
         setupCustomBasketButton()
         setupCollectionView()
+        presenter?.fetchSuggestedProducts()
+        configureNavigationItem()
+    }
+    
+    private func configureNavigationItem() {
+        navigationItem.title = "Sepetim"
+        if let closeImage = UIImage(named: "closeIcon") {
+            let barButtonItem = UIBarButtonItem(image: closeImage, style: .plain, target: self, action: #selector(closeButtonTapped))
+            navigationItem.leftBarButtonItem = barButtonItem
+        }
+        if let trashImage = UIImage(named: "trashWhiteIcon") {
+            let barButtonItem = UIBarButtonItem(image: trashImage, style: .plain, target: self, action: #selector(trashButtonTapped))
+            navigationItem.rightBarButtonItem = barButtonItem
+        }
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = .bgPrimary
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.bgLight]
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+    }
+    
+    @objc private func trashButtonTapped() {
+        //
+    }
+    
+    @objc private func closeButtonTapped() {
+        dismiss(animated: true)
     }
     
     private func setupCollectionView() {
@@ -34,9 +68,7 @@ class ProductBasketViewController: UIViewController {
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(customBasketButton.snp.top).offset(-12)
         }
-        
         collectionView.register(Header.self, forSupplementaryViewOfKind: ProductBasketViewController.categoryHeaderId, withReuseIdentifier: headerId)
-        
     }
     
     private lazy var customBasketButton: CustomBasketButton = {
@@ -58,9 +90,9 @@ class ProductBasketViewController: UIViewController {
             if sectionNumber == 0 {
                 let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(78)))
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(1000)), subitems: [item])
-               // group.interItemSpacing = .fixed(12)
+                // group.interItemSpacing = .fixed(12)
                 let section = NSCollectionLayoutSection(group: group)
-              //  section.contentInsets.leading = 16
+                //  section.contentInsets.leading = 16
                 //section.contentInsets.trailing = 16
                 //section.contentInsets.top = 16
                 section.contentInsets = .init(top: 12, leading: 16, bottom: 20, trailing: 16)
@@ -82,29 +114,29 @@ class ProductBasketViewController: UIViewController {
         }
     }
 }
-    
+
 extension ProductBasketViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-        func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            if section == 0 {
-                return products.count
-            } else {
-                return suggestedProducts.count
-            }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if section == 0 {
+            return products.count
+        } else {
+            return suggestedProducts.count
         }
-        
-        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            if indexPath.section == 0 {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductBasketCell", for: indexPath) as! ProductBasketCell
-                let product = products[indexPath.item]
-                cell.configure(with: product)
-                return cell
-            } else {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductListCell", for: indexPath) as! ProductListCell
-                let product = suggestedProducts[indexPath.item]
-                cell.configure(with: product)
-                return cell
-            }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if indexPath.section == 0 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductBasketCell", for: indexPath) as! ProductBasketCell
+            let product = products[indexPath.item]
+            cell.configure(with: product)
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductListCell", for: indexPath) as! ProductListCell
+            let product = suggestedProducts[indexPath.item]
+            cell.configure(with: product)
+            return cell
         }
+    }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         2
@@ -118,7 +150,7 @@ extension ProductBasketViewController: UICollectionViewDelegate, UICollectionVie
 
 class Header: UICollectionReusableView {
     let label = UILabel()
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         label.text = "Önerilen Ürünler"
@@ -136,11 +168,21 @@ class Header: UICollectionReusableView {
     }
 }
 
-/*
-#Preview {
-   let collectionView = ProductBasketViewController()
-   return collectionView
+extension ProductBasketViewController: ProductBasketViewControllerProtocol {
+    func reloadSuggestedProducts(_ suggestedProducts: [Product]) {
+        self.suggestedProducts = suggestedProducts
+        self.collectionView.reloadData()
+    }
+    
+    func fetchProductsFailed(error: Error) {
+        print("data fetch failed.")
+    }
 }
-
-
-*/
+/*
+ #Preview {
+ let collectionView = ProductBasketViewController()
+ return collectionView
+ }
+ 
+ 
+ */

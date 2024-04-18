@@ -10,6 +10,7 @@ import UIKit
 
 protocol ProductListingRouterProtocol: AnyObject {
     func navigateToProductDetail(with: Product)
+    func navigateToProductBasket()
 }
 
 class ProductListingRouter: ProductListingRouterProtocol {
@@ -42,5 +43,12 @@ class ProductListingRouter: ProductListingRouterProtocol {
         view?.present(nav, animated: true, completion: nil)
     }
     
-    
+    func navigateToProductBasket() {
+        guard let productBasketViewController = ProductBasketRouter.createModule() as? ProductBasketViewController else {
+            return
+        }
+        let nav = UINavigationController(rootViewController: productBasketViewController)
+        nav.modalPresentationStyle = .fullScreen
+        view?.present(nav, animated: true, completion: nil)
+    }
 }

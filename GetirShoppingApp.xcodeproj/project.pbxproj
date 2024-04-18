@@ -35,6 +35,9 @@
 		222E8F1C2BCEC63700CAE565 /* ProductBasketCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222E8F1B2BCEC63700CAE565 /* ProductBasketCell.swift */; };
 		222E8F1E2BCF096300CAE565 /* CustomBasketButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222E8F1D2BCF096300CAE565 /* CustomBasketButton.swift */; };
 		222E8F202BD00B2900CAE565 /* BasketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222E8F1F2BD00B2900CAE565 /* BasketManager.swift */; };
+		222E8F222BD1C3F100CAE565 /* ProductBasketInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222E8F212BD1C3F000CAE565 /* ProductBasketInteractor.swift */; };
+		222E8F242BD1C40900CAE565 /* ProductBasketPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222E8F232BD1C40900CAE565 /* ProductBasketPresenter.swift */; };
+		222E8F262BD1C42900CAE565 /* ProductBasketRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222E8F252BD1C42900CAE565 /* ProductBasketRouter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +88,9 @@
 		222E8F1B2BCEC63700CAE565 /* ProductBasketCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductBasketCell.swift; sourceTree = "<group>"; };
 		222E8F1D2BCF096300CAE565 /* CustomBasketButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBasketButton.swift; sourceTree = "<group>"; };
 		222E8F1F2BD00B2900CAE565 /* BasketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketManager.swift; sourceTree = "<group>"; };
+		222E8F212BD1C3F000CAE565 /* ProductBasketInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductBasketInteractor.swift; sourceTree = "<group>"; };
+		222E8F232BD1C40900CAE565 /* ProductBasketPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductBasketPresenter.swift; sourceTree = "<group>"; };
+		222E8F252BD1C42900CAE565 /* ProductBasketRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductBasketRouter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -266,6 +272,9 @@
 			children = (
 				222E8F182BCEBC5700CAE565 /* Cell */,
 				222E8F162BCEBC4D00CAE565 /* ProductBasketViewController.swift */,
+				222E8F252BD1C42900CAE565 /* ProductBasketRouter.swift */,
+				222E8F232BD1C40900CAE565 /* ProductBasketPresenter.swift */,
+				222E8F212BD1C3F000CAE565 /* ProductBasketInteractor.swift */,
 			);
 			path = "Product Basket";
 			sourceTree = "<group>";
@@ -418,11 +427,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				222E8F142BCDC3CA00CAE565 /* ProductDetailRouter.swift in Sources */,
+				222E8F262BD1C42900CAE565 /* ProductBasketRouter.swift in Sources */,
 				222E8F0E2BCD7EFC00CAE565 /* CustomCartButton.swift in Sources */,
 				222E8EFE2BC9BD7D00CAE565 /* Product.swift in Sources */,
 				222E8EBB2BC5C88E00CAE565 /* ProductListingViewController.swift in Sources */,
 				222E8EED2BC5EC8900CAE565 /* ProductListCell.swift in Sources */,
 				222E8F1C2BCEC63700CAE565 /* ProductBasketCell.swift in Sources */,
+				222E8F242BD1C40900CAE565 /* ProductBasketPresenter.swift in Sources */,
 				222E8EF52BC8154900CAE565 /* ProductImageView.swift in Sources */,
 				222E8F1E2BCF096300CAE565 /* CustomBasketButton.swift in Sources */,
 				222E8F042BCB1A3900CAE565 /* ProductListingRouter.swift in Sources */,
@@ -435,6 +446,7 @@
 				222E8F102BCDC3A300CAE565 /* ProductDetailPresenter.swift in Sources */,
 				222E8EB72BC5C88E00CAE565 /* AppDelegate.swift in Sources */,
 				222E8F022BCB1A0F00CAE565 /* ProductListingPresenter.swift in Sources */,
+				222E8F222BD1C3F100CAE565 /* ProductBasketInteractor.swift in Sources */,
 				222E8EB92BC5C88E00CAE565 /* SceneDelegate.swift in Sources */,
 				222E8EF82BC816F000CAE565 /* ProductDetailViewController.swift in Sources */,
 			);

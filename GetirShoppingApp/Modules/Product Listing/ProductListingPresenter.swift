@@ -16,6 +16,7 @@ protocol ProductListingPresenterProtocol: AnyObject {
     func fetchProducts()
     func fetchSuggestedProducts()
     func didSelectProduct(_ product: Product)
+    func didTapCart()
 }
 
 final class ProductListingPresenter {
@@ -35,6 +36,10 @@ extension ProductListingPresenter: ProductListingPresenterProtocol {
     
     func didSelectProduct(_ product: Product) {
         router?.navigateToProductDetail(with: product)
+    }
+    
+    func didTapCart() {
+        router?.navigateToProductBasket()
     }
 }
 

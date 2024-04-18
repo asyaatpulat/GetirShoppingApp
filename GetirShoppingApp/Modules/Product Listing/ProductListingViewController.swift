@@ -23,8 +23,15 @@ class ProductListingViewController: UIViewController {
     
     private lazy var customCartButton: CustomCartButton = {
         let button = CustomCartButton()
+        button.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(customCartButtonTapped)))
         return button
     }()
+    
+    
+    @objc private func customCartButtonTapped() {
+        presenter?.didTapCart()
+    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
