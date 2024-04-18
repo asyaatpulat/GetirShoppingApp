@@ -13,6 +13,7 @@ protocol ProductBasketPresenterProtocol: AnyObject {
     var router: ProductBasketRouterProtocol? { get set }
     
     func fetchSuggestedProducts()
+    func loadBasketData()
 }
 
 final class ProductBasketPresenter {
@@ -25,9 +26,15 @@ extension ProductBasketPresenter: ProductBasketPresenterProtocol {
     func fetchSuggestedProducts() {
         interactor?.fetchSuggestedProducts()
     }
+    
+    func loadBasketData() {
+        interactor?.loadBasketData()
+    }
 }
 
 extension ProductBasketPresenter: ProductBasketInteractorOutputProtocol {
+   
+    
     func fetchSuggestedProductsOutput(result: [Product]) {
         DispatchQueue.main.async {
             self.view?.reloadSuggestedProducts(result)
@@ -37,6 +44,12 @@ extension ProductBasketPresenter: ProductBasketInteractorOutputProtocol {
     func fetchProductsFailed(error: Error) {
         DispatchQueue.main.async {
             self.view?.fetchProductsFailed(error: error)
+        }
+    }
+    
+    func loadedBasketDataOutput(result: [Product]) {
+        DispatchQueue.main.async {
+            self.view?.reloadProducts(result)
         }
     }
     

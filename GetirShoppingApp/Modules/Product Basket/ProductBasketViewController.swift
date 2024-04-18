@@ -10,6 +10,7 @@ import UIKit
 protocol ProductBasketViewControllerProtocol: AnyObject {
     func reloadSuggestedProducts(_ suggestedProducts: [Product])
     func fetchProductsFailed(error: Error)
+    func reloadProducts(_ products: [Product])
 }
 
 class ProductBasketViewController: UIViewController {
@@ -26,6 +27,7 @@ class ProductBasketViewController: UIViewController {
         setupCustomBasketButton()
         setupCollectionView()
         presenter?.fetchSuggestedProducts()
+        presenter?.loadBasketData()
         configureNavigationItem()
     }
     
@@ -35,6 +37,7 @@ class ProductBasketViewController: UIViewController {
             let barButtonItem = UIBarButtonItem(image: closeImage, style: .plain, target: self, action: #selector(closeButtonTapped))
             navigationItem.leftBarButtonItem = barButtonItem
         }
+        
         if let trashImage = UIImage(named: "trashWhiteIcon") {
             let barButtonItem = UIBarButtonItem(image: trashImage, style: .plain, target: self, action: #selector(trashButtonTapped))
             navigationItem.rightBarButtonItem = barButtonItem
@@ -73,6 +76,10 @@ class ProductBasketViewController: UIViewController {
     
     private lazy var customBasketButton: CustomBasketButton = {
         let button = CustomBasketButton()
+        button.layer.shadowOpacity = 1
+        button.layer.shadowOffset = CGSize(width: 0, height: 2)
+        button.layer.shadowRadius = 10
+        button.layer.shadowColor = UIColor.basketButtonShadow.cgColor
         return button
     }()
     
@@ -83,6 +90,7 @@ class ProductBasketViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-8)
             make.height.equalTo(50)
         }
+        view.backgroundColor = .bgLight
     }
     
     func createLayout() -> UICollectionViewCompositionalLayout {
@@ -169,6 +177,11 @@ class Header: UICollectionReusableView {
 }
 
 extension ProductBasketViewController: ProductBasketViewControllerProtocol {
+    func reloadProducts(_ products: [Product]) {
+        self.products = products
+        self.collectionView.reloadData()
+    }
+    
     func reloadSuggestedProducts(_ suggestedProducts: [Product]) {
         self.suggestedProducts = suggestedProducts
         self.collectionView.reloadData()

@@ -11,17 +11,20 @@ import Foundation
 protocol ProductBasketInteractorProtocol: AnyObject {
     var presenter: ProductBasketInteractorOutputProtocol? { get set }
     func fetchSuggestedProducts()
+    func loadBasketData()
 }
 
 protocol ProductBasketInteractorOutputProtocol: AnyObject {
     func fetchSuggestedProductsOutput(result: [Product])
     func fetchProductsFailed(error: Error)
+    func loadedBasketDataOutput(result: [Product])
 }
 
 final class ProductBasketInteractor: ProductBasketInteractorProtocol {
     
     weak var presenter: ProductBasketInteractorOutputProtocol?
     var networkManager: NetworkManager
+    var basketManager = BasketManager.shared
     
     init(networkManager: NetworkManager) {
         self.networkManager = networkManager
@@ -38,6 +41,13 @@ final class ProductBasketInteractor: ProductBasketInteractorProtocol {
                 self?.presenter?.fetchProductsFailed(error: error)
             }
         }
+    }
+    
+    func loadBasketData() {
+        basketManager.loadBasketFromUserDefaults()
+        let basket = basketManager.getBasket()
+        let products = Array(basket.keys)
+        presenter?.loadedBasketDataOutput(result: products)
     }
 }
 

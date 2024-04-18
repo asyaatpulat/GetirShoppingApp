@@ -56,23 +56,21 @@ class ProductBasketCell: UICollectionViewCell, CustomStepperDelegate {
         return label
     }()
     
-    private lazy var stepper: CustomStepper = {
+    lazy var stepper: CustomStepper = {
         let stepper = CustomStepper(orientation: .horizontal)
         stepper.delegate = self
         return stepper
     }()
     
     private let bottomBorderView: UIView = {
-            let view = UIView()
-            view.backgroundColor = .bgPrimarySubtle
-            return view
+        let view = UIView()
+        view.backgroundColor = .bgPrimarySubtle
+        return view
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
-
-
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -87,7 +85,7 @@ class ProductBasketCell: UICollectionViewCell, CustomStepperDelegate {
         containerView.addSubview(priceLabel)
         containerView.addSubview(stepper)
         addSubview(bottomBorderView)
-
+        
         
         containerView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -102,6 +100,7 @@ class ProductBasketCell: UICollectionViewCell, CustomStepperDelegate {
         productNameLabel.snp.makeConstraints { make in
             make.leading.equalTo(productImageView.snp.trailing).offset(12)
             make.top.equalTo(containerView.snp.top).offset(8.5)
+            make.trailing.equalTo(stepper.snp.leading).inset(12)
         }
         
         attributeLabel.snp.makeConstraints { make in
@@ -127,9 +126,8 @@ class ProductBasketCell: UICollectionViewCell, CustomStepperDelegate {
             make.height.equalTo(1)
             make.top.equalTo(containerView.snp.bottom).offset(12)
         }
-        
     }
-
+    
     
     func stepperDidReachZero() {
         
@@ -146,6 +144,7 @@ class ProductBasketCell: UICollectionViewCell, CustomStepperDelegate {
         if let imageUrl = URL(string: product.imageURL ?? "") {
             productImageView.kf.setImage(with: imageUrl)
         }
+        
     }
 }
 
@@ -153,11 +152,4 @@ class ProductBasketCell: UICollectionViewCell, CustomStepperDelegate {
 #Preview {
     let a = ProductBasketCell()
     return a
-}
-
-struct DummyData {
-    let name: String
-    let attribute: String?
-    let priceText: String
-    let imageURL: String?
 }

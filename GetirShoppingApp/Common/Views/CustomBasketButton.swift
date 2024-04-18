@@ -16,17 +16,10 @@ class CustomBasketButton: UIButton {
     private lazy var containerView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 8
-        view.layer.borderWidth = 1
         view.backgroundColor = UIColor.bgLight
-        view.layer.borderColor = UIColor.bgLight.cgColor
         view.layer.masksToBounds = true
-        view.layer.shadowOpacity = 1
-        view.layer.shadowOffset = CGSize(width: 0, height: 2)
-        view.layer.shadowRadius = 10
-        view.layer.shadowColor = UIColor.basketButtonShadow.cgColor
         return view
     }()
-    
     
     private lazy var textLabel: UILabel = {
         let label = UILabel()
@@ -37,7 +30,6 @@ class CustomBasketButton: UIButton {
         label.backgroundColor = UIColor.bgPrimary
         return label
     }()
-    
     
     private lazy var priceLabel: UILabel = {
         let label = UILabel()
