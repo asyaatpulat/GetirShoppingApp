@@ -10,7 +10,6 @@ import Foundation
 class BasketManager {
     
     static let shared = BasketManager()
-    
     private var basket: [Product: Int] = [:]
     
     func addProduct(_ product: Product) {
@@ -19,6 +18,7 @@ class BasketManager {
         } else {
             basket[product] = 1
         }
+        saveBasketToUserDefaults()
     }
     
     func removeProduct(_ product: Product) {
@@ -29,6 +29,7 @@ class BasketManager {
                 basket.removeValue(forKey: product)
             }
         }
+        saveBasketToUserDefaults()
     }
     
     func calculateTotalPrice() -> Double {
@@ -41,11 +42,32 @@ class BasketManager {
         return totalPrice
     }
     
+    func getProductCount(_ product: Product) -> Int? {
+        return basket[product]
+    }
+    
     func clearBasket() {
         basket.removeAll()
     }
     
     func getBasket() -> [Product: Int] {
         return basket
+    }
+    
+    func saveBasketToUserDefaults() {
+        let encoder = JSONEncoder()
+        if let encodedBasket = try? encoder.encode(basket) {
+            UserDefaults.standard.set(encodedBasket, forKey: "basket")
+        }
+    }
+    
+    // UserDefaults'tan sepet bilgilerini yüklemek için
+    func loadBasketFromUserDefaults() {
+        if let savedBasket = UserDefaults.standard.data(forKey: "basket") {
+            let decoder = JSONDecoder()
+            if let loadedBasket = try? decoder.decode([Product: Int].self, from: savedBasket) {
+                basket = loadedBasket
+            }
+        }
     }
 }
