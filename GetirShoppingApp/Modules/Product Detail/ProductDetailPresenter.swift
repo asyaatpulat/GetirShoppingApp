@@ -13,6 +13,12 @@ protocol ProductDetailPresenterProtocol: AnyObject {
     var router: ProductDetailRouterProtocol? {get set}
     
     func didAddProduct(_ product: Product)
+    func didRemoveProduct(_ product: Product)
+    func increaseProductCounter()
+    func decreaseProductCounter()
+    func updateTotalPriceLabel(_ price: Double)
+    func getProductCounter(_ product: Product) -> Int
+    func fetchTotalPrice()
 }
 
 
@@ -31,13 +37,41 @@ final class ProductDetailPresenter {
 }
 
 extension ProductDetailPresenter: ProductDetailPresenterProtocol {
+    func didRemoveProduct(_ product: Product) {
+        interactor?.removeProductFromCart(product)
+    }
+    
     func didAddProduct(_ product: Product) {
-        //
+        interactor?.addProductToCart(product)
+    }
+    
+    func increaseProductCounter() {
+        guard let product = product else { return }
+        interactor?.updateProductCounter(product, counter: 1)
+    }
+    
+    func decreaseProductCounter() {
+        guard let product = product else { return }
+        interactor?.updateProductCounter(product, counter: -1)
+    }
+    
+    func getProductCounter(_ product: Product) -> Int {
+        return interactor?.getProductCounter(product) ?? 0
+    }
+    
+    func fetchTotalPrice() {
+        guard let product = product else { return }
+        let totalPrice = interactor?.getTotalPrice(for: product) ?? 0
+        view?.updateTotalPriceLabel(totalPrice)
     }
 }
 
 extension ProductDetailPresenter: ProductDetailInteractorOutputProtocol {
     func configureProductDetails(with product: Product) {
         view?.displayProductDetails(with: product)
+    }
+    
+    func updateTotalPriceLabel(_ price: Double) {
+        view?.updateTotalPriceLabel(price)
     }
 }

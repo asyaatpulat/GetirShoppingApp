@@ -10,12 +10,27 @@ import SnapKit
 
 protocol ProductDetailViewControllerProtocol: AnyObject {
     func displayProductDetails(with product: Product)
+    func updateTotalPriceLabel(_ price: Double)
 }
+
+protocol ProductDetailDelegate: AnyObject {
+    func didUpdateProduct(_ product: Product)
+}
+
 
 class ProductDetailViewController: UIViewController, CustomStepperDelegate {
     
     var presenter: ProductDetailPresenterProtocol?
     let customButton = CustomCartButton()
+    weak var delegate: ProductDetailDelegate?
+    
+    func stepperDidIncrease() {
+        presenter?.increaseProductCounter()
+    }
+    
+    func stepperDidDecrease() {
+        presenter?.decreaseProductCounter()
+    }
     
     private lazy var containerView: UIView = {
         let view = UIView()
@@ -100,14 +115,7 @@ class ProductDetailViewController: UIViewController, CustomStepperDelegate {
         isStepperShown = true
         stepper.isHidden = false
         stepper.counterLabel.text = "1"
-        view.addSubview(stepper)
-        stepper.snp.makeConstraints{ make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
-            make.top.equalTo(bottomView.snp.top).offset(16)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(146)
-            make.height.equalTo(48)
-        }
+        presenter?.increaseProductCounter()
         stepper.updateMinusButton()
     }
     
@@ -117,6 +125,11 @@ class ProductDetailViewController: UIViewController, CustomStepperDelegate {
         stepper.delegate = self
         configureNavigationItem()
         setupViews()
+        fetchTotalPrice()
+    }
+    
+    private func fetchTotalPrice() {
+        presenter?.fetchTotalPrice()
     }
     
     private func configureNavigationItem() {
@@ -143,6 +156,7 @@ class ProductDetailViewController: UIViewController, CustomStepperDelegate {
         containerView.addSubview(productNameLabel)
         containerView.addSubview(attributeLabel)
         view.addSubview(bottomView)
+        view.addSubview(stepper)
         bottomView.addSubview(button)
         stepper.stackOrientation = .horizontal
         
@@ -186,6 +200,14 @@ class ProductDetailViewController: UIViewController, CustomStepperDelegate {
             make.top.equalTo(bottomView.snp.top).offset(16)
             make.height.equalTo(50)
         }
+        
+        stepper.snp.makeConstraints{ make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.top.equalTo(bottomView.snp.top).offset(16)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(146)
+            make.height.equalTo(48)
+        }
     }
 }
 
@@ -201,10 +223,28 @@ extension ProductDetailViewController: ProductDetailViewControllerProtocol {
         if let imageUrl = URL(string: product.imageURL ?? "") {
             self.productImageView.kf.setImage(with: imageUrl)
         }
+        let counter = presenter?.getProductCounter(product) ?? 0
+        stepper.counterLabel.text = "\(counter)"
+        if counter > 0 {
+            stepper.isHidden = false
+            button.isHidden = true
+            stepper.updateMinusButton()
+        } else {
+            stepper.isHidden = true
+            button.isHidden = false
+        }
+        delegate?.didUpdateProduct(product)
+    }
+    
+    func updateTotalPriceLabel(_ price: Double) {
+        customButton.updateTotalPriceLabel(price)
+        print(price)
     }
 }
+
+
 /*
-#Preview {
-    let view = ProductDetailViewController()
-    return view
-}*/
+ #Preview {
+ let view = ProductDetailViewController()
+ return view
+ }*/
