@@ -32,7 +32,7 @@ class CustomCartButton: UIButton {
     
     private lazy var textLabel: UILabel = {
         let label = UILabel()
-        label.text = "₺32,50"
+       // label.text = "₺0,00"
        // label.layer.cornerRadius = 8
         //label.layer.masksToBounds = true
         label.font = UIFont.systemFont(ofSize: 14)

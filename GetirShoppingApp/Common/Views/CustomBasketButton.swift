@@ -41,7 +41,7 @@ class CustomBasketButton: UIButton {
     
     private lazy var priceLabel: UILabel = {
         let label = UILabel()
-        label.text = "₺32,50"
+        label.text = "₺0,00"
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         label.textColor = UIColor.textPrimary
         label.textAlignment = .center
