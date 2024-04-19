@@ -17,6 +17,9 @@ protocol ProductListingPresenterProtocol: AnyObject {
     func fetchSuggestedProducts()
     func didSelectProduct(_ product: Product)
     func didTapCart()
+    func addProductToBasket(_ product: Product)
+    func updateProductCounter(_ product: Product, counter: Int)
+    func getProductCounter(_ product: Product) -> Int
 }
 
 final class ProductListingPresenter {
@@ -41,6 +44,23 @@ extension ProductListingPresenter: ProductListingPresenterProtocol {
     func didTapCart() {
         router?.navigateToProductBasket()
     }
+    
+    func addProductToBasket(_ product: Product) {
+        interactor?.addProductToBasket(product)
+    }
+    
+    func updateProductCounter(_ product: Product, counter: Int) {
+        interactor?.updateProductCounter(product, counter: counter)
+    }
+    
+    func getProductCounter(_ product: Product) -> Int {
+        interactor?.fetchTotalPrice()
+        return interactor?.getProductCounter(product) ?? 0
+    }
+    
+    func fetchTotalPrice() {
+        interactor?.fetchTotalPrice()
+    }
 }
 
 extension ProductListingPresenter: ProductListingInteractorOutputProtocol {
@@ -60,5 +80,9 @@ extension ProductListingPresenter: ProductListingInteractorOutputProtocol {
         DispatchQueue.main.async {
             self.view?.fetchProductsFailed(error: error)
         }
+    }
+    
+    func updateTotalPrice(_ totalPrice: Double) {
+        view?.updateTotalPriceLabel(totalPrice)
     }
 }

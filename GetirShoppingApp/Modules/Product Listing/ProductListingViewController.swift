@@ -11,6 +11,7 @@ protocol ProductListingViewControllerProtocol: AnyObject {
     func reloadProducts(_ products: [Product])
     func reloadSuggestedProducts(_ suggestedProducts: [Product])
     func fetchProductsFailed(error: Error)
+    func updateTotalPriceLabel(_ totalPrice: Double)
 }
 
 class ProductListingViewController: UIViewController {
@@ -19,7 +20,6 @@ class ProductListingViewController: UIViewController {
     private var products: [Product] = []
     private var suggestedProducts: [Product] = []
     var presenter: ProductListingPresenterProtocol?
-    var basketManager = BasketManager.shared
     
     private lazy var customCartButton: CustomCartButton = {
         let button = CustomCartButton()
@@ -27,11 +27,9 @@ class ProductListingViewController: UIViewController {
         return button
     }()
     
-    
     @objc private func customCartButtonTapped() {
         presenter?.didTapCart()
     }
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,19 +37,11 @@ class ProductListingViewController: UIViewController {
         setupCollectionView()
         presenter?.fetchProducts()
         presenter?.fetchSuggestedProducts()
-        basketManager.loadBasketFromUserDefaults()
-        configureCustomCartButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         collectionView.reloadData()
-        configureCustomCartButton()
-        
-    }
-    
-    func configureCustomCartButton() {
-        customCartButton.updateTotalPriceLabel(basketManager.calculateTotalPrice())
     }
     
     private func setupCollectionView() {
@@ -115,6 +105,10 @@ extension ProductListingViewController: ProductListingViewControllerProtocol {
     func fetchProductsFailed(error: Error) {
         print("data fetch failed.")
     }
+    
+    func updateTotalPriceLabel(_ totalPrice: Double) {
+        customCartButton.updateTotalPriceLabel(totalPrice)
+    }
 }
 
 extension ProductListingViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -144,26 +138,18 @@ extension ProductListingViewController: UICollectionViewDelegate, UICollectionVi
     }
 }
 
+
 extension ProductListingViewController: ProductListCellDelegate {
-    func addProductToBasket(_ product: Product) {
-        basketManager.addProduct(product)
-        let totalPrice = basketManager.calculateTotalPrice()
-        print(totalPrice)
-        customCartButton.updateTotalPriceLabel(totalPrice)
+    func addButtonTapped(for product: Product) {
+        presenter?.addProductToBasket(product)
     }
     
-    func updateProductCounter(_ product: Product, counter: Int) {
-        guard let currentCounter = basketManager.getBasket()[product] else { return }
-        let newCounter = max(0, currentCounter + counter)
-        
-        if newCounter > currentCounter {
-            basketManager.addProduct(product)
-        } else if newCounter < currentCounter {
-            basketManager.removeProduct(product)
-        }
-        
-        let totalPrice = basketManager.calculateTotalPrice()
-        customCartButton.updateTotalPriceLabel(totalPrice)
+    func updateProductCounter(for product: Product, counter: Int) {
+        presenter?.updateProductCounter(product, counter: counter)
+    }
+    
+    func getProductCounter(for product: Product) -> Int {
+        return presenter?.getProductCounter(product) ?? 0
     }
 }
 /*

@@ -10,16 +10,18 @@ import SnapKit
 import Kingfisher
 
 protocol ProductListCellDelegate: AnyObject {
-    func addProductToBasket(_ product: Product)
-    func updateProductCounter(_ product: Product, counter: Int)
+    func addButtonTapped(for product: Product)
+    func updateProductCounter(for product: Product, counter: Int)
+    func getProductCounter(for product: Product) -> Int
 }
 
 class ProductListCell: UICollectionViewCell, CustomStepperDelegate {
     
     static let reuseIdentifier = "ProductListCell"
-    weak var delegate: ProductListCellDelegate?
     var product: Product?
-    
+    var presenter: ProductListingPresenterProtocol?
+    weak var delegate: ProductListCellDelegate?
+
     private lazy var containerView: UIView = {
         let view = UIView()
         return view
@@ -139,7 +141,8 @@ class ProductListCell: UICollectionViewCell, CustomStepperDelegate {
         addButton.isHidden = true
         stepper.isHidden = false
         guard let product = self.product else { return }
-        delegate?.addProductToBasket(product)
+        delegate?.addButtonTapped(for: product)
+        // presenter?.addProductToBasket(product)
         stepper.counterLabel.text = "1"
         stepper.updateMinusButton()
     }
@@ -151,16 +154,28 @@ class ProductListCell: UICollectionViewCell, CustomStepperDelegate {
     
     func stepperDidIncrease() {
         guard let product = self.product else { return }
-        delegate?.updateProductCounter(product, counter: 1)
+        delegate?.updateProductCounter(for: product, counter: 1)
+        //presenter?.updateProductCounter(product, counter: 1)
     }
     
     func stepperDidDecrease() {
         guard let product = self.product else { return }
-        delegate?.updateProductCounter(product, counter: -1)
+        delegate?.updateProductCounter(for: product, counter: -1)
+        //presenter?.updateProductCounter(product, counter: -1)
     }
     
-    var basketManager = BasketManager()
-    
+    func setCount(count: Int) {
+        if count > 0 {
+            stepper.counterLabel.text = "\(count)"
+            stepper.isHidden = false
+            addButton.isHidden = true
+            stepper.updateMinusButton()
+        } else {
+            stepper.isHidden = true
+            addButton.isHidden = false
+        }
+    }
+        
     func configure(with product: Product) {
         self.product = product
         priceLabel.text = product.priceText
@@ -173,17 +188,9 @@ class ProductListCell: UICollectionViewCell, CustomStepperDelegate {
         if let imageUrl = URL(string: product.imageURL ?? "") {
             productImageView.kf.setImage(with: imageUrl)
         }
-        basketManager.loadBasketFromUserDefaults()
-        
-        if let count = basketManager.getBasket()[product] {
-            stepper.counterLabel.text = "\(count)"
-            stepper.isHidden = false
-            addButton.isHidden = true
-            stepper.updateMinusButton()
-        } else {
-            stepper.isHidden = true
-            addButton.isHidden = false
-        }
+        guard let delegate = delegate else { return }
+        let count = delegate.getProductCounter(for: product)
+        setCount(count: count)
     }
 }
 
