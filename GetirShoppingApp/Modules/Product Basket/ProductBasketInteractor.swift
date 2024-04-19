@@ -13,6 +13,9 @@ protocol ProductBasketInteractorProtocol: AnyObject {
     func fetchSuggestedProducts()
     func loadBasketData()
     func fetchTotalPrice()
+    func addProductToBasket(_ product: Product)
+    func updateProductCounter(_ product: Product, counter: Int)
+    func getProductCounter(_ product: Product) -> Int
 }
 
 protocol ProductBasketInteractorOutputProtocol: AnyObject {
@@ -55,6 +58,27 @@ final class ProductBasketInteractor: ProductBasketInteractorProtocol {
     func fetchTotalPrice() {
         let totalPrice = basketManager.calculateTotalPrice()
         presenter?.updatedTotalPrice(totalPrice)
+    }
+    
+    func addProductToBasket(_ product: Product) {
+        basketManager.addProduct(product)
+        presenter?.updatedTotalPrice(basketManager.calculateTotalPrice())
+    }
+    
+    func updateProductCounter(_ product: Product, counter: Int) {
+        guard let currentCounter = basketManager.getBasket()[product] else { return }
+        let newCounter = max(0, currentCounter + counter)
+        
+        if newCounter > currentCounter {
+            basketManager.addProduct(product)
+        } else if newCounter < currentCounter {
+            basketManager.removeProduct(product)
+        }
+        presenter?.updatedTotalPrice(basketManager.calculateTotalPrice())
+    }
+    
+    func getProductCounter(_ product: Product) -> Int {
+        return basketManager.getBasket()[product] ?? 0
     }
 }
 

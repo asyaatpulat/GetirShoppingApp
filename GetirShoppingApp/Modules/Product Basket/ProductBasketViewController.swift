@@ -137,11 +137,13 @@ extension ProductBasketViewController: UICollectionViewDelegate, UICollectionVie
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductBasketCell", for: indexPath) as! ProductBasketCell
             let product = products[indexPath.item]
+            cell.delegate = self
             cell.configure(with: product)
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductListCell", for: indexPath) as! ProductListCell
             let product = suggestedProducts[indexPath.item]
+            cell.delegate = self
             cell.configure(with: product)
             return cell
         }
@@ -194,6 +196,27 @@ extension ProductBasketViewController: ProductBasketViewControllerProtocol {
     
     func updateTotalPriceLabel(_ totalPrice: Double) {
         customBasketButton.updateTotalPriceLabel(totalPrice)
+    }
+}
+
+extension ProductBasketViewController: ProductListCellDelegate, ProductBasketCellDelegate {
+    func productDidReachZero(_ product: Product) {
+        if let index = products.firstIndex(where: { $0 == product }) {
+            products.remove(at: index)
+            collectionView.reloadData()
+        }
+    }
+    
+    func addButtonTapped(for product: Product) {
+        presenter?.addProductToBasket(product)
+    }
+    
+    func updateProductCounter(for product: Product, counter: Int) {
+        presenter?.updateProductCounter(product, counter: counter)
+    }
+    
+    func getProductCounter(for product: Product) -> Int {
+        return presenter?.getProductCounter(product) ?? 0
     }
 }
 /*

@@ -15,6 +15,9 @@ protocol ProductBasketPresenterProtocol: AnyObject {
     func fetchSuggestedProducts()
     func loadBasketData()
     func updatedTotalPrice(_ totalPrice: Double)
+    func addProductToBasket(_ product: Product)
+    func updateProductCounter(_ product: Product, counter: Int)
+    func getProductCounter(_ product: Product) -> Int
 }
 
 final class ProductBasketPresenter {
@@ -35,6 +38,19 @@ extension ProductBasketPresenter: ProductBasketPresenterProtocol {
     
     func fetchTotalPrice() {
         interactor?.fetchTotalPrice()
+    }
+    
+    func addProductToBasket(_ product: Product) {
+        interactor?.addProductToBasket(product)
+    }
+    
+    func updateProductCounter(_ product: Product, counter: Int) {
+        interactor?.updateProductCounter(product, counter: counter)
+    }
+    
+    func getProductCounter(_ product: Product) -> Int {
+        interactor?.fetchTotalPrice()
+        return interactor?.getProductCounter(product) ?? 0
     }
 }
 
