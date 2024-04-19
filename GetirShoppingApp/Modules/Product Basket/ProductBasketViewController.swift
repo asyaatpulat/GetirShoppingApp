@@ -11,6 +11,7 @@ protocol ProductBasketViewControllerProtocol: AnyObject {
     func reloadSuggestedProducts(_ suggestedProducts: [Product])
     func fetchProductsFailed(error: Error)
     func reloadProducts(_ products: [Product])
+    func updateTotalPriceLabel(_ totalPrice: Double)
 }
 
 class ProductBasketViewController: UIViewController {
@@ -103,7 +104,7 @@ class ProductBasketViewController: UIViewController {
                 //  section.contentInsets.leading = 16
                 //section.contentInsets.trailing = 16
                 //section.contentInsets.top = 16
-                section.contentInsets = .init(top: 12, leading: 16, bottom: 20, trailing: 16)
+                section.contentInsets = .init(top: 12, leading: 16, bottom: 32, trailing: 16)
                 section.interGroupSpacing = 24
                 return section
             } else {
@@ -113,7 +114,7 @@ class ProductBasketViewController: UIViewController {
                 let section = NSCollectionLayoutSection(group: group)
                 section.boundarySupplementaryItems = [.init(layoutSize: (NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(16))), elementKind: ProductBasketViewController.categoryHeaderId, alignment: .topLeading)
                 ]
-                section.contentInsets = .init(top: 16, leading: 16, bottom: 0, trailing: 0)
+                section.contentInsets = .init(top: 12, leading: 16, bottom: 0, trailing: 0)
                 section.interGroupSpacing = 16
                 section.contentInsets.trailing = 16
                 section.orthogonalScrollingBehavior = .continuous
@@ -189,6 +190,10 @@ extension ProductBasketViewController: ProductBasketViewControllerProtocol {
     
     func fetchProductsFailed(error: Error) {
         print("data fetch failed.")
+    }
+    
+    func updateTotalPriceLabel(_ totalPrice: Double) {
+        customBasketButton.updateTotalPriceLabel(totalPrice)
     }
 }
 /*

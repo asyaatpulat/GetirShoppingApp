@@ -14,6 +14,7 @@ protocol ProductBasketPresenterProtocol: AnyObject {
     
     func fetchSuggestedProducts()
     func loadBasketData()
+    func updatedTotalPrice(_ totalPrice: Double)
 }
 
 final class ProductBasketPresenter {
@@ -29,12 +30,16 @@ extension ProductBasketPresenter: ProductBasketPresenterProtocol {
     
     func loadBasketData() {
         interactor?.loadBasketData()
+        interactor?.fetchTotalPrice()
+    }
+    
+    func fetchTotalPrice() {
+        interactor?.fetchTotalPrice()
     }
 }
 
 extension ProductBasketPresenter: ProductBasketInteractorOutputProtocol {
    
-    
     func fetchSuggestedProductsOutput(result: [Product]) {
         DispatchQueue.main.async {
             self.view?.reloadSuggestedProducts(result)
@@ -53,4 +58,8 @@ extension ProductBasketPresenter: ProductBasketInteractorOutputProtocol {
         }
     }
     
+    func updatedTotalPrice(_ totalPrice: Double) {
+        view?.updateTotalPriceLabel(totalPrice)
+    }
+
 }

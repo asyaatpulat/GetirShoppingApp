@@ -12,12 +12,14 @@ protocol ProductBasketInteractorProtocol: AnyObject {
     var presenter: ProductBasketInteractorOutputProtocol? { get set }
     func fetchSuggestedProducts()
     func loadBasketData()
+    func fetchTotalPrice()
 }
 
 protocol ProductBasketInteractorOutputProtocol: AnyObject {
     func fetchSuggestedProductsOutput(result: [Product])
     func fetchProductsFailed(error: Error)
     func loadedBasketDataOutput(result: [Product])
+    func updatedTotalPrice(_ totalPrice: Double)
 }
 
 final class ProductBasketInteractor: ProductBasketInteractorProtocol {
@@ -48,6 +50,11 @@ final class ProductBasketInteractor: ProductBasketInteractorProtocol {
         let basket = basketManager.getBasket()
         let products = Array(basket.keys)
         presenter?.loadedBasketDataOutput(result: products)
+    }
+    
+    func fetchTotalPrice() {
+        let totalPrice = basketManager.calculateTotalPrice()
+        presenter?.updatedTotalPrice(totalPrice)
     }
 }
 

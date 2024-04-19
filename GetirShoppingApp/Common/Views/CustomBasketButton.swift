@@ -33,7 +33,7 @@ class CustomBasketButton: UIButton {
     
     private lazy var priceLabel: UILabel = {
         let label = UILabel()
-        label.text = "₺0,00"
+       // label.text = "₺0,00"
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         label.textColor = UIColor.textPrimary
         label.textAlignment = .center
@@ -80,6 +80,10 @@ class CustomBasketButton: UIButton {
     
     @objc private func buttonTapped() {
         // Handle button tap event
+    }
+    
+    func updateTotalPriceLabel(_ totalPrice: Double) {
+        priceLabel.text = "₺\(String(format: "%.2f", totalPrice))"
     }
 }
 
