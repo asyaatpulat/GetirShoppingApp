@@ -48,6 +48,7 @@ class BasketManager {
     
     func clearBasket() {
         basket.removeAll()
+        saveBasketToUserDefaults()
     }
     
     func getBasket() -> [Product: Int] {
@@ -61,7 +62,6 @@ class BasketManager {
         }
     }
     
-    // UserDefaults'tan sepet bilgilerini yüklemek için
     func loadBasketFromUserDefaults() {
         if let savedBasket = UserDefaults.standard.data(forKey: "basket") {
             let decoder = JSONDecoder()
