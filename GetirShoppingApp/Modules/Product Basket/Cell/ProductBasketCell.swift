@@ -42,8 +42,8 @@ class ProductBasketCell: UICollectionViewCell, CustomStepperDelegate {
         label.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
         label.textColor = UIColor(named: "textDark")
         label.text = "Product Name"
-        label.numberOfLines = 1
-        label.lineBreakMode = .byTruncatingTail
+        label.numberOfLines = 2
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
     

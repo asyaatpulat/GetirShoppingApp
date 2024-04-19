@@ -16,6 +16,7 @@ protocol ProductBasketInteractorProtocol: AnyObject {
     func addProductToBasket(_ product: Product)
     func updateProductCounter(_ product: Product, counter: Int)
     func getProductCounter(_ product: Product) -> Int
+    func clearBasket()
 }
 
 protocol ProductBasketInteractorOutputProtocol: AnyObject {
@@ -23,6 +24,7 @@ protocol ProductBasketInteractorOutputProtocol: AnyObject {
     func fetchProductsFailed(error: Error)
     func loadedBasketDataOutput(result: [Product])
     func updatedTotalPrice(_ totalPrice: Double)
+    func updatedProductsInBasket(_ products: [Product])
 }
 
 final class ProductBasketInteractor: ProductBasketInteractorProtocol {
@@ -63,6 +65,9 @@ final class ProductBasketInteractor: ProductBasketInteractorProtocol {
     func addProductToBasket(_ product: Product) {
         basketManager.addProduct(product)
         presenter?.updatedTotalPrice(basketManager.calculateTotalPrice())
+        let updatedProducts = Array(basketManager.getBasket().keys)
+           presenter?.updatedProductsInBasket(updatedProducts)
+        
     }
     
     func updateProductCounter(_ product: Product, counter: Int) {
@@ -75,10 +80,16 @@ final class ProductBasketInteractor: ProductBasketInteractorProtocol {
             basketManager.removeProduct(product)
         }
         presenter?.updatedTotalPrice(basketManager.calculateTotalPrice())
+        let updatedProducts = Array(basketManager.getBasket().keys)
+           presenter?.updatedProductsInBasket(updatedProducts)
     }
     
     func getProductCounter(_ product: Product) -> Int {
         return basketManager.getBasket()[product] ?? 0
+    }
+    
+    func clearBasket() {
+        basketManager.clearBasket()
     }
 }
 

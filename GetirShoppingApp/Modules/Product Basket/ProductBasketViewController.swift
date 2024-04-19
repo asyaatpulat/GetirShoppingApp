@@ -12,6 +12,7 @@ protocol ProductBasketViewControllerProtocol: AnyObject {
     func fetchProductsFailed(error: Error)
     func reloadProducts(_ products: [Product])
     func updateTotalPriceLabel(_ totalPrice: Double)
+    func reloadNewProducts(_ products: [Product])
 }
 
 class ProductBasketViewController: UIViewController {
@@ -52,9 +53,13 @@ class ProductBasketViewController: UIViewController {
     }
     
     @objc private func trashButtonTapped() {
-        //
+        presenter?.clearBasket()
+        self.products.removeAll()
+        self.suggestedProducts.removeAll()
+        dismiss(animated: true)
+
     }
-    
+
     @objc private func closeButtonTapped() {
         dismiss(animated: true)
     }
@@ -180,6 +185,12 @@ class Header: UICollectionReusableView {
 }
 
 extension ProductBasketViewController: ProductBasketViewControllerProtocol {
+    func reloadNewProducts(_ products: [Product]) {
+           self.products = products
+           collectionView.reloadData()
+       }
+    
+    
     func reloadProducts(_ products: [Product]) {
         self.products = products
         self.collectionView.reloadData()
@@ -196,6 +207,11 @@ extension ProductBasketViewController: ProductBasketViewControllerProtocol {
     
     func updateTotalPriceLabel(_ totalPrice: Double) {
         customBasketButton.updateTotalPriceLabel(totalPrice)
+    }
+    
+    func updatedCell(_ products: [Product]) {
+        self.products = products
+        self.collectionView.reloadData()
     }
 }
 
