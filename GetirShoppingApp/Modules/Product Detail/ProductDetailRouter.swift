@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol ProductDetailRouterProtocol: AnyObject {
-    
+    func navigateToProductBasket()
 }
 
 
@@ -33,6 +33,15 @@ class ProductDetailRouter: ProductDetailRouterProtocol {
         presenter.product = product
 
         return productDetailViewController
+    }
+    
+    func navigateToProductBasket() {
+        guard let productBasketViewController = ProductBasketRouter.createModule() as? ProductBasketViewController else {
+            return
+        }
+        let nav = UINavigationController(rootViewController: productBasketViewController)
+        nav.modalPresentationStyle = .fullScreen
+        view?.present(nav, animated: true, completion: nil)
     }
 }
 

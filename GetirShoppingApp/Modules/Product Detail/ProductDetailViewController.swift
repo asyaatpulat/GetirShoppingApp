@@ -11,6 +11,7 @@ import SnapKit
 protocol ProductDetailViewControllerProtocol: AnyObject {
     func displayProductDetails(with product: Product)
     func updateTotalPriceLabel(_ price: Double)
+    func updateItemCounter(_ count : Int)
 }
 
 protocol ProductDetailDelegate: AnyObject {
@@ -21,7 +22,6 @@ protocol ProductDetailDelegate: AnyObject {
 class ProductDetailViewController: UIViewController, CustomStepperDelegate {
     
     var presenter: ProductDetailPresenterProtocol?
-    let customButton = CustomCartButton()
     weak var delegate: ProductDetailDelegate?
     
     func stepperDidIncrease() {
@@ -30,6 +30,16 @@ class ProductDetailViewController: UIViewController, CustomStepperDelegate {
     
     func stepperDidDecrease() {
         presenter?.decreaseProductCounter()
+    }
+    
+    private lazy var customButton: CustomCartButton = {
+        let button = CustomCartButton()
+        button.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(customCartButtonTapped)))
+        return button
+    }()
+    
+    @objc private func customCartButtonTapped() {
+        presenter?.didTapCart()
     }
     
     private lazy var containerView: UIView = {
@@ -128,13 +138,26 @@ class ProductDetailViewController: UIViewController, CustomStepperDelegate {
         fetchTotalPrice()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchTotalPrice()
+        getItemCounter()
+    }
+    
+    private func getItemCounter() {
+        presenter?.updateItemCounter()
+    }
+    
     private func fetchTotalPrice() {
         presenter?.fetchTotalPrice()
     }
-    
+        
     private func configureNavigationItem() {
         navigationItem.title = "Ürün Detayı"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(closeButtonTapped))
+        if let closeImage = UIImage(named: "closeIcon") {
+            let barButtonItem = UIBarButtonItem(image: closeImage, style: .plain, target: self, action: #selector(closeButtonTapped))
+            navigationItem.leftBarButtonItem = barButtonItem
+        }
         let barButtonItem = UIBarButtonItem(customView: customButton)
         navigationItem.rightBarButtonItem = barButtonItem
         
@@ -224,7 +247,7 @@ extension ProductDetailViewController: ProductDetailViewControllerProtocol {
             self.productImageView.kf.setImage(with: imageUrl)
         }
         let counter = presenter?.getProductCounter(product) ?? 0
-        stepper.counterLabel.text = "\(counter)"
+        self.stepper.counterLabel.text = "\(counter)"
         if counter > 0 {
             stepper.isHidden = false
             button.isHidden = true
@@ -239,6 +262,17 @@ extension ProductDetailViewController: ProductDetailViewControllerProtocol {
     func updateTotalPriceLabel(_ price: Double) {
         customButton.updateTotalPriceLabel(price)
         print(price)
+    }
+    
+    func updateItemCounter(_ count : Int) {
+        if count > 0 {
+            stepper.isHidden = false
+            button.isHidden = true
+            stepper.updateMinusButton()
+        } else {
+            stepper.isHidden = true
+            button.isHidden = false
+        }
     }
 }
 

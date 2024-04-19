@@ -56,6 +56,7 @@ final class ProductDetailInteractor: ProductDetailInteractorProtocol {
     }
     
     func getTotalPrice(for product: Product) -> Double {
+        basketManager.loadBasketFromUserDefaults()
         return basketManager.calculateTotalPrice()
     }
 }

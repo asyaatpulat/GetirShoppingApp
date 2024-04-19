@@ -19,6 +19,8 @@ protocol ProductDetailPresenterProtocol: AnyObject {
     func updateTotalPriceLabel(_ price: Double)
     func getProductCounter(_ product: Product) -> Int
     func fetchTotalPrice()
+    func didTapCart()
+    func updateItemCounter()
 }
 
 
@@ -64,6 +66,16 @@ extension ProductDetailPresenter: ProductDetailPresenterProtocol {
         let totalPrice = interactor?.getTotalPrice(for: product) ?? 0
         view?.updateTotalPriceLabel(totalPrice)
     }
+    
+    func updateItemCounter() {
+        guard let product = product else { return }
+        let itemCounter = interactor?.getProductCounter(product) ?? 0
+        view?.updateItemCounter(itemCounter)
+    }
+    
+    func didTapCart() {
+        router?.navigateToProductBasket()
+    }
 }
 
 extension ProductDetailPresenter: ProductDetailInteractorOutputProtocol {
@@ -74,4 +86,5 @@ extension ProductDetailPresenter: ProductDetailInteractorOutputProtocol {
     func updateTotalPriceLabel(_ price: Double) {
         view?.updateTotalPriceLabel(price)
     }
+    
 }
