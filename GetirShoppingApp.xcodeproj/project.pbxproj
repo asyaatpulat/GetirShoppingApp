@@ -143,6 +143,7 @@
 		222E8EB52BC5C88E00CAE565 /* GetirShoppingApp */ = {
 			isa = PBXGroup;
 			children = (
+				222E8F272BD3DDE200CAE565 /* Core */,
 				222E8EFC2BC981A800CAE565 /* Model */,
 				222E8EF92BC97A5600CAE565 /* API */,
 				222E8EF12BC8151800CAE565 /* Common */,
@@ -176,10 +177,9 @@
 		222E8EE62BC5E00A00CAE565 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				222E8F152BCEBC0E00CAE565 /* Product Basket */,
-				222E8EF62BC816D600CAE565 /* Product Detail */,
-				222E8EEA2BC5EAEA00CAE565 /* Product Listing */,
-				222E8F1F2BD00B2900CAE565 /* BasketManager.swift */,
+				222E8F152BCEBC0E00CAE565 /* ProductBasket */,
+				222E8EF62BC816D600CAE565 /* ProductDetail */,
+				222E8EEA2BC5EAEA00CAE565 /* ProductListing */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -201,16 +201,16 @@
 			path = App;
 			sourceTree = "<group>";
 		};
-		222E8EEA2BC5EAEA00CAE565 /* Product Listing */ = {
+		222E8EEA2BC5EAEA00CAE565 /* ProductListing */ = {
 			isa = PBXGroup;
 			children = (
 				222E8EEB2BC5EC0B00CAE565 /* Cell */,
 				222E8EBA2BC5C88E00CAE565 /* ProductListingViewController.swift */,
-				222E8EFF2BCB19F300CAE565 /* ProductListingInteractor.swift */,
 				222E8F012BCB1A0F00CAE565 /* ProductListingPresenter.swift */,
+				222E8EFF2BCB19F300CAE565 /* ProductListingInteractor.swift */,
 				222E8F032BCB1A3900CAE565 /* ProductListingRouter.swift */,
 			);
-			path = "Product Listing";
+			path = ProductListing;
 			sourceTree = "<group>";
 		};
 		222E8EEB2BC5EC0B00CAE565 /* Cell */ = {
@@ -240,7 +240,7 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		222E8EF62BC816D600CAE565 /* Product Detail */ = {
+		222E8EF62BC816D600CAE565 /* ProductDetail */ = {
 			isa = PBXGroup;
 			children = (
 				222E8EF72BC816F000CAE565 /* ProductDetailViewController.swift */,
@@ -248,7 +248,7 @@
 				222E8F112BCDC3B600CAE565 /* ProductDetailInteractor.swift */,
 				222E8F132BCDC3CA00CAE565 /* ProductDetailRouter.swift */,
 			);
-			path = "Product Detail";
+			path = ProductDetail;
 			sourceTree = "<group>";
 		};
 		222E8EF92BC97A5600CAE565 /* API */ = {
@@ -267,16 +267,16 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		222E8F152BCEBC0E00CAE565 /* Product Basket */ = {
+		222E8F152BCEBC0E00CAE565 /* ProductBasket */ = {
 			isa = PBXGroup;
 			children = (
 				222E8F182BCEBC5700CAE565 /* Cell */,
 				222E8F162BCEBC4D00CAE565 /* ProductBasketViewController.swift */,
-				222E8F252BD1C42900CAE565 /* ProductBasketRouter.swift */,
 				222E8F232BD1C40900CAE565 /* ProductBasketPresenter.swift */,
 				222E8F212BD1C3F000CAE565 /* ProductBasketInteractor.swift */,
+				222E8F252BD1C42900CAE565 /* ProductBasketRouter.swift */,
 			);
-			path = "Product Basket";
+			path = ProductBasket;
 			sourceTree = "<group>";
 		};
 		222E8F182BCEBC5700CAE565 /* Cell */ = {
@@ -285,6 +285,14 @@
 				222E8F1B2BCEC63700CAE565 /* ProductBasketCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		222E8F272BD3DDE200CAE565 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				222E8F1F2BD00B2900CAE565 /* BasketManager.swift */,
+			);
+			path = Core;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
