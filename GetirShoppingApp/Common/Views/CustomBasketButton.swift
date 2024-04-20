@@ -58,7 +58,6 @@ class CustomBasketButton: UIButton {
         
         containerView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
-            make.width.equalTo(351)
             make.height.equalTo(50)
         }
         
@@ -74,12 +73,6 @@ class CustomBasketButton: UIButton {
             make.top.bottom.equalToSuperview()
             make.width.equalTo(116)
         }
-        
-        addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-    }
-    
-    @objc private func buttonTapped() {
-        // Handle button tap event
     }
     
     func updateTotalPriceLabel(_ totalPrice: Double) {

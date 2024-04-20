@@ -57,7 +57,6 @@ class ProductBasketViewController: UIViewController {
         self.products.removeAll()
         self.suggestedProducts.removeAll()
         dismiss(animated: true)
-
     }
 
     @objc private func closeButtonTapped() {
@@ -96,7 +95,31 @@ class ProductBasketViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-8)
             make.height.equalTo(50)
         }
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(customBasketButtonTapped))
+        customBasketButton.addGestureRecognizer(gesture)
         view.backgroundColor = .bgLight
+    }
+    
+    @objc private func customBasketButtonTapped() {
+        let totalPrice = presenter?.fetchedTotalPrice() ?? 0.0
+        let price = "₺\(String(format: "%.2f", totalPrice))"
+        let successMessage = "Toplam alışveriş tutarınız \(price)!"
+        
+        showAlert(with: "İşlem Başarılı", message: successMessage) {
+            self.dismiss(animated: true, completion: nil)
+        }
+        presenter?.clearBasket()
+        self.products.removeAll()
+        self.suggestedProducts.removeAll()
+    }
+    
+  
+    private func showAlert(with title: String, message: String, completion: (() -> Void)?) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+            completion?()
+        })
+        present(alertController, animated: true, completion: nil)
     }
     
     func createLayout() -> UICollectionViewCompositionalLayout {

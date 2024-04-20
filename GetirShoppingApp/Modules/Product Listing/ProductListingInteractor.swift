@@ -83,6 +83,7 @@ final class ProductListingInteractor: ProductListingInteractorProtocol {
     }
     
     func fetchTotalPrice() {
+        basketManager.loadBasketFromUserDefaults()
         let totalPrice = basketManager.calculateTotalPrice()
         presenter?.updateTotalPrice(totalPrice)
     }

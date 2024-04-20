@@ -64,6 +64,7 @@ extension ProductListingPresenter: ProductListingPresenterProtocol {
 }
 
 extension ProductListingPresenter: ProductListingInteractorOutputProtocol {
+    
     func fetchProductsOutput(result: [Product]) {
         DispatchQueue.main.async {
             self.view?.reloadProducts(result)
