@@ -35,7 +35,7 @@ class CustomCartButton: UIButton {
        // label.text = "₺0,00"
        // label.layer.cornerRadius = 8
         //label.layer.masksToBounds = true
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = UIFont(name: "OpenSans-Bold", size: 14)
         label.textColor = UIColor.textPrimary
         label.textAlignment = .center
         label.backgroundColor = UIColor.bgPrimarySubtle
@@ -88,7 +88,3 @@ class CustomCartButton: UIButton {
 }
 
 
-#Preview {
-    let cell = CustomCartButton()
-    return cell
-}

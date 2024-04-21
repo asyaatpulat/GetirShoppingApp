@@ -24,7 +24,7 @@ class CustomBasketButton: UIButton {
     private lazy var textLabel: UILabel = {
         let label = UILabel()
         label.text = "Siparişi Tamamla"
-        label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+        label.font = UIFont(name: "OpenSans-Bold", size: 14)
         label.textColor = UIColor.textLight
         label.textAlignment = .center
         label.backgroundColor = UIColor.bgPrimary
@@ -34,7 +34,7 @@ class CustomBasketButton: UIButton {
     private lazy var priceLabel: UILabel = {
         let label = UILabel()
        // label.text = "₺0,00"
-        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        label.font = UIFont(name: "OpenSans-Bold", size: 20)
         label.textColor = UIColor.textPrimary
         label.textAlignment = .center
         label.backgroundColor = UIColor.bgLight
@@ -81,7 +81,3 @@ class CustomBasketButton: UIButton {
 }
 
 
-#Preview {
-    let cell = CustomBasketButton()
-    return cell
-}

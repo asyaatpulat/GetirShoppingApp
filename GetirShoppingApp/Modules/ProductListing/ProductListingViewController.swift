@@ -59,6 +59,11 @@ class ProductListingViewController: UIViewController {
     
     private func configureNavigationItem() {
         navigationItem.title = "Ürünler"
+        if let font = UIFont(name: "OpenSans-Bold", size: 14) {
+            navigationController?.navigationBar.titleTextAttributes = [
+                NSAttributedString.Key.font: font,
+            ]
+        }
         let barButtonItem = UIBarButtonItem(customView: customCartButton)
         navigationItem.rightBarButtonItem = barButtonItem
     }
@@ -108,6 +113,11 @@ extension ProductListingViewController: ProductListingViewControllerProtocol {
     
     func updateTotalPriceLabel(_ totalPrice: Double) {
         customCartButton.updateTotalPriceLabel(totalPrice)
+        if totalPrice == 0 {
+            customCartButton.isHidden = true
+        } else {
+            customCartButton.isHidden = false
+        }
     }
 }
 

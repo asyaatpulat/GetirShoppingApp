@@ -39,17 +39,17 @@ class ProductBasketCell: UICollectionViewCell, CustomStepperDelegate {
     
     private lazy var productNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
+        label.font = UIFont(name: "OpenSans-SemiBold", size: 12)
         label.textColor = UIColor(named: "textDark")
         label.text = "Product Name"
-        label.numberOfLines = 2
-        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 1
+        label.lineBreakMode = .byTruncatingTail
         return label
     }()
     
     private lazy var attributeLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
+        label.font = UIFont(name: "OpenSans-SemiBold", size: 12)
         label.textColor = UIColor(named: "textSecondary")
         label.text = "Attribute"
         label.numberOfLines = 2
@@ -59,7 +59,7 @@ class ProductBasketCell: UICollectionViewCell, CustomStepperDelegate {
     
     lazy var priceLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+        label.font = UIFont(name: "OpenSans-Bold", size: 14)
         label.textColor = UIColor(named: "textPrimary")
         label.text = "test"
         label.numberOfLines = 2
@@ -110,7 +110,7 @@ class ProductBasketCell: UICollectionViewCell, CustomStepperDelegate {
         productNameLabel.snp.makeConstraints { make in
             make.leading.equalTo(productImageView.snp.trailing).offset(12)
             make.top.equalTo(containerView.snp.top).offset(8.5)
-            make.trailing.equalTo(stepper.snp.leading).inset(12)
+            make.trailing.equalTo(stepper.snp.leading).offset(-12)
         }
         
         attributeLabel.snp.makeConstraints { make in
@@ -166,10 +166,4 @@ class ProductBasketCell: UICollectionViewCell, CustomStepperDelegate {
             stepperDidReachZero()
         }
     }
-}
-
-
-#Preview {
-    let a = ProductBasketCell()
-    return a
 }

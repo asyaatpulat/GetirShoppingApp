@@ -31,7 +31,7 @@ class ProductListCell: UICollectionViewCell, CustomStepperDelegate {
     
     lazy var priceLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+        label.font = UIFont(name: "OpenSans-Bold", size: 14)
         label.textColor = UIColor(named: "textPrimary")
         label.text = "test"
         label.numberOfLines = 2
@@ -41,7 +41,7 @@ class ProductListCell: UICollectionViewCell, CustomStepperDelegate {
     
     private lazy var productNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
+        label.font = UIFont(name: "OpenSans-SemiBold", size: 12)
         label.textColor = UIColor(named: "textDark")
         label.text = "Product Name"
         label.numberOfLines = 1
@@ -51,7 +51,7 @@ class ProductListCell: UICollectionViewCell, CustomStepperDelegate {
     
     private lazy var attributeLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
+        label.font = UIFont(name: "OpenSans-SemiBold", size: 12)
         label.textColor = UIColor(named: "textSecondary")
         label.text = "Attribute"
         label.numberOfLines = 2
@@ -175,7 +175,7 @@ class ProductListCell: UICollectionViewCell, CustomStepperDelegate {
             addButton.isHidden = false
         }
     }
-        
+            
     func configure(with product: Product) {
         self.product = product
         priceLabel.text = product.priceText
@@ -192,9 +192,5 @@ class ProductListCell: UICollectionViewCell, CustomStepperDelegate {
         let count = delegate.getProductCounter(for: product)
         setCount(count: count)
     }
-}
-
-#Preview {
-    let cell = ProductListCell()
-    return cell
+  
 }

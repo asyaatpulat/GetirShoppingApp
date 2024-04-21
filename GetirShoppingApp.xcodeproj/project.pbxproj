@@ -38,6 +38,8 @@
 		222E8F222BD1C3F100CAE565 /* ProductBasketInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222E8F212BD1C3F000CAE565 /* ProductBasketInteractor.swift */; };
 		222E8F242BD1C40900CAE565 /* ProductBasketPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222E8F232BD1C40900CAE565 /* ProductBasketPresenter.swift */; };
 		222E8F262BD1C42900CAE565 /* ProductBasketRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222E8F252BD1C42900CAE565 /* ProductBasketRouter.swift */; };
+		222E8F2B2BD500AE00CAE565 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 222E8F292BD500AD00CAE565 /* OpenSans-Bold.ttf */; };
+		222E8F2C2BD500AE00CAE565 /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 222E8F2A2BD500AD00CAE565 /* OpenSans-SemiBold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +93,8 @@
 		222E8F212BD1C3F000CAE565 /* ProductBasketInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductBasketInteractor.swift; sourceTree = "<group>"; };
 		222E8F232BD1C40900CAE565 /* ProductBasketPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductBasketPresenter.swift; sourceTree = "<group>"; };
 		222E8F252BD1C42900CAE565 /* ProductBasketRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductBasketRouter.swift; sourceTree = "<group>"; };
+		222E8F292BD500AD00CAE565 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
+		222E8F2A2BD500AD00CAE565 /* OpenSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiBold.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,6 +191,7 @@
 		222E8EE72BC5E03D00CAE565 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				222E8F282BD5002300CAE565 /* Fonts */,
 				222E8EBF2BC5C89300CAE565 /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -293,6 +298,15 @@
 				222E8F1F2BD00B2900CAE565 /* BasketManager.swift */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		222E8F282BD5002300CAE565 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				222E8F292BD500AD00CAE565 /* OpenSans-Bold.ttf */,
+				222E8F2A2BD500AD00CAE565 /* OpenSans-SemiBold.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -409,6 +423,8 @@
 			files = (
 				222E8EC32BC5C89300CAE565 /* LaunchScreen.storyboard in Resources */,
 				222E8EC02BC5C89300CAE565 /* Assets.xcassets in Resources */,
+				222E8F2C2BD500AE00CAE565 /* OpenSans-SemiBold.ttf in Resources */,
+				222E8F2B2BD500AE00CAE565 /* OpenSans-Bold.ttf in Resources */,
 				222E8EBE2BC5C88E00CAE565 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -645,6 +661,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -672,6 +689,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

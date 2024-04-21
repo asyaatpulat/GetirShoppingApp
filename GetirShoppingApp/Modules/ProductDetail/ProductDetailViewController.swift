@@ -61,7 +61,7 @@ class ProductDetailViewController: UIViewController, CustomStepperDelegate {
     
     private lazy var priceLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        label.font = UIFont(name: "OpenSans-Bold", size: 20)
         label.textAlignment = .center
         label.textColor = UIColor(named: "textPrimary")
         return label
@@ -69,7 +69,7 @@ class ProductDetailViewController: UIViewController, CustomStepperDelegate {
     
     private lazy var productNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        label.font = UIFont(name: "OpenSans-SemiBold", size: 16)
         label.textColor = UIColor(named: "textDark")
         label.textAlignment = .center
         return label
@@ -77,7 +77,7 @@ class ProductDetailViewController: UIViewController, CustomStepperDelegate {
     
     private lazy var attributeLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
+        label.font = UIFont(name: "OpenSans-SemiBold", size: 12)
         label.textColor = UIColor(named: "textSecondary")
         label.textAlignment = .center
         return label
@@ -96,6 +96,7 @@ class ProductDetailViewController: UIViewController, CustomStepperDelegate {
     private lazy var button: UIButton = {
         let button = UIButton()
         button.setTitle("Sepete Ekle", for: .normal)
+        button.titleLabel?.font = UIFont(name: "OpenSans-Bold", size: 14)
         button.backgroundColor = .blue
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
@@ -154,6 +155,12 @@ class ProductDetailViewController: UIViewController, CustomStepperDelegate {
         
     private func configureNavigationItem() {
         navigationItem.title = "Ürün Detayı"
+        if let font = UIFont(name: "OpenSans-Bold", size: 14) {
+            navigationController?.navigationBar.titleTextAttributes = [
+                NSAttributedString.Key.font: font,
+            ]
+        }
+
         if let closeImage = UIImage(named: "closeIcon") {
             let barButtonItem = UIBarButtonItem(image: closeImage, style: .plain, target: self, action: #selector(closeButtonTapped))
             navigationItem.leftBarButtonItem = barButtonItem
@@ -261,7 +268,11 @@ extension ProductDetailViewController: ProductDetailViewControllerProtocol {
     
     func updateTotalPriceLabel(_ price: Double) {
         customButton.updateTotalPriceLabel(price)
-        print(price)
+        if price == 0 {
+            customButton.isHidden = true
+        } else {
+            customButton.isHidden = false
+        }
     }
     
     func updateItemCounter(_ count : Int) {

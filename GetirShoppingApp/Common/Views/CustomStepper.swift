@@ -165,8 +165,3 @@ class CustomStepper : UIView {
 }
 
 
-#Preview {
-    let a = CustomStepper(orientation: .horizontal)
-    return a
-}
-

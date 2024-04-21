@@ -35,6 +35,11 @@ class ProductBasketViewController: UIViewController {
     
     private func configureNavigationItem() {
         navigationItem.title = "Sepetim"
+        if let font = UIFont(name: "OpenSans-Bold", size: 14) {
+            navigationController?.navigationBar.titleTextAttributes = [
+                NSAttributedString.Key.font: font,
+            ]
+        }
         if let closeImage = UIImage(named: "closeIcon") {
             let barButtonItem = UIBarButtonItem(image: closeImage, style: .plain, target: self, action: #selector(closeButtonTapped))
             navigationItem.leftBarButtonItem = barButtonItem
