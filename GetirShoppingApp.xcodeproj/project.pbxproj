@@ -131,6 +131,7 @@
 				222E8ECC2BC5C89400CAE565 /* GetirShoppingAppTests */,
 				222E8ED62BC5C89400CAE565 /* GetirShoppingAppUITests */,
 				222E8EB42BC5C88E00CAE565 /* Products */,
+				222E8F2F2BD50DC400CAE565 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -309,6 +310,13 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		222E8F2F2BD50DC400CAE565 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -319,6 +327,7 @@
 				222E8EAF2BC5C88E00CAE565 /* Sources */,
 				222E8EB02BC5C88E00CAE565 /* Frameworks */,
 				222E8EB12BC5C88E00CAE565 /* Resources */,
+				222E8F2E2BD50C6B00CAE565 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -404,6 +413,7 @@
 			packageReferences = (
 				222E8EEE2BC6BAED00CAE565 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				222E8F0A2BCD36C500CAE565 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				222E8F2D2BD50C2E00CAE565 /* XCRemoteSwiftPackageReference "SwiftLint" */,
 			);
 			productRefGroup = 222E8EB42BC5C88E00CAE565 /* Products */;
 			projectDirPath = "";
@@ -444,6 +454,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		222E8F2E2BD50C6B00CAE565 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n  swiftlint --fix && swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		222E8EAF2BC5C88E00CAE565 /* Sources */ = {
@@ -655,6 +685,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = V7HUW8QLS9;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GetirShoppingApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -683,6 +714,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = V7HUW8QLS9;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GetirShoppingApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -835,6 +867,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 7.11.0;
+			};
+		};
+		222E8F2D2BD50C2E00CAE565 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/SwiftLint.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.54.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

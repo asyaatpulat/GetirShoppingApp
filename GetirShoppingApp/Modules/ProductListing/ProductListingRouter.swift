@@ -15,11 +15,11 @@ protocol ProductListingRouterProtocol: AnyObject {
 
 class ProductListingRouter: ProductListingRouterProtocol {
     private weak var view: UIViewController?
-    
+
     init(view: UIViewController? = nil) {
         self.view = view
     }
-    
+
     static func createModule() -> UIViewController {
         let productListingViewController = ProductListingViewController()
         let presenter = ProductListingPresenter()
@@ -33,7 +33,7 @@ class ProductListingRouter: ProductListingRouterProtocol {
         presenter.router = router
         return productListingViewController
     }
-    
+
     func navigateToProductDetail(with product: Product) {
         guard let productDetailViewController = ProductDetailRouter.createModule(with: product) as? ProductDetailViewController else {
             return
@@ -42,7 +42,7 @@ class ProductListingRouter: ProductListingRouterProtocol {
         nav.modalPresentationStyle = .fullScreen
         view?.present(nav, animated: true, completion: nil)
     }
-    
+
     func navigateToProductBasket() {
         guard let productBasketViewController = ProductBasketRouter.createModule() as? ProductBasketViewController else {
             return

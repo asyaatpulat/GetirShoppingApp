@@ -12,14 +12,13 @@ protocol ProductDetailRouterProtocol: AnyObject {
     func navigateToProductBasket()
 }
 
-
 class ProductDetailRouter: ProductDetailRouterProtocol {
     private weak var view: UIViewController?
-    
+
     init(view: UIViewController? = nil) {
         self.view = view
     }
-    
+
     static func createModule(with product: Product) -> UIViewController {
         let productDetailViewController = ProductDetailViewController()
         let presenter = ProductDetailPresenter()
@@ -31,10 +30,9 @@ class ProductDetailRouter: ProductDetailRouterProtocol {
         presenter.view = productDetailViewController
         presenter.router = router
         presenter.product = product
-
         return productDetailViewController
     }
-    
+
     func navigateToProductBasket() {
         guard let productBasketViewController = ProductBasketRouter.createModule() as? ProductBasketViewController else {
             return
@@ -44,4 +42,3 @@ class ProductDetailRouter: ProductDetailRouterProtocol {
         view?.present(nav, animated: true, completion: nil)
     }
 }
-

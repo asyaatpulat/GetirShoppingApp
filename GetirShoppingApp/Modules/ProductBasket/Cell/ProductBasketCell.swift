@@ -9,27 +9,17 @@ import UIKit
 import SnapKit
 
 protocol ProductBasketCellDelegate: AnyObject {
-   // func addButtonTapped(for product: Product)
     func updateProductCounter(for product: Product, counter: Int)
     func getProductCounter(for product: Product) -> Int
     func productDidReachZero(_ product: Product)
 }
 
 class ProductBasketCell: UICollectionViewCell, CustomStepperDelegate {
-    func stepperDidIncrease() {
-        guard let product = self.product else { return }
-        delegate?.updateProductCounter(for: product, counter: 1)
-    }
-    
-    func stepperDidDecrease() {
-        guard let product = self.product else { return }
-        delegate?.updateProductCounter(for: product, counter: -1)
-    }
     
     static let reuseIdentifier = "ProductBasketCell"
     weak var delegate: ProductBasketCellDelegate?
     var product: Product?
-
+    
     private lazy var containerView: UIView = {
         let view = UIView()
         return view
@@ -103,7 +93,6 @@ class ProductBasketCell: UICollectionViewCell, CustomStepperDelegate {
         
         productImageView.snp.makeConstraints { make in
             make.leading.top.bottom.equalToSuperview()
-            //productImageView.backgroundColor = .cyan
             make.width.equalTo(74)
         }
         
@@ -136,6 +125,16 @@ class ProductBasketCell: UICollectionViewCell, CustomStepperDelegate {
             make.height.equalTo(1)
             make.top.equalTo(containerView.snp.bottom).offset(12)
         }
+    }
+    
+    func stepperDidIncrease() {
+        guard let product = self.product else { return }
+        delegate?.updateProductCounter(for: product, counter: 1)
+    }
+    
+    func stepperDidDecrease() {
+        guard let product = self.product else { return }
+        delegate?.updateProductCounter(for: product, counter: -1)
     }
     
     func stepperDidReachZero() {

@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 protocol ProductBasketInteractorProtocol: AnyObject {
     var presenter: ProductBasketInteractorOutputProtocol? { get set }
     func fetchSuggestedProducts()
@@ -71,7 +70,7 @@ final class ProductBasketInteractor: ProductBasketInteractorProtocol {
         basketManager.addProduct(product)
         presenter?.updatedTotalPrice(basketManager.calculateTotalPrice())
         let updatedProducts = Array(basketManager.getBasket().keys)
-           presenter?.updatedProductsInBasket(updatedProducts)
+        presenter?.updatedProductsInBasket(updatedProducts)
         
     }
     
@@ -86,7 +85,7 @@ final class ProductBasketInteractor: ProductBasketInteractorProtocol {
         }
         presenter?.updatedTotalPrice(basketManager.calculateTotalPrice())
         let updatedProducts = Array(basketManager.getBasket().keys)
-           presenter?.updatedProductsInBasket(updatedProducts)
+        presenter?.updatedProductsInBasket(updatedProducts)
     }
     
     func getProductCounter(_ product: Product) -> Int {
@@ -97,4 +96,3 @@ final class ProductBasketInteractor: ProductBasketInteractorProtocol {
         basketManager.clearBasket()
     }
 }
-

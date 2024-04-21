@@ -37,7 +37,7 @@ class ProductBasketViewController: UIViewController {
         navigationItem.title = "Sepetim"
         if let font = UIFont(name: "OpenSans-Bold", size: 14) {
             navigationController?.navigationBar.titleTextAttributes = [
-                NSAttributedString.Key.font: font,
+                NSAttributedString.Key.font: font
             ]
         }
         if let closeImage = UIImage(named: "closeIcon") {
@@ -63,7 +63,7 @@ class ProductBasketViewController: UIViewController {
         self.suggestedProducts.removeAll()
         dismiss(animated: true)
     }
-
+    
     @objc private func closeButtonTapped() {
         dismiss(animated: true)
     }
@@ -118,7 +118,6 @@ class ProductBasketViewController: UIViewController {
         self.suggestedProducts.removeAll()
     }
     
-  
     private func showAlert(with title: String, message: String, completion: (() -> Void)?) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default) { _ in
@@ -128,15 +127,11 @@ class ProductBasketViewController: UIViewController {
     }
     
     func createLayout() -> UICollectionViewCompositionalLayout {
-        return UICollectionViewCompositionalLayout { (sectionNumber, env) -> NSCollectionLayoutSection? in
+        return UICollectionViewCompositionalLayout { (sectionNumber, _) -> NSCollectionLayoutSection? in
             if sectionNumber == 0 {
                 let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(78)))
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(1000)), subitems: [item])
-                // group.interItemSpacing = .fixed(12)
                 let section = NSCollectionLayoutSection(group: group)
-                //  section.contentInsets.leading = 16
-                //section.contentInsets.trailing = 16
-                //section.contentInsets.top = 16
                 section.contentInsets = .init(top: 12, leading: 16, bottom: 32, trailing: 16)
                 section.interGroupSpacing = 24
                 return section
@@ -145,7 +140,8 @@ class ProductBasketViewController: UIViewController {
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .absolute(92), heightDimension: .absolute(185)), subitems: [item])
                 group.interItemSpacing = .fixed(16)
                 let section = NSCollectionLayoutSection(group: group)
-                section.boundarySupplementaryItems = [.init(layoutSize: (NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(16))), elementKind: ProductBasketViewController.categoryHeaderId, alignment: .topLeading)
+                section.boundarySupplementaryItems = [.init(layoutSize: (NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1), heightDimension: .absolute(16))), elementKind: ProductBasketViewController.categoryHeaderId, alignment: .topLeading)
                 ]
                 section.contentInsets = .init(top: 12, leading: 16, bottom: 0, trailing: 0)
                 section.interGroupSpacing = 16
@@ -168,13 +164,17 @@ extension ProductBasketViewController: UICollectionViewDelegate, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.section == 0 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductBasketCell", for: indexPath) as! ProductBasketCell
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductBasketCell", for: indexPath) as? ProductBasketCell else {
+                fatalError("DequeueReusableCell failed while casting")
+            }
             let product = products[indexPath.item]
             cell.delegate = self
             cell.configure(with: product)
             return cell
         } else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductListCell", for: indexPath) as! ProductListCell
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductListCell", for: indexPath) as? ProductListCell else {
+                fatalError("DequeueReusableCell failed while casting")
+            }
             let product = suggestedProducts[indexPath.item]
             cell.delegate = self
             cell.configure(with: product)
@@ -193,6 +193,7 @@ extension ProductBasketViewController: UICollectionViewDelegate, UICollectionVie
 }
 
 class Header: UICollectionReusableView {
+    
     let label = UILabel()
     
     override init(frame: CGRect) {
@@ -214,10 +215,9 @@ class Header: UICollectionReusableView {
 
 extension ProductBasketViewController: ProductBasketViewControllerProtocol {
     func reloadNewProducts(_ products: [Product]) {
-           self.products = products
-           collectionView.reloadData()
-       }
-    
+        self.products = products
+        collectionView.reloadData()
+    }
     
     func reloadProducts(_ products: [Product]) {
         self.products = products
@@ -263,11 +263,4 @@ extension ProductBasketViewController: ProductListCellDelegate, ProductBasketCel
         return presenter?.getProductCounter(product) ?? 0
     }
 }
-/*
- #Preview {
- let collectionView = ProductBasketViewController()
- return collectionView
- }
- 
- 
- */
+

@@ -25,15 +25,15 @@ protocol ProductListingInteractorOutputProtocol: AnyObject {
 }
 
 final class ProductListingInteractor: ProductListingInteractorProtocol {
-    
+
     weak var presenter: ProductListingInteractorOutputProtocol?
     var networkManager: NetworkManager
     var basketManager = BasketManager.shared
-    
+
     init(networkManager: NetworkManager) {
         self.networkManager = networkManager
     }
-    
+
     func fetchProducts() {
         let resource = Resource<[ProductResponse]>(url: .products)
         networkManager.fetchData(resource: resource) { [weak self] result in
@@ -46,7 +46,7 @@ final class ProductListingInteractor: ProductListingInteractorProtocol {
             }
         }
     }
-    
+
     func fetchSuggestedProducts() {
         let resource = Resource<[ProductResponse]>(url: .suggestedProducts)
         networkManager.fetchData(resource: resource) { [weak self] result in
@@ -59,16 +59,16 @@ final class ProductListingInteractor: ProductListingInteractorProtocol {
             }
         }
     }
-    
+
     func addProductToBasket(_ product: Product) {
         basketManager.addProduct(product)
         presenter?.updateTotalPrice(basketManager.calculateTotalPrice())
     }
-    
+
     func updateProductCounter(_ product: Product, counter: Int) {
         guard let currentCounter = basketManager.getBasket()[product] else { return }
         let newCounter = max(0, currentCounter + counter)
-        
+
         if newCounter > currentCounter {
             basketManager.addProduct(product)
         } else if newCounter < currentCounter {
@@ -76,16 +76,14 @@ final class ProductListingInteractor: ProductListingInteractorProtocol {
         }
         presenter?.updateTotalPrice(basketManager.calculateTotalPrice())
     }
-    
+
     func getProductCounter(_ product: Product) -> Int {
-       // basketManager.loadBasketFromUserDefaults()
         return basketManager.getBasket()[product] ?? 0
     }
-    
+
     func fetchTotalPrice() {
         basketManager.loadBasketFromUserDefaults()
         let totalPrice = basketManager.calculateTotalPrice()
         presenter?.updateTotalPrice(totalPrice)
     }
 }
-

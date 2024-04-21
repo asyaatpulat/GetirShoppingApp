@@ -21,7 +21,7 @@ class ProductListCell: UICollectionViewCell, CustomStepperDelegate {
     var product: Product?
     var presenter: ProductListingPresenterProtocol?
     weak var delegate: ProductListCellDelegate?
-
+    
     private lazy var containerView: UIView = {
         let view = UIView()
         return view
@@ -142,7 +142,6 @@ class ProductListCell: UICollectionViewCell, CustomStepperDelegate {
         stepper.isHidden = false
         guard let product = self.product else { return }
         delegate?.addButtonTapped(for: product)
-        // presenter?.addProductToBasket(product)
         stepper.counterLabel.text = "1"
         stepper.updateMinusButton()
     }
@@ -155,13 +154,11 @@ class ProductListCell: UICollectionViewCell, CustomStepperDelegate {
     func stepperDidIncrease() {
         guard let product = self.product else { return }
         delegate?.updateProductCounter(for: product, counter: 1)
-        //presenter?.updateProductCounter(product, counter: 1)
     }
     
     func stepperDidDecrease() {
         guard let product = self.product else { return }
         delegate?.updateProductCounter(for: product, counter: -1)
-        //presenter?.updateProductCounter(product, counter: -1)
     }
     
     func setCount(count: Int) {
@@ -175,7 +172,7 @@ class ProductListCell: UICollectionViewCell, CustomStepperDelegate {
             addButton.isHidden = false
         }
     }
-            
+    
     func configure(with product: Product) {
         self.product = product
         priceLabel.text = product.priceText
@@ -192,5 +189,4 @@ class ProductListCell: UICollectionViewCell, CustomStepperDelegate {
         let count = delegate.getProductCounter(for: product)
         setCount(count: count)
     }
-  
 }

@@ -11,26 +11,19 @@ import SnapKit
 protocol ProductDetailViewControllerProtocol: AnyObject {
     func displayProductDetails(with product: Product)
     func updateTotalPriceLabel(_ price: Double)
-    func updateItemCounter(_ count : Int)
+    func updateItemCounter(_ count: Int)
 }
 
 protocol ProductDetailDelegate: AnyObject {
     func didUpdateProduct(_ product: Product)
 }
 
-
 class ProductDetailViewController: UIViewController, CustomStepperDelegate {
     
     var presenter: ProductDetailPresenterProtocol?
     weak var delegate: ProductDetailDelegate?
     
-    func stepperDidIncrease() {
-        presenter?.increaseProductCounter()
-    }
     
-    func stepperDidDecrease() {
-        presenter?.decreaseProductCounter()
-    }
     
     private lazy var customButton: CustomCartButton = {
         let button = CustomCartButton()
@@ -111,6 +104,14 @@ class ProductDetailViewController: UIViewController, CustomStepperDelegate {
         return stepper
     }()
     
+    func stepperDidIncrease() {
+        presenter?.increaseProductCounter()
+    }
+    
+    func stepperDidDecrease() {
+        presenter?.decreaseProductCounter()
+    }
+    
     private var isStepperShown: Bool = false {
         didSet {
             button.isHidden = isStepperShown
@@ -152,15 +153,15 @@ class ProductDetailViewController: UIViewController, CustomStepperDelegate {
     private func fetchTotalPrice() {
         presenter?.fetchTotalPrice()
     }
-        
+    
     private func configureNavigationItem() {
         navigationItem.title = "Ürün Detayı"
         if let font = UIFont(name: "OpenSans-Bold", size: 14) {
             navigationController?.navigationBar.titleTextAttributes = [
-                NSAttributedString.Key.font: font,
+                NSAttributedString.Key.font: font
             ]
         }
-
+        
         if let closeImage = UIImage(named: "closeIcon") {
             let barButtonItem = UIBarButtonItem(image: closeImage, style: .plain, target: self, action: #selector(closeButtonTapped))
             navigationItem.leftBarButtonItem = barButtonItem
@@ -231,7 +232,7 @@ class ProductDetailViewController: UIViewController, CustomStepperDelegate {
             make.height.equalTo(50)
         }
         
-        stepper.snp.makeConstraints{ make in
+        stepper.snp.makeConstraints { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             make.top.equalTo(bottomView.snp.top).offset(16)
             make.centerX.equalToSuperview()
@@ -275,7 +276,7 @@ extension ProductDetailViewController: ProductDetailViewControllerProtocol {
         }
     }
     
-    func updateItemCounter(_ count : Int) {
+    func updateItemCounter(_ count: Int) {
         if count > 0 {
             stepper.isHidden = false
             button.isHidden = true
@@ -286,10 +287,3 @@ extension ProductDetailViewController: ProductDetailViewControllerProtocol {
         }
     }
 }
-
-
-/*
- #Preview {
- let view = ProductDetailViewController()
- return view
- }*/

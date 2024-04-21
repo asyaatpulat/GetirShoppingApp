@@ -13,11 +13,11 @@ protocol ProductBasketRouterProtocol: AnyObject {
 
 class ProductBasketRouter: ProductBasketRouterProtocol {
     private weak var view: UIViewController?
-    
+
     init(view: UIViewController? = nil) {
         self.view = view
     }
-    
+
     static func createModule() -> UIViewController {
         let productBasketViewController = ProductBasketViewController()
         let presenter = ProductBasketPresenter()

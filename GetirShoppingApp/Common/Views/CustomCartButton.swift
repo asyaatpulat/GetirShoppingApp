@@ -6,7 +6,6 @@
 //
 
 import Foundation
-
 import UIKit
 import SnapKit
 
@@ -16,7 +15,6 @@ class CustomCartButton: UIButton {
         let view = UIView()
         view.layer.cornerRadius = 8
         view.layer.borderWidth = 1
-        //view.layer.borderColor = UIColor.black.cgColor
         view.backgroundColor = UIColor.bgLight
         view.layer.borderColor = UIColor.bgLight.cgColor
         view.layer.masksToBounds = true
@@ -26,15 +24,11 @@ class CustomCartButton: UIButton {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "cartIcon")
         imageView.contentMode = .center
-       // imageView.clipsToBounds = true
         return imageView
     }()
     
     private lazy var textLabel: UILabel = {
         let label = UILabel()
-       // label.text = "₺0,00"
-       // label.layer.cornerRadius = 8
-        //label.layer.masksToBounds = true
         label.font = UIFont(name: "OpenSans-Bold", size: 14)
         label.textColor = UIColor.textPrimary
         label.textAlignment = .center
@@ -74,17 +68,9 @@ class CustomCartButton: UIButton {
             make.top.bottom.equalToSuperview()
             make.width.equalTo(57)
         }
-        
-        addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-    }
-    
-    @objc private func buttonTapped() {
-        // Handle button tap event
     }
     
     func updateTotalPriceLabel(_ totalPrice: Double) {
         textLabel.text = "₺\(String(format: "%.2f", totalPrice))"
     }
 }
-
-

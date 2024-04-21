@@ -18,7 +18,7 @@ enum StackOrientation {
     case vertical
 }
 
-class CustomStepper : UIView {
+class CustomStepper: UIView {
     
     weak var delegate: CustomStepperDelegate?
     var stackOrientation: StackOrientation?
@@ -52,7 +52,6 @@ class CustomStepper : UIView {
             stackView.addArrangedSubview(minusButton)
             stackView.addArrangedSubview(counterLabel)
             stackView.addArrangedSubview(plusButton)
-
         case .vertical:
             stackView.axis = .vertical
             stackView.addArrangedSubview(plusButton)
@@ -62,7 +61,7 @@ class CustomStepper : UIView {
             break
         }
         return stackView
-    } ()
+    }()
     
     lazy var minusButton: UIButton = {
         let button = UIButton()
@@ -86,7 +85,7 @@ class CustomStepper : UIView {
         button.setImage(UIImage(named: "plusIcon"), for: .normal)
         button.setTitle(nil, for: .normal)
         button.layer.cornerRadius = 8
-        if stackOrientation == .horizontal{
+        if stackOrientation == .horizontal {
             button.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner]
         } else {
             button.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
@@ -163,5 +162,3 @@ class CustomStepper : UIView {
         }
     }
 }
-
-
