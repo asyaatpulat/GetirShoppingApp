@@ -8,9 +8,9 @@
 import Foundation
 
 protocol ProductDetailPresenterProtocol: AnyObject {
-    var view: ProductDetailViewControllerProtocol? { get set}
-    var interactor: ProductDetailInteractorProtocol? {get set}
-    var router: ProductDetailRouterProtocol? {get set}
+    var view: ProductDetailViewControllerProtocol? { get }
+    var interactor: ProductDetailInteractorProtocol? { get }
+    var router: ProductDetailRouterProtocol? { get }
 
     func didAddProduct(_ product: Product)
     func didRemoveProduct(_ product: Product)
