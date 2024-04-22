@@ -8,12 +8,11 @@
 import Foundation
 
 protocol ProductListingPresenterProtocol: AnyObject {
-    var view: ProductListingViewControllerProtocol? { get set }
-    var interactor: ProductListingInteractorProtocol? { get set }
-    var router: ProductListingRouterProtocol? { get set }
+    var view: ProductListingViewControllerProtocol? { get }
+    var interactor: ProductListingInteractorProtocol? { get }
+    var router: ProductListingRouterProtocol? { get }
 
-    func fetchProducts()
-    func fetchSuggestedProducts()
+    func fetchAllProducts()
     func didSelectProduct(_ product: Product)
     func didTapCart()
     func addProductToBasket(_ product: Product)
@@ -28,11 +27,9 @@ final class ProductListingPresenter {
 }
 
 extension ProductListingPresenter: ProductListingPresenterProtocol {
-    func fetchProducts() {
-        interactor?.fetchProducts()
-    }
 
-    func fetchSuggestedProducts() {
+    func fetchAllProducts() {
+        interactor?.fetchProducts()
         interactor?.fetchSuggestedProducts()
     }
 
