@@ -16,27 +16,29 @@ protocol ProductListingViewControllerProtocol: AnyObject {
 
 class ProductListingViewController: UIViewController {
 
-    private var collectionView: UICollectionView!
     private var products: [Product] = []
     private var suggestedProducts: [Product] = []
     var presenter: ProductListingPresenterProtocol?
+    
+    private lazy var collectionView: UICollectionView = {
+        let layout = createLayout()
+        let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        return collectionView
+    }()
 
     private lazy var customCartButton: CustomCartButton = {
         let button = CustomCartButton()
         button.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(customCartButtonTapped)))
         return button
     }()
-
-    @objc private func customCartButtonTapped() {
-        presenter?.didTapCart()
-    }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationItem()
         setupCollectionView()
-        presenter?.fetchProducts()
-        presenter?.fetchSuggestedProducts()
+        presenter?.fetchAllProducts()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -45,16 +47,17 @@ class ProductListingViewController: UIViewController {
     }
 
     private func setupCollectionView() {
-        let layout = createLayout()
-        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.register(ProductListCell.self, forCellWithReuseIdentifier: "ProductListCell")
+        collectionView.register(ProductListCell.self, forCellWithReuseIdentifier: Section.suggestedProducts.reuseIdentifier)
+        collectionView.register(ProductListCell.self, forCellWithReuseIdentifier: Section.products.reuseIdentifier)
         view.addSubview(collectionView)
 
         collectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+    }
+
+    @objc private func customCartButtonTapped() {
+        presenter?.didTapCart()
     }
 
     private func configureNavigationItem() {
@@ -68,10 +71,11 @@ class ProductListingViewController: UIViewController {
         navigationItem.rightBarButtonItem = barButtonItem
     }
 
-    func createLayout() -> UICollectionViewCompositionalLayout {
-        return UICollectionViewCompositionalLayout { (sectionNumber, _) -> NSCollectionLayoutSection? in
-
-            if sectionNumber == 0 {
+    private func createLayout() -> UICollectionViewCompositionalLayout {
+        return UICollectionViewCompositionalLayout {(sectionNumber, _) -> NSCollectionLayoutSection? in
+            guard let section = Section(rawValue: sectionNumber) else { return nil }
+            switch section {
+            case .suggestedProducts:
                 let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .absolute(92), heightDimension: .absolute(153)))
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .absolute(92), heightDimension: .absolute(185)), subitems: [item])
                 group.interItemSpacing = .fixed(16)
@@ -81,8 +85,7 @@ class ProductListingViewController: UIViewController {
                 section.contentInsets.trailing = 16
                 section.orthogonalScrollingBehavior = .continuous
                 return section
-
-            } else {
+            case .products:
                 let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1/3), heightDimension: .absolute(164.67)))
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(1000)), subitems: [item])
                 group.interItemSpacing = .fixed(16)
@@ -113,40 +116,45 @@ extension ProductListingViewController: ProductListingViewControllerProtocol {
 
     func updateTotalPriceLabel(_ totalPrice: Double) {
         customCartButton.updateTotalPriceLabel(totalPrice)
-        if totalPrice == 0 {
-            customCartButton.isHidden = true
-        } else {
-            customCartButton.isHidden = false
-        }
+        customCartButton.isHidden = totalPrice == 0
     }
 }
 
 extension ProductListingViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if section == 0 {
+        guard let section = Section(rawValue: section) else { return 0 }
+        switch section {
+        case .suggestedProducts:
             return suggestedProducts.count
-        } else {
+        case .products:
             return products.count
         }
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductListCell", for: indexPath) as? ProductListCell  else {
-            fatalError("DequeueReusableCell failed while casting")
+        guard let section = Section(rawValue: indexPath.section) else { return UICollectionViewCell() }
+        let reuseIdentifier = section.reuseIdentifier
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? ProductListCell else {
+            return UICollectionViewCell()
         }
-        let product = indexPath.section == 0 ? suggestedProducts[indexPath.item] : products[indexPath.item]
+        let product = getProduct(for: indexPath)
         cell.delegate = self
         cell.configure(with: product)
         return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let product = indexPath.section == 0 ? suggestedProducts[indexPath.item] : products[indexPath.item]
+        let product = getProduct(for: indexPath)
         presenter?.didSelectProduct(product)
     }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         2
+    }
+
+    private func getProduct(for indexPath: IndexPath) -> Product {
+        let product = indexPath.section == Section.suggestedProducts.rawValue ? suggestedProducts[indexPath.item] : products[indexPath.item]
+        return product
     }
 }
 
