@@ -10,7 +10,6 @@
 		222E8EB72BC5C88E00CAE565 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222E8EB62BC5C88E00CAE565 /* AppDelegate.swift */; };
 		222E8EB92BC5C88E00CAE565 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222E8EB82BC5C88E00CAE565 /* SceneDelegate.swift */; };
 		222E8EBB2BC5C88E00CAE565 /* ProductListingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222E8EBA2BC5C88E00CAE565 /* ProductListingViewController.swift */; };
-		222E8EBE2BC5C88E00CAE565 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 222E8EBC2BC5C88E00CAE565 /* Main.storyboard */; };
 		222E8EC02BC5C89300CAE565 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 222E8EBF2BC5C89300CAE565 /* Assets.xcassets */; };
 		222E8EC32BC5C89300CAE565 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 222E8EC12BC5C89300CAE565 /* LaunchScreen.storyboard */; };
 		222E8ECE2BC5C89400CAE565 /* GetirShoppingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222E8ECD2BC5C89400CAE565 /* GetirShoppingAppTests.swift */; };
@@ -67,7 +66,6 @@
 		222E8EB62BC5C88E00CAE565 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		222E8EB82BC5C88E00CAE565 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		222E8EBA2BC5C88E00CAE565 /* ProductListingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListingViewController.swift; sourceTree = "<group>"; };
-		222E8EBD2BC5C88E00CAE565 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		222E8EBF2BC5C89300CAE565 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		222E8EC22BC5C89300CAE565 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		222E8EC42BC5C89300CAE565 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -162,7 +160,6 @@
 				222E8EE82BC5E05C00CAE565 /* App */,
 				222E8EE72BC5E03D00CAE565 /* Resources */,
 				222E8EE62BC5E00A00CAE565 /* Modules */,
-				222E8EBC2BC5C88E00CAE565 /* Main.storyboard */,
 				222E8EC12BC5C89300CAE565 /* LaunchScreen.storyboard */,
 				222E8EC42BC5C89300CAE565 /* Info.plist */,
 			);
@@ -452,7 +449,6 @@
 				222E8EC02BC5C89300CAE565 /* Assets.xcassets in Resources */,
 				222E8F2C2BD500AE00CAE565 /* OpenSans-SemiBold.ttf in Resources */,
 				222E8F2B2BD500AE00CAE565 /* OpenSans-Bold.ttf in Resources */,
-				222E8EBE2BC5C88E00CAE565 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -559,14 +555,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		222E8EBC2BC5C88E00CAE565 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				222E8EBD2BC5C88E00CAE565 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		222E8EC12BC5C89300CAE565 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
