@@ -13,26 +13,21 @@ protocol CustomStepperDelegate: AnyObject {
     func stepperDidDecrease()
 }
 
-enum StackOrientation {
-    case horizontal
-    case vertical
-}
-
 class CustomStepper: UIView {
-    
+
     weak var delegate: CustomStepperDelegate?
     var stackOrientation: StackOrientation?
-    
+
     init(orientation: StackOrientation) {
         self.stackOrientation = orientation
         super.init(frame: .zero)
         setupViews()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     private lazy var containerView: UIView = {
         let view = UIView()
         view.layer.shadowOpacity = 1
@@ -43,7 +38,7 @@ class CustomStepper: UIView {
         view.layer.shadowColor = UIColor.productCardShadow.cgColor
         return view
     }()
-    
+
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         switch stackOrientation {
@@ -62,10 +57,10 @@ class CustomStepper: UIView {
         }
         return stackView
     }()
-    
+
     lazy var minusButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "minusIcon"), for: .normal)
+        button.setImage(UIImage.minus, for: .normal)
         button.setTitle(nil, for: .normal)
         button.backgroundColor = .white
         if stackOrientation == .horizontal {
@@ -73,16 +68,16 @@ class CustomStepper: UIView {
         } else {
             button.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
         }
-        button.setTitleColor(UIColor(named: "bgPrimary"), for: .normal)
+        button.setTitleColor(UIColor.bgPrimary, for: .normal)
         button.layer.cornerRadius = 8
         button.clipsToBounds = true
         button.backgroundColor = UIColor.bgLight
         return button
     }()
-    
+
     lazy var plusButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "plusIcon"), for: .normal)
+        button.setImage(UIImage.plus, for: .normal)
         button.setTitle(nil, for: .normal)
         button.layer.cornerRadius = 8
         if stackOrientation == .horizontal {
@@ -94,7 +89,7 @@ class CustomStepper: UIView {
         button.backgroundColor = UIColor.bgLight
         return button
     }()
-    
+
     lazy var counterLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
@@ -103,34 +98,34 @@ class CustomStepper: UIView {
         label.text = "1"
         return label
     }()
-    
+
     func setupViews() {
         addSubview(containerView)
         containerView.addSubview(stackView)
-        
+
         containerView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        
+
         stackView.snp.makeConstraints { make in
             make.edges.equalTo(containerView)
         }
-        
+
         counterLabel.snp.makeConstraints { make in
             make.width.equalTo(plusButton)
             make.height.equalTo(plusButton)
         }
-        
+
         minusButton.snp.makeConstraints { make in
             make.width.equalTo(plusButton)
             make.height.equalTo(plusButton)
         }
-        
+
         minusButton.addTarget(self, action: #selector(minusButtonTapped), for: .touchUpInside)
         plusButton.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
-        
+
     }
-    
+
     @objc private func minusButtonTapped() {
         if let currentCounter = Int(counterLabel.text ?? "0"), currentCounter > 0 {
             counterLabel.text = "\(currentCounter - 1)"
@@ -141,7 +136,7 @@ class CustomStepper: UIView {
         updateMinusButton()
         delegate?.stepperDidDecrease()
     }
-    
+
     @objc private func plusButtonTapped() {
         if let currentCounter = Int(counterLabel.text ?? "0") {
             counterLabel.text = "\(currentCounter + 1)"
@@ -149,14 +144,14 @@ class CustomStepper: UIView {
         updateMinusButton()
         delegate?.stepperDidIncrease()
     }
-    
+
     func updateMinusButton() {
         if let counterText = counterLabel.text, let counter = Int(counterText) {
             if counter == 1 {
-                minusButton.setImage(UIImage(named: "trashIcon"), for: .normal)
+                minusButton.setImage(UIImage.trash, for: .normal)
                 minusButton.setTitle(nil, for: .normal)
             } else {
-                minusButton.setImage(UIImage(named: "minusIcon"), for: .normal)
+                minusButton.setImage(UIImage.minus, for: .normal)
                 minusButton.setTitle(nil, for: .normal)
             }
         }
