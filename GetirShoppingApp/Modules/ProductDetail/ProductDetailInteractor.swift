@@ -36,9 +36,8 @@ final class ProductDetailInteractor: ProductDetailInteractorProtocol {
     }
 
     func updateProductCounter(_ product: Product, counter: Int) {
-        let currentCounter = basketManager.getBasket()[product] ?? 0
+        guard let currentCounter = basketManager.getProductCount(product) else { return }
         let newCounter = max(0, currentCounter + counter)
-
         if newCounter > currentCounter {
             basketManager.addProduct(product)
         } else if newCounter < currentCounter {
@@ -51,11 +50,10 @@ final class ProductDetailInteractor: ProductDetailInteractorProtocol {
     }
 
     func getProductCounter(_ product: Product) -> Int {
-        return basketManager.getBasket()[product] ?? 0
+        return basketManager.getProductCount(product) ?? 0
     }
 
     func getTotalPrice(for product: Product) -> Double {
-        basketManager.loadBasketFromUserDefaults()
         return basketManager.calculateTotalPrice()
     }
 }

@@ -28,15 +28,15 @@ protocol ProductBasketInteractorOutputProtocol: AnyObject {
 }
 
 final class ProductBasketInteractor: ProductBasketInteractorProtocol {
-    
+
     weak var presenter: ProductBasketInteractorOutputProtocol?
     var networkManager: NetworkManager
     var basketManager = BasketManager.shared
-    
+
     init(networkManager: NetworkManager) {
         self.networkManager = networkManager
     }
-    
+
     func fetchSuggestedProducts() {
         let resource = Resource<[ProductResponse]>(url: .suggestedProducts)
         networkManager.fetchData(resource: resource) { [weak self] result in
@@ -49,35 +49,33 @@ final class ProductBasketInteractor: ProductBasketInteractorProtocol {
             }
         }
     }
-    
+
     func loadBasketData() {
         basketManager.loadBasketFromUserDefaults()
         let basket = basketManager.getBasket()
         let products = Array(basket.keys)
         presenter?.loadedBasketDataOutput(result: products)
     }
-    
+
     func fetchedTotalPrice() -> Double {
         return basketManager.calculateTotalPrice()
     }
-    
+
     func fetchTotalPrice() {
         let totalPrice = basketManager.calculateTotalPrice()
         presenter?.updatedTotalPrice(totalPrice)
     }
-    
+
     func addProductToBasket(_ product: Product) {
         basketManager.addProduct(product)
         presenter?.updatedTotalPrice(basketManager.calculateTotalPrice())
         let updatedProducts = Array(basketManager.getBasket().keys)
         presenter?.updatedProductsInBasket(updatedProducts)
-        
     }
-    
+
     func updateProductCounter(_ product: Product, counter: Int) {
-        guard let currentCounter = basketManager.getBasket()[product] else { return }
+        guard let currentCounter = basketManager.getProductCount(product) else { return }
         let newCounter = max(0, currentCounter + counter)
-        
         if newCounter > currentCounter {
             basketManager.addProduct(product)
         } else if newCounter < currentCounter {
@@ -87,11 +85,11 @@ final class ProductBasketInteractor: ProductBasketInteractorProtocol {
         let updatedProducts = Array(basketManager.getBasket().keys)
         presenter?.updatedProductsInBasket(updatedProducts)
     }
-    
+
     func getProductCounter(_ product: Product) -> Int {
-        return basketManager.getBasket()[product] ?? 0
+        return basketManager.getProductCount(product) ?? 0
     }
-    
+
     func clearBasket() {
         basketManager.clearBasket()
     }

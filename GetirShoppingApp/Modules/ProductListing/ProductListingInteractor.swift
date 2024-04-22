@@ -27,8 +27,8 @@ protocol ProductListingInteractorOutputProtocol: AnyObject {
 final class ProductListingInteractor: ProductListingInteractorProtocol {
 
     weak var presenter: ProductListingInteractorOutputProtocol?
-    var networkManager: NetworkManager
-    var basketManager = BasketManager.shared
+    private let networkManager: NetworkManager
+    private let basketManager = BasketManager.shared
 
     init(networkManager: NetworkManager) {
         self.networkManager = networkManager
@@ -66,7 +66,7 @@ final class ProductListingInteractor: ProductListingInteractorProtocol {
     }
 
     func updateProductCounter(_ product: Product, counter: Int) {
-        guard let currentCounter = basketManager.getBasket()[product] else { return }
+        guard let currentCounter = basketManager.getProductCount(product) else { return }
         let newCounter = max(0, currentCounter + counter)
 
         if newCounter > currentCounter {
@@ -78,11 +78,10 @@ final class ProductListingInteractor: ProductListingInteractorProtocol {
     }
 
     func getProductCounter(_ product: Product) -> Int {
-        return basketManager.getBasket()[product] ?? 0
+        return basketManager.getProductCount(product) ?? 0
     }
 
     func fetchTotalPrice() {
-        basketManager.loadBasketFromUserDefaults()
         let totalPrice = basketManager.calculateTotalPrice()
         presenter?.updateTotalPrice(totalPrice)
     }
