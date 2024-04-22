@@ -8,11 +8,12 @@
 import Foundation
 
 protocol ProductBasketPresenterProtocol: AnyObject {
-    var view: ProductBasketViewControllerProtocol? { get set }
-    var interactor: ProductBasketInteractorProtocol? { get set }
-    var router: ProductBasketRouterProtocol? { get set }
+    var view: ProductBasketViewControllerProtocol? { get }
+    var interactor: ProductBasketInteractorProtocol? { get }
+    var router: ProductBasketRouterProtocol? { get }
 
     func fetchSuggestedProducts()
+    func fetchAllData()
     func loadBasketData()
     func fetchTotalPrice()
     func addProductToBasket(_ product: Product)
@@ -32,6 +33,12 @@ final class ProductBasketPresenter {
 extension ProductBasketPresenter: ProductBasketPresenterProtocol {
     func fetchSuggestedProducts() {
         interactor?.fetchSuggestedProducts()
+    }
+
+    func fetchAllData() {
+        interactor?.fetchSuggestedProducts()
+        interactor?.loadBasketData()
+        interactor?.fetchTotalPrice()
     }
 
     func loadBasketData() {
@@ -67,8 +74,8 @@ extension ProductBasketPresenter: ProductBasketPresenterProtocol {
 
 extension ProductBasketPresenter: ProductBasketInteractorOutputProtocol {
     func updatedProductsInBasket(_ products: [Product]) {
-            view?.reloadNewProducts(products)
-        }
+        view?.reloadNewProducts(products)
+    }
 
     func fetchSuggestedProductsOutput(result: [Product]) {
         DispatchQueue.main.async {
