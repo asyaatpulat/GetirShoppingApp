@@ -19,117 +19,83 @@ protocol ProductDetailDelegate: AnyObject {
 }
 
 class ProductDetailViewController: UIViewController, CustomStepperDelegate {
-    
+
     var presenter: ProductDetailPresenterProtocol?
     weak var delegate: ProductDetailDelegate?
-    
-    
-    
+
     private lazy var customButton: CustomCartButton = {
         let button = CustomCartButton()
         button.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(customCartButtonTapped)))
         return button
     }()
-    
-    @objc private func customCartButtonTapped() {
-        presenter?.didTapCart()
-    }
-    
+
     private lazy var containerView: UIView = {
         let view = UIView()
         view.layer.shadowOpacity = 1
         view.backgroundColor = .white
         view.layer.shadowOffset = CGSize(width: 0, height: 1)
         view.layer.shadowRadius = 3
-        view.layer.shadowColor = UIColor(named: "productCardShadow")?.cgColor
+        view.layer.shadowColor = UIColor.productCardShadow.cgColor
         return view
     }()
-    
+
     private lazy var productImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = .blue
         return imageView
     }()
-    
+
     private lazy var priceLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "OpenSans-Bold", size: 20)
+        label.font = UIFont.openSansBold(ofSize: 20)
         label.textAlignment = .center
-        label.textColor = UIColor(named: "textPrimary")
+        label.textColor = UIColor.textPrimary
         return label
     }()
-    
+
     private lazy var productNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "OpenSans-SemiBold", size: 16)
-        label.textColor = UIColor(named: "textDark")
+        label.font = UIFont.openSansSemiBold(ofSize: 16)
+        label.textColor = UIColor.textDark
         label.textAlignment = .center
         return label
     }()
-    
+
     private lazy var attributeLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "OpenSans-SemiBold", size: 12)
-        label.textColor = UIColor(named: "textSecondary")
+        label.font = UIFont.openSansSemiBold(ofSize: 12)
+        label.textColor = UIColor.textSecondary
         label.textAlignment = .center
         return label
     }()
-    
+
     private lazy var bottomView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
         view.layer.shadowOpacity = 1
         view.layer.shadowOffset = CGSize(width: 0, height: -4)
         view.layer.shadowRadius = 8
-        view.layer.shadowColor = UIColor(named: "bottomShadow")?.cgColor
+        view.layer.shadowColor = UIColor.bottomShadow.cgColor
         return view
     }()
-    
+
     private lazy var button: UIButton = {
         let button = UIButton()
         button.setTitle("Sepete Ekle", for: .normal)
-        button.titleLabel?.font = UIFont(name: "OpenSans-Bold", size: 14)
+        button.titleLabel?.font = UIFont.openSansBold(ofSize: 14)
         button.backgroundColor = .blue
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
-        button.backgroundColor = UIColor(named: "bgPrimary")
+        button.backgroundColor = UIColor.bgPrimary
         button.addTarget(self, action: #selector(addToCartButtonTapped), for: .touchUpInside)
         return button
     }()
-    
+
     private lazy var stepper: CustomStepper = {
         let stepper = CustomStepper(orientation: .horizontal)
         stepper.isHidden = true
         return stepper
     }()
-    
-    func stepperDidIncrease() {
-        presenter?.increaseProductCounter()
-    }
-    
-    func stepperDidDecrease() {
-        presenter?.decreaseProductCounter()
-    }
-    
-    private var isStepperShown: Bool = false {
-        didSet {
-            button.isHidden = isStepperShown
-            stepper.isHidden = !isStepperShown
-        }
-    }
-    
-    func stepperDidReachZero() {
-        isStepperShown = false
-    }
-    
-    @objc private func addToCartButtonTapped() {
-        isStepperShown = true
-        stepper.isHidden = false
-        stepper.counterLabel.text = "1"
-        presenter?.increaseProductCounter()
-        stepper.updateMinusButton()
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -139,21 +105,51 @@ class ProductDetailViewController: UIViewController, CustomStepperDelegate {
         setupViews()
         fetchTotalPrice()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchTotalPrice()
-        getItemCounter()
-    }
-    
-    private func getItemCounter() {
         presenter?.updateItemCounter()
     }
     
+    @objc private func customCartButtonTapped() {
+        presenter?.didTapCart()
+    }
+
+    func stepperDidIncrease() {
+        presenter?.increaseProductCounter()
+    }
+
+    func stepperDidDecrease() {
+        presenter?.decreaseProductCounter()
+    }
+
+    private var isStepperShown: Bool = false {
+        didSet {
+            button.isHidden = isStepperShown
+            stepper.isHidden = !isStepperShown
+        }
+    }
+
+    func stepperDidReachZero() {
+        isStepperShown = false
+    }
+
+    @objc private func addToCartButtonTapped() {
+        isStepperShown = true
+        stepper.counterLabel.text = "1"
+        presenter?.increaseProductCounter()
+        stepper.updateMinusButton()
+    }
+
+    private func getItemCounter() {
+        presenter?.updateItemCounter()
+    }
+
     private func fetchTotalPrice() {
         presenter?.fetchTotalPrice()
     }
-    
+
     private func configureNavigationItem() {
         navigationItem.title = "Ürün Detayı"
         if let font = UIFont(name: "OpenSans-Bold", size: 14) {
@@ -161,25 +157,25 @@ class ProductDetailViewController: UIViewController, CustomStepperDelegate {
                 NSAttributedString.Key.font: font
             ]
         }
-        
+
         if let closeImage = UIImage(named: "closeIcon") {
             let barButtonItem = UIBarButtonItem(image: closeImage, style: .plain, target: self, action: #selector(closeButtonTapped))
             navigationItem.leftBarButtonItem = barButtonItem
         }
         let barButtonItem = UIBarButtonItem(customView: customButton)
         navigationItem.rightBarButtonItem = barButtonItem
-        
+
         let appearance = UINavigationBarAppearance()
         appearance.backgroundColor = .bgPrimary
         appearance.titleTextAttributes = [.foregroundColor: UIColor.bgLight]
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
-    
+
     @objc private func closeButtonTapped() {
         dismiss(animated: true)
     }
-    
+
     private func setupViews() {
         view.addSubview(containerView)
         containerView.addSubview(productImageView)
@@ -190,48 +186,48 @@ class ProductDetailViewController: UIViewController, CustomStepperDelegate {
         view.addSubview(stepper)
         bottomView.addSubview(button)
         stepper.stackOrientation = .horizontal
-        
+
         containerView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.width.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.height.equalTo(319)
         }
-        
+
         productImageView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(16)
             make.centerX.equalToSuperview()
             make.width.height.equalTo(200)
         }
-        
+
         priceLabel.snp.makeConstraints { make in
             make.top.equalTo(productImageView.snp.bottom).offset(16)
             make.leading.trailing.equalToSuperview().inset(16)
         }
-        
+
         productNameLabel.snp.makeConstraints { make in
             make.top.equalTo(priceLabel.snp.bottom).offset(4)
             make.leading.trailing.equalToSuperview().inset(16)
         }
-        
+
         attributeLabel.snp.makeConstraints { make in
             make.top.equalTo(productNameLabel.snp.bottom).offset(2)
             make.leading.trailing.equalToSuperview().inset(16)
             make.bottom.equalToSuperview().offset(-16)
         }
-        
+
         bottomView.snp.makeConstraints { make in
             make.leading.trailing.bottom.equalToSuperview()
             make.height.equalTo(100)
         }
-        
+
         button.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(16)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             make.top.equalTo(bottomView.snp.top).offset(16)
             make.height.equalTo(50)
         }
-        
+
         stepper.snp.makeConstraints { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             make.top.equalTo(bottomView.snp.top).offset(16)
@@ -246,44 +242,30 @@ extension ProductDetailViewController: ProductDetailViewControllerProtocol {
     func displayProductDetails(with product: Product) {
         self.priceLabel.text = product.priceText
         self.productNameLabel.text = product.name
-        if product.attribute != nil {
-            self.attributeLabel.text = product.attribute
-        } else {
-            self.attributeLabel.text = product.shortDescription
-        }
+        self.attributeLabel.text = product.attribute ?? product.shortDescription
+        setImage(with: product)
+        updateItemCounter(presenter?.getProductCounter(product) ?? 0)
+        delegate?.didUpdateProduct(product)
+    }
+
+    func setImage(with product: Product) {
         if let imageUrl = URL(string: product.imageURL ?? "") {
             self.productImageView.kf.setImage(with: imageUrl)
         }
-        let counter = presenter?.getProductCounter(product) ?? 0
-        self.stepper.counterLabel.text = "\(counter)"
-        if counter > 0 {
-            stepper.isHidden = false
-            button.isHidden = true
-            stepper.updateMinusButton()
-        } else {
-            stepper.isHidden = true
-            button.isHidden = false
-        }
-        delegate?.didUpdateProduct(product)
     }
-    
+
     func updateTotalPriceLabel(_ price: Double) {
         customButton.updateTotalPriceLabel(price)
-        if price == 0 {
-            customButton.isHidden = true
-        } else {
-            customButton.isHidden = false
-        }
+        customButton.isHidden = price == 0
     }
-    
+
     func updateItemCounter(_ count: Int) {
         if count > 0 {
-            stepper.isHidden = false
-            button.isHidden = true
+            isStepperShown = true
             stepper.updateMinusButton()
+            stepper.counterLabel.text = "\(count)"
         } else {
-            stepper.isHidden = true
-            button.isHidden = false
+            isStepperShown = false
         }
     }
 }
