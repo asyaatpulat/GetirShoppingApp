@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 enum Section: Int, CaseIterable {
     case suggestedProducts
     case products
@@ -17,6 +18,22 @@ extension Section {
         case .suggestedProducts:
             return "SuggestedProductCell"
         case .products:
+            return "ProductCell"
+        }
+    }
+}
+
+enum BasketSection: Int, CaseIterable {
+    case products
+    case suggestedProducts
+}
+
+extension BasketSection {
+    var reuseId: String {
+        switch self {
+        case .products:
+            return "ProductBasketCell"
+        case .suggestedProducts:
             return "ProductCell"
         }
     }
