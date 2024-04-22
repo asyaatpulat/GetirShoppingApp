@@ -12,7 +12,7 @@ protocol ProductDetailRouterProtocol: AnyObject {
     func navigateToProductBasket()
 }
 
-class ProductDetailRouter: ProductDetailRouterProtocol {
+final class ProductDetailRouter: ProductDetailRouterProtocol {
     private weak var view: UIViewController?
 
     init(view: UIViewController? = nil) {

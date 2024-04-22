@@ -13,7 +13,7 @@ protocol ProductListingRouterProtocol: AnyObject {
     func navigateToProductBasket()
 }
 
-class ProductListingRouter: ProductListingRouterProtocol {
+final class ProductListingRouter: ProductListingRouterProtocol {
     private weak var view: UIViewController?
 
     init(view: UIViewController? = nil) {

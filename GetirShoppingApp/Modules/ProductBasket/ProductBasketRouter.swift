@@ -11,7 +11,7 @@ import UIKit
 protocol ProductBasketRouterProtocol: AnyObject {
 }
 
-class ProductBasketRouter: ProductBasketRouterProtocol {
+final class ProductBasketRouter: ProductBasketRouterProtocol {
     private weak var view: UIViewController?
 
     init(view: UIViewController? = nil) {
