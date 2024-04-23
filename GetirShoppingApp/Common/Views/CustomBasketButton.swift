@@ -12,30 +12,48 @@ import SnapKit
 
 class CustomBasketButton: UIButton {
 
+    private enum Constants {
+        static let shadowOpacity: Float = 1
+        static let cornerRadius: CGFloat = 8
+        static let labelText = "Siparişi Tamamla"
+
+        enum Font {
+            static let textLabel = UIFont.openSansBold(ofSize: 14)
+            static let priceLabel = UIFont.openSansBold(ofSize: 20)
+        }
+
+        enum Color {
+            static let textColorPrimary = UIColor.textPrimary
+            static let containerColor = UIColor.bgLight
+            static let backgroundColor = UIColor.bgPrimarySubtle
+            static let labelColor = UIColor.bgPrimary
+        }
+    }
+
     private lazy var containerView: UIView = {
         let view = UIView()
-        view.layer.cornerRadius = 8
-        view.backgroundColor = UIColor.bgLight
+        view.layer.cornerRadius = Constants.cornerRadius
+        view.backgroundColor = Constants.Color.containerColor
         view.layer.masksToBounds = true
         return view
     }()
 
     private lazy var textLabel: UILabel = {
         let label = UILabel()
-        label.text = "Siparişi Tamamla"
-        label.font = UIFont.openSansBold(ofSize: 14)
+        label.text = Constants.labelText
+        label.font = Constants.Font.textLabel
         label.textColor = UIColor.textLight
         label.textAlignment = .center
-        label.backgroundColor = UIColor.bgPrimary
+        label.backgroundColor = Constants.Color.labelColor
         return label
     }()
 
     private lazy var priceLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.openSansBold(ofSize: 20)
-        label.textColor = UIColor.textPrimary
+        label.font = Constants.Font.priceLabel
+        label.textColor = Constants.Color.textColorPrimary
         label.textAlignment = .center
-        label.backgroundColor = UIColor.bgLight
+        label.backgroundColor = Constants.Color.containerColor
         return label
     }()
 

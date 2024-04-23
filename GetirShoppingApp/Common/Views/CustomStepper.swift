@@ -15,6 +15,19 @@ protocol CustomStepperDelegate: AnyObject {
 
 class CustomStepper: UIView {
 
+    private enum Constants {
+        static let shadowOpacity: Float = 1
+        static let offset = CGSize(width: 0, height: 0)
+        static let shadowRadius: CGFloat = 6
+        static let cornerRadius: CGFloat = 8
+
+        enum Color {
+            static let textColorPrimary = UIColor.textPrimary
+            static let shadowColor = UIColor.productCardShadow.cgColor
+            static let buttonColor = UIColor.bgLight
+        }
+    }
+
     weak var delegate: CustomStepperDelegate?
     var stackOrientation: StackOrientation?
 
@@ -30,12 +43,12 @@ class CustomStepper: UIView {
 
     private lazy var containerView: UIView = {
         let view = UIView()
-        view.layer.shadowOpacity = 1
+        view.layer.shadowOpacity = Constants.shadowOpacity
         view.backgroundColor = .white
-        view.layer.shadowOffset = CGSize(width: 0, height: 0)
-        view.layer.shadowRadius = 6
-        view.layer.cornerRadius = 8
-        view.layer.shadowColor = UIColor.productCardShadow.cgColor
+        view.layer.shadowOffset = Constants.offset
+        view.layer.shadowRadius = Constants.shadowRadius
+        view.layer.cornerRadius = Constants.cornerRadius
+        view.layer.shadowColor = Constants.Color.shadowColor
         return view
     }()
 
@@ -69,9 +82,9 @@ class CustomStepper: UIView {
             button.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
         }
         button.setTitleColor(UIColor.bgPrimary, for: .normal)
-        button.layer.cornerRadius = 8
+        button.layer.cornerRadius = Constants.cornerRadius
         button.clipsToBounds = true
-        button.backgroundColor = UIColor.bgLight
+        button.backgroundColor = Constants.Color.buttonColor
         return button
     }()
 
@@ -79,14 +92,14 @@ class CustomStepper: UIView {
         let button = UIButton()
         button.setImage(UIImage.plus, for: .normal)
         button.setTitle(nil, for: .normal)
-        button.layer.cornerRadius = 8
+        button.layer.cornerRadius = Constants.cornerRadius
         if stackOrientation == .horizontal {
             button.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner]
         } else {
             button.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         }
         button.clipsToBounds = true
-        button.backgroundColor = UIColor.bgLight
+        button.backgroundColor = Constants.Color.buttonColor
         return button
     }()
 

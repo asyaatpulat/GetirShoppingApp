@@ -9,6 +9,13 @@ import Foundation
 import UIKit
 
 class ProductImageView: UIImageView {
+
+    private enum Constants {
+        static let cornerRadius: CGFloat = 16
+        static let borderWidth: CGFloat = 1
+        static let borderColor = UIColor.bgPrimarySubtle.cgColor
+    }
+
     init() {
         super.init(frame: .zero)
         commonInit()
@@ -20,8 +27,8 @@ class ProductImageView: UIImageView {
     }
 
     private func commonInit() {
-        self.layer.cornerRadius = 16
-        self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor(named: "bgPrimarySubtle")?.cgColor
+        self.layer.cornerRadius = Constants.cornerRadius
+        self.layer.borderWidth = Constants.borderWidth
+        self.layer.borderColor = Constants.borderColor
     }
 }

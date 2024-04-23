@@ -11,12 +11,32 @@ import SnapKit
 
 class CustomCartButton: UIButton {
 
+    private enum Constants {
+        static let shadowOpacity: Float = 1
+        static let offset = CGSize(width: 0, height: 0)
+        static let shadowRadius: CGFloat = 6
+        static let cornerRadius: CGFloat = 8
+        static let borderWidth: CGFloat = 1
+
+        enum Font {
+            static let label = UIFont.openSansBold(ofSize: 14)
+        }
+
+        enum Color {
+            static let textColorPrimary = UIColor.textPrimary
+            static let shadowColor = UIColor.productCardShadow.cgColor
+            static let buttonColor = UIColor.bgLight
+            static let borderColor = UIColor.bgLight.cgColor
+            static let backgroundColor = UIColor.bgPrimarySubtle
+        }
+    }
+
     private lazy var containerView: UIView = {
         let view = UIView()
-        view.layer.cornerRadius = 8
-        view.layer.borderWidth = 1
-        view.backgroundColor = UIColor.bgLight
-        view.layer.borderColor = UIColor.bgLight.cgColor
+        view.layer.cornerRadius = Constants.cornerRadius
+        view.layer.borderWidth = Constants.borderWidth
+        view.backgroundColor = Constants.Color.buttonColor
+        view.layer.borderColor = Constants.Color.borderColor
         view.layer.masksToBounds = true
         return view
     }()
@@ -29,10 +49,10 @@ class CustomCartButton: UIButton {
 
     private lazy var textLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.openSansBold(ofSize: 14)
-        label.textColor = UIColor.textPrimary
+        label.font = Constants.Font.label
+        label.textColor = Constants.Color.textColorPrimary
         label.textAlignment = .center
-        label.backgroundColor = UIColor.bgPrimarySubtle
+        label.backgroundColor = Constants.Color.backgroundColor
         return label
     }()
 
