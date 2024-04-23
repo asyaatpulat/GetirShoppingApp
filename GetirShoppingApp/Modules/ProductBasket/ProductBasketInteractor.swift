@@ -9,6 +9,8 @@ import Foundation
 
 protocol ProductBasketInteractorProtocol: AnyObject {
     var presenter: ProductBasketInteractorOutputProtocol? { get set }
+    var basketManager: BasketManagerProtocol { get set }
+
     func fetchSuggestedProducts()
     func loadBasketData()
     func fetchTotalPrice()
@@ -31,7 +33,7 @@ final class ProductBasketInteractor: ProductBasketInteractorProtocol {
 
     weak var presenter: ProductBasketInteractorOutputProtocol?
     var networkManager: NetworkManager
-    var basketManager = BasketManager.shared
+    var basketManager: BasketManagerProtocol = BasketManager.shared
 
     init(networkManager: NetworkManager) {
         self.networkManager = networkManager

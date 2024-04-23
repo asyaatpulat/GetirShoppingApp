@@ -8,6 +8,9 @@
 import Foundation
 
 protocol ProductDetailInteractorProtocol: AnyObject {
+    var presenter: ProductDetailInteractorOutputProtocol? { get set }
+    var basketManager: BasketManagerProtocol { get set }
+
     func addProductToCart(_ product: Product)
     func removeProductFromCart(_ product: Product)
     func updateProductCounter(_ product: Product, counter: Int)
@@ -21,7 +24,7 @@ protocol ProductDetailInteractorOutputProtocol: AnyObject {
 
 final class ProductDetailInteractor: ProductDetailInteractorProtocol {
     weak var presenter: ProductDetailInteractorOutputProtocol?
-    var basketManager = BasketManager.shared
+    var basketManager: BasketManagerProtocol = BasketManager.shared
 
     func addProductToCart(_ product: Product) {
         basketManager.addProduct(product)
