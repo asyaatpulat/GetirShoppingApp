@@ -24,6 +24,7 @@ class ProductListCell: UICollectionViewCell, CustomStepperDelegate {
         static let cornerRadius: CGFloat = 8
         static let numberOfLines: Int = 1
         static let numberOfLinesProduct: Int = 2
+        static let reuseIdentifier = "ProductListCell"
 
         enum Font {
             static let priceLabel = UIFont.openSansBold(ofSize: 14)
@@ -40,7 +41,6 @@ class ProductListCell: UICollectionViewCell, CustomStepperDelegate {
         }
     }
 
-    static let reuseIdentifier = "ProductListCell"
     private var product: Product?
     weak var delegate: ProductListCellDelegate?
 

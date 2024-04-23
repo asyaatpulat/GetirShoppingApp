@@ -17,11 +17,28 @@ protocol ProductBasketViewControllerProtocol: AnyObject {
 
 class ProductBasketViewController: UIViewController {
 
+    private enum Constants {
+        static let numberOfLines: Int = 1
+        static let numberOfLinesProduct: Int = 2
+        static let HeaderId = "headerId"
+        static let categoryHeaderId = "categoryHeaderId"
+        static let shadowOpacity: Float = 1
+        static let offset = CGSize(width: 0, height: 2)
+        static let shadowRadius: CGFloat = 10
+
+        enum Color {
+            static let textColorPrimary = UIColor.textPrimary
+            static let textColorDark = UIColor.textDark
+            static let textColorSecondary = UIColor.textSecondary
+            static let basketButtonShadow = UIColor.basketButtonShadow.cgColor
+        }
+    }
+
     private var products: [Product] = []
     private var suggestedProducts: [Product] = []
     var presenter: ProductBasketPresenterProtocol?
-    let headerId = "headerId"
-    static let categoryHeaderId = "categoryHeaderId"
+    let headerId = Constants.HeaderId
+    static let categoryHeaderId = Constants.categoryHeaderId
 
     private lazy var collectionView: UICollectionView = {
         let layout = createLayout()
@@ -33,13 +50,13 @@ class ProductBasketViewController: UIViewController {
 
     private lazy var customBasketButton: CustomBasketButton = {
         let button = CustomBasketButton()
-        button.layer.shadowOpacity = 1
-        button.layer.shadowOffset = CGSize(width: 0, height: 2)
-        button.layer.shadowRadius = 10
-        button.layer.shadowColor = UIColor.basketButtonShadow.cgColor
+        button.layer.shadowOpacity = Constants.shadowOpacity
+        button.layer.shadowOffset = Constants.offset
+        button.layer.shadowRadius = Constants.shadowRadius
+        button.layer.shadowColor = Constants.Color.basketButtonShadow
         return button
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCustomBasketButton()
@@ -47,7 +64,7 @@ class ProductBasketViewController: UIViewController {
         presenter?.fetchAllData()
         configureNavigationItem()
     }
-    
+
     private func setupCollectionView() {
         collectionView.register(ProductBasketCell.self, forCellWithReuseIdentifier: BasketSection.products.reuseId)
         collectionView.register(ProductListCell.self, forCellWithReuseIdentifier: BasketSection.suggestedProducts.reuseId)

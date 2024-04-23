@@ -16,7 +16,24 @@ protocol ProductBasketCellDelegate: AnyObject {
 
 class ProductBasketCell: UICollectionViewCell, CustomStepperDelegate {
 
-    static let reuseIdentifier = "ProductBasketCell"
+    private enum Constants {
+        static let numberOfLines: Int = 1
+        static let numberOfLinesProduct: Int = 2
+        static let reuseIdentifier = "ProductBasketCell"
+
+        enum Font {
+            static let priceLabel = UIFont.openSansBold(ofSize: 14)
+            static let productNamelabel = UIFont.openSansSemiBold(ofSize: 12)
+            static let attributeLabel = UIFont.openSansSemiBold(ofSize: 12)
+        }
+
+        enum Color {
+            static let textColorPrimary = UIColor.textPrimary
+            static let textColorDark = UIColor.textDark
+            static let textColorSecondary = UIColor.textSecondary
+        }
+    }
+
     weak var delegate: ProductBasketCellDelegate?
     var product: Product?
     private var indexPath: IndexPath?
@@ -26,27 +43,27 @@ class ProductBasketCell: UICollectionViewCell, CustomStepperDelegate {
 
     private lazy var productNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.openSansSemiBold(ofSize: 12)
-        label.textColor = UIColor.textDark
-        label.numberOfLines = 1
+        label.font = Constants.Font.productNamelabel
+        label.textColor = Constants.Color.textColorDark
+        label.numberOfLines = Constants.numberOfLines
         label.lineBreakMode = .byTruncatingTail
         return label
     }()
 
     private lazy var attributeLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.openSansSemiBold(ofSize: 12)
-        label.textColor = UIColor.textSecondary
-        label.numberOfLines = 2
+        label.font = Constants.Font.attributeLabel
+        label.textColor = Constants.Color.textColorSecondary
+        label.numberOfLines = Constants.numberOfLinesProduct
         label.lineBreakMode = .byTruncatingTail
         return label
     }()
 
     private lazy var priceLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.openSansSemiBold(ofSize: 14)
-        label.textColor = UIColor.textPrimary
-        label.numberOfLines = 2
+        label.font = Constants.Font.priceLabel
+        label.textColor = Constants.Color.textColorPrimary
+        label.numberOfLines = Constants.numberOfLinesProduct
         label.lineBreakMode = .byTruncatingTail
         return label
     }()
