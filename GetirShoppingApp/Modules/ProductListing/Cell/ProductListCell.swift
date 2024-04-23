@@ -17,6 +17,29 @@ protocol ProductListCellDelegate: AnyObject {
 
 class ProductListCell: UICollectionViewCell, CustomStepperDelegate {
 
+    private enum Constants {
+        static let shadowOpacity: Float = 1
+        static let offset = CGSize(width: 0, height: 1)
+        static let shadowRadius: CGFloat = 3
+        static let cornerRadius: CGFloat = 8
+        static let numberOfLines: Int = 1
+        static let numberOfLinesProduct: Int = 2
+
+        enum Font {
+            static let priceLabel = UIFont.openSansBold(ofSize: 14)
+            static let productNamelabel = UIFont.openSansSemiBold(ofSize: 12)
+            static let attributeLabel = UIFont.openSansSemiBold(ofSize: 12)
+        }
+
+        enum Color {
+            static let textColorPrimary = UIColor.textPrimary
+            static let textColorDark = UIColor.textDark
+            static let textColorSecondary = UIColor.textSecondary
+            static let shadowColor = UIColor.productCardShadow.cgColor
+            static let buttonColor = UIColor.bgLight
+        }
+    }
+
     static let reuseIdentifier = "ProductListCell"
     private var product: Product?
     weak var delegate: ProductListCellDelegate?
@@ -26,27 +49,27 @@ class ProductListCell: UICollectionViewCell, CustomStepperDelegate {
 
     private lazy var priceLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.openSansBold(ofSize: 14)
-        label.textColor = UIColor.textPrimary
-        label.numberOfLines = 2
+        label.font = Constants.Font.priceLabel
+        label.textColor = Constants.Color.textColorPrimary
+        label.numberOfLines = Constants.numberOfLinesProduct
         label.lineBreakMode = .byTruncatingTail
         return label
     }()
 
     private lazy var productNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.openSansSemiBold(ofSize: 12)
-        label.textColor = UIColor.textDark
-        label.numberOfLines = 1
+        label.font = Constants.Font.productNamelabel
+        label.textColor = Constants.Color.textColorDark
+        label.numberOfLines = Constants.numberOfLines
         label.lineBreakMode = .byTruncatingTail
         return label
     }()
 
     private lazy var attributeLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.openSansSemiBold(ofSize: 12)
-        label.textColor = UIColor.textSecondary
-        label.numberOfLines = 2
+        label.font = Constants.Font.attributeLabel
+        label.textColor = Constants.Color.textColorSecondary
+        label.numberOfLines = Constants.numberOfLinesProduct
         label.lineBreakMode = .byTruncatingTail
         return label
     }()
@@ -55,12 +78,12 @@ class ProductListCell: UICollectionViewCell, CustomStepperDelegate {
         let button = UIButton()
         button.setImage(UIImage(named: "plusIcon"), for: .normal)
         button.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
-        button.layer.cornerRadius = 8
-        button.layer.shadowColor = UIColor.productCardShadow.cgColor
-        button.layer.shadowOffset = CGSize(width: 0, height: 1)
-        button.layer.shadowRadius = 3
-        button.layer.shadowOpacity = 1
-        button.backgroundColor = UIColor.bgLight
+        button.layer.cornerRadius = Constants.cornerRadius
+        button.layer.shadowColor = Constants.Color.shadowColor
+        button.layer.shadowOffset = Constants.offset
+        button.layer.shadowRadius = Constants.shadowRadius
+        button.layer.shadowOpacity = Constants.shadowOpacity
+        button.backgroundColor = Constants.Color.buttonColor
         return button
     }()
 
