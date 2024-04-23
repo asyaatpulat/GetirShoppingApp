@@ -20,6 +20,31 @@ protocol ProductDetailDelegate: AnyObject {
 
 class ProductDetailViewController: UIViewController, CustomStepperDelegate {
 
+    private enum Constants {
+        static let shadowOpacity: Float = 1
+        static let offset = CGSize(width: 0, height: 1)
+        static let shadowRadius: CGFloat = 3
+        static let bottomOffset = CGSize(width: 0, height: -4)
+        static let bottomShadowRadius: CGFloat = 8
+        static let cornerRadius: CGFloat = 10
+
+        enum Font {
+            static let priceLabel = UIFont.openSansBold(ofSize: 20)
+            static let productNamelabel = UIFont.openSansSemiBold(ofSize: 16)
+            static let attributeLabel = UIFont.openSansSemiBold(ofSize: 12)
+            static let buttonLabel = UIFont.openSansBold(ofSize: 14)
+        }
+
+        enum Color {
+            static let textColorPrimary = UIColor.textPrimary
+            static let textColorDark = UIColor.textDark
+            static let textColorSecondary = UIColor.textSecondary
+            static let shadowColor = UIColor.productCardShadow.cgColor
+            static let bottomShadow = UIColor.bottomShadow.cgColor
+            static let buttonColor = UIColor.bgPrimary
+        }
+    }
+
     var presenter: ProductDetailPresenterProtocol?
     weak var delegate: ProductDetailDelegate?
 
@@ -31,11 +56,11 @@ class ProductDetailViewController: UIViewController, CustomStepperDelegate {
 
     private lazy var containerView: UIView = {
         let view = UIView()
-        view.layer.shadowOpacity = 1
+        view.layer.shadowOpacity = Constants.shadowOpacity
         view.backgroundColor = .white
-        view.layer.shadowOffset = CGSize(width: 0, height: 1)
-        view.layer.shadowRadius = 3
-        view.layer.shadowColor = UIColor.productCardShadow.cgColor
+        view.layer.shadowOffset = Constants.offset
+        view.layer.shadowRadius = Constants.shadowRadius
+        view.layer.shadowColor = Constants.Color.shadowColor
         return view
     }()
 
@@ -47,24 +72,24 @@ class ProductDetailViewController: UIViewController, CustomStepperDelegate {
 
     private lazy var priceLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.openSansBold(ofSize: 20)
+        label.font = Constants.Font.priceLabel
         label.textAlignment = .center
-        label.textColor = UIColor.textPrimary
+        label.textColor = Constants.Color.textColorPrimary
         return label
     }()
 
     private lazy var productNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.openSansSemiBold(ofSize: 16)
-        label.textColor = UIColor.textDark
+        label.font = Constants.Font.productNamelabel
+        label.textColor = Constants.Color.textColorDark
         label.textAlignment = .center
         return label
     }()
 
     private lazy var attributeLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.openSansSemiBold(ofSize: 12)
-        label.textColor = UIColor.textSecondary
+        label.font = Constants.Font.attributeLabel
+        label.textColor = Constants.Color.textColorSecondary
         label.textAlignment = .center
         return label
     }()
@@ -72,21 +97,20 @@ class ProductDetailViewController: UIViewController, CustomStepperDelegate {
     private lazy var bottomView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
-        view.layer.shadowOpacity = 1
-        view.layer.shadowOffset = CGSize(width: 0, height: -4)
-        view.layer.shadowRadius = 8
-        view.layer.shadowColor = UIColor.bottomShadow.cgColor
+        view.layer.shadowOpacity = Constants.shadowOpacity
+        view.layer.shadowOffset = Constants.bottomOffset
+        view.layer.shadowRadius = Constants.bottomShadowRadius
+        view.layer.shadowColor = Constants.Color.bottomShadow
         return view
     }()
 
     private lazy var button: UIButton = {
         let button = UIButton()
         button.setTitle("Sepete Ekle", for: .normal)
-        button.titleLabel?.font = UIFont.openSansBold(ofSize: 14)
-        button.backgroundColor = .blue
-        button.layer.cornerRadius = 10
+        button.titleLabel?.font = Constants.Font.buttonLabel
+        button.layer.cornerRadius = Constants.cornerRadius
         button.clipsToBounds = true
-        button.backgroundColor = UIColor.bgPrimary
+        button.backgroundColor = Constants.Color.buttonColor
         button.addTarget(self, action: #selector(addToCartButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -96,7 +120,7 @@ class ProductDetailViewController: UIViewController, CustomStepperDelegate {
         stepper.isHidden = true
         return stepper
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -111,7 +135,7 @@ class ProductDetailViewController: UIViewController, CustomStepperDelegate {
         fetchTotalPrice()
         presenter?.updateItemCounter()
     }
-    
+
     @objc private func customCartButtonTapped() {
         presenter?.didTapCart()
     }
