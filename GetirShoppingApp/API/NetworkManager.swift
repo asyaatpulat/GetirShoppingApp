@@ -29,7 +29,7 @@ struct Resource<T: Decodable> {
     var url: Path
 }
 
-final class NetworkManager {
+class NetworkManager {
 
     func fetchData<T: Decodable>(resource: Resource<T>, completion: @escaping (Result<T, Error>) -> Void) {
         URLSession.shared.dataTask(with: resource.url.path) { data, _, error in
