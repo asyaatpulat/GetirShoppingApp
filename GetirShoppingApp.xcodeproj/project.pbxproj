@@ -44,6 +44,22 @@
 		224CC9012BD66CEB0048013E /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CC9002BD66CEB0048013E /* Header.swift */; };
 		224CC9032BD66FC60048013E /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CC9022BD66FC60048013E /* Section.swift */; };
 		224CC9062BD670450048013E /* StackOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CC9052BD670450048013E /* StackOrientation.swift */; };
+		224CC9082BD6BD1A0048013E /* MockBasketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CC9072BD6BD1A0048013E /* MockBasketManager.swift */; };
+		224CC90A2BD6D8150048013E /* MockProductDetailInteractorOutputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CC9092BD6D8150048013E /* MockProductDetailInteractorOutputProtocol.swift */; };
+		224CC90F2BD6DC6B0048013E /* ProductDetailInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CC90E2BD6DC6B0048013E /* ProductDetailInteractorTests.swift */; };
+		224CC9112BD6E6B50048013E /* MockProductResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CC9102BD6E6B50048013E /* MockProductResponse.swift */; };
+		224CC9132BD6EB430048013E /* MockProductDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CC9122BD6EB430048013E /* MockProductDetailRouter.swift */; };
+		224CC9152BD6EB740048013E /* MockProductDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CC9142BD6EB740048013E /* MockProductDetailInteractor.swift */; };
+		224CC9172BD6EBAA0048013E /* MockProductDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CC9162BD6EBAA0048013E /* MockProductDetailViewController.swift */; };
+		224CC9192BD6EBDB0048013E /* ProductDetailPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CC9182BD6EBDB0048013E /* ProductDetailPresenterTests.swift */; };
+		224CC91F2BD7ED950048013E /* BasketManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CC91E2BD7ED950048013E /* BasketManagerTests.swift */; };
+		224CC9262BD802660048013E /* ProductListingInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CC9252BD802660048013E /* ProductListingInteractorTests.swift */; };
+		224CC9282BD804740048013E /* MockNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CC9272BD804740048013E /* MockNetworkManager.swift */; };
+		224CC92B2BD810E10048013E /* MockProductListingInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CC92A2BD810E10048013E /* MockProductListingInteractorOutput.swift */; };
+		224CC92D2BD8222E0048013E /* ProductListingPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CC92C2BD8222E0048013E /* ProductListingPresenterTests.swift */; };
+		224CC9342BD822B60048013E /* MockProductListingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CC9332BD822B60048013E /* MockProductListingInteractor.swift */; };
+		224CC9362BD832390048013E /* MockProductListingRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CC9352BD832390048013E /* MockProductListingRouter.swift */; };
+		224CC9382BD832560048013E /* MockProductListingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CC9372BD832560048013E /* MockProductListingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +119,22 @@
 		224CC9002BD66CEB0048013E /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		224CC9022BD66FC60048013E /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		224CC9052BD670450048013E /* StackOrientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackOrientation.swift; sourceTree = "<group>"; };
+		224CC9072BD6BD1A0048013E /* MockBasketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockBasketManager.swift; sourceTree = "<group>"; };
+		224CC9092BD6D8150048013E /* MockProductDetailInteractorOutputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockProductDetailInteractorOutputProtocol.swift; sourceTree = "<group>"; };
+		224CC90E2BD6DC6B0048013E /* ProductDetailInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailInteractorTests.swift; sourceTree = "<group>"; };
+		224CC9102BD6E6B50048013E /* MockProductResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockProductResponse.swift; sourceTree = "<group>"; };
+		224CC9122BD6EB430048013E /* MockProductDetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockProductDetailRouter.swift; sourceTree = "<group>"; };
+		224CC9142BD6EB740048013E /* MockProductDetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockProductDetailInteractor.swift; sourceTree = "<group>"; };
+		224CC9162BD6EBAA0048013E /* MockProductDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockProductDetailViewController.swift; sourceTree = "<group>"; };
+		224CC9182BD6EBDB0048013E /* ProductDetailPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailPresenterTests.swift; sourceTree = "<group>"; };
+		224CC91E2BD7ED950048013E /* BasketManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketManagerTests.swift; sourceTree = "<group>"; };
+		224CC9252BD802660048013E /* ProductListingInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListingInteractorTests.swift; sourceTree = "<group>"; };
+		224CC9272BD804740048013E /* MockNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkManager.swift; sourceTree = "<group>"; };
+		224CC92A2BD810E10048013E /* MockProductListingInteractorOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockProductListingInteractorOutput.swift; sourceTree = "<group>"; };
+		224CC92C2BD8222E0048013E /* ProductListingPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListingPresenterTests.swift; sourceTree = "<group>"; };
+		224CC9332BD822B60048013E /* MockProductListingInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockProductListingInteractor.swift; sourceTree = "<group>"; };
+		224CC9352BD832390048013E /* MockProductListingRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockProductListingRouter.swift; sourceTree = "<group>"; };
+		224CC9372BD832560048013E /* MockProductListingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockProductListingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +204,8 @@
 		222E8ECC2BC5C89400CAE565 /* GetirShoppingAppTests */ = {
 			isa = PBXGroup;
 			children = (
+				224CC9222BD8017E0048013E /* Modules */,
+				224CC9202BD801050048013E /* Mocks */,
 				222E8ECD2BC5C89400CAE565 /* GetirShoppingAppTests.swift */,
 			);
 			path = GetirShoppingAppTests;
@@ -343,6 +377,68 @@
 				224CC9052BD670450048013E /* StackOrientation.swift */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		224CC9202BD801050048013E /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				224CC9072BD6BD1A0048013E /* MockBasketManager.swift */,
+				224CC9102BD6E6B50048013E /* MockProductResponse.swift */,
+				224CC9272BD804740048013E /* MockNetworkManager.swift */,
+				224CC9292BD810C10048013E /* ProductListing */,
+				224CC9212BD801160048013E /* ProductDetail */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		224CC9212BD801160048013E /* ProductDetail */ = {
+			isa = PBXGroup;
+			children = (
+				224CC9162BD6EBAA0048013E /* MockProductDetailViewController.swift */,
+				224CC9122BD6EB430048013E /* MockProductDetailRouter.swift */,
+				224CC9142BD6EB740048013E /* MockProductDetailInteractor.swift */,
+				224CC9092BD6D8150048013E /* MockProductDetailInteractorOutputProtocol.swift */,
+			);
+			path = ProductDetail;
+			sourceTree = "<group>";
+		};
+		224CC9222BD8017E0048013E /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				224CC91E2BD7ED950048013E /* BasketManagerTests.swift */,
+				224CC9242BD802460048013E /* ProductListing */,
+				224CC9232BD8018A0048013E /* ProductDetail */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		224CC9232BD8018A0048013E /* ProductDetail */ = {
+			isa = PBXGroup;
+			children = (
+				224CC90E2BD6DC6B0048013E /* ProductDetailInteractorTests.swift */,
+				224CC9182BD6EBDB0048013E /* ProductDetailPresenterTests.swift */,
+			);
+			path = ProductDetail;
+			sourceTree = "<group>";
+		};
+		224CC9242BD802460048013E /* ProductListing */ = {
+			isa = PBXGroup;
+			children = (
+				224CC9252BD802660048013E /* ProductListingInteractorTests.swift */,
+				224CC92C2BD8222E0048013E /* ProductListingPresenterTests.swift */,
+			);
+			path = ProductListing;
+			sourceTree = "<group>";
+		};
+		224CC9292BD810C10048013E /* ProductListing */ = {
+			isa = PBXGroup;
+			children = (
+				224CC92A2BD810E10048013E /* MockProductListingInteractorOutput.swift */,
+				224CC9332BD822B60048013E /* MockProductListingInteractor.swift */,
+				224CC9352BD832390048013E /* MockProductListingRouter.swift */,
+				224CC9372BD832560048013E /* MockProductListingViewController.swift */,
+			);
+			path = ProductListing;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -542,7 +638,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				224CC9112BD6E6B50048013E /* MockProductResponse.swift in Sources */,
+				224CC9382BD832560048013E /* MockProductListingViewController.swift in Sources */,
+				224CC9282BD804740048013E /* MockNetworkManager.swift in Sources */,
+				224CC92B2BD810E10048013E /* MockProductListingInteractorOutput.swift in Sources */,
+				224CC9342BD822B60048013E /* MockProductListingInteractor.swift in Sources */,
+				224CC91F2BD7ED950048013E /* BasketManagerTests.swift in Sources */,
+				224CC90A2BD6D8150048013E /* MockProductDetailInteractorOutputProtocol.swift in Sources */,
 				222E8ECE2BC5C89400CAE565 /* GetirShoppingAppTests.swift in Sources */,
+				224CC9362BD832390048013E /* MockProductListingRouter.swift in Sources */,
+				224CC9132BD6EB430048013E /* MockProductDetailRouter.swift in Sources */,
+				224CC9192BD6EBDB0048013E /* ProductDetailPresenterTests.swift in Sources */,
+				224CC9262BD802660048013E /* ProductListingInteractorTests.swift in Sources */,
+				224CC9082BD6BD1A0048013E /* MockBasketManager.swift in Sources */,
+				224CC92D2BD8222E0048013E /* ProductListingPresenterTests.swift in Sources */,
+				224CC9172BD6EBAA0048013E /* MockProductDetailViewController.swift in Sources */,
+				224CC9152BD6EB740048013E /* MockProductDetailInteractor.swift in Sources */,
+				224CC90F2BD6DC6B0048013E /* ProductDetailInteractorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -634,7 +746,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -691,7 +803,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -768,7 +880,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = V7HUW8QLS9;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = asyaatpulat.info.GetirShoppingAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -788,7 +900,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = V7HUW8QLS9;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = asyaatpulat.info.GetirShoppingAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
