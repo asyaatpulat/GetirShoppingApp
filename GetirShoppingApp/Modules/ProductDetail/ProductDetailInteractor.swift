@@ -39,7 +39,7 @@ final class ProductDetailInteractor: ProductDetailInteractorProtocol {
     }
 
     func updateProductCounter(_ product: Product, counter: Int) {
-        guard let currentCounter = basketManager.getProductCount(product) else { return }
+        let currentCounter = basketManager.getProductCount(product) ?? 0
         let newCounter = max(0, currentCounter + counter)
         if newCounter > currentCounter {
             basketManager.addProduct(product)

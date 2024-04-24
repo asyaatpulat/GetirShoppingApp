@@ -19,7 +19,7 @@ class ProductListingViewController: UIViewController {
     private var products: [Product] = []
     private var suggestedProducts: [Product] = []
     var presenter: ProductListingPresenterProtocol?
-    
+
     private lazy var collectionView: UICollectionView = {
         let layout = createLayout()
         let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
@@ -33,7 +33,7 @@ class ProductListingViewController: UIViewController {
         button.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(customCartButtonTapped)))
         return button
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationItem()
